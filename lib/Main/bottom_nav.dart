@@ -5,6 +5,7 @@ import 'package:visual_magic/HomeScreen/home_screen.dart';
 import 'package:visual_magic/RecentScreen/recent_screen.dart';
 import 'package:visual_magic/Videos/video_screen.dart';
 
+var globalData;
 
 class BottomNavbar extends StatefulWidget {
   @override
@@ -12,15 +13,17 @@ class BottomNavbar extends StatefulWidget {
 }
 
 class _BottomNavbarState extends State<BottomNavbar> {
+
   int _page = 0;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
-  final _pages=[
+  final _pages = [
     HomeScreen(),
     RecentScreen(),
     VideosScreen(),
     FavouritesScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +34,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           items: [
             Icon(Icons.folder, size: 30),
             Icon(Icons.history, size: 30),
-            Icon(Icons.play_circle,size: 30),
+            Icon(Icons.play_circle, size: 30),
             Icon(Icons.favorite, size: 30),
           ],
           color: Color(0xff2C2C6D),
@@ -46,7 +49,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
           },
           letIndexChange: (index) => true,
         ),
-        body: _pages[_page]
-        );
+        body: _pages[_page]);
   }
 }

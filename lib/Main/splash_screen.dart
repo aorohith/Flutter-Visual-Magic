@@ -4,9 +4,10 @@ import 'package:lottie/lottie.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/Main/bottom_nav.dart';
+import 'package:visual_magic/Main/load_Data.dart';
 
 
-List<String>? fetchedData;
+List<String> fetchedData=[];
 
 
 
@@ -25,7 +26,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,31 +68,4 @@ class _SplashScreenState extends State<SplashScreen> {
 }
 
 
-  onSuccess(List<String> data) {
-    fetchedData = data;
-    print("##########################################################################");
-    print(fetchedData!.join("\n"));
-  }
-
-splashFetch() async{
-  if(await _requestPermission(Permission.storage)){
-    SearchFilesInStorage.searchInStorage(['.mp4','.mkv',], onSuccess, (p0) {});
-  }
-  else{
-    print("Error");
-  }
-   
-}
-
-Future <bool> _requestPermission(Permission permission) async {
-  if (await permission.isGranted){
-    return true;
-  }else {
-    var result = await permission.request();
-    if(result == PermissionStatus.granted){
-      return true;
-    }else{
-      return false;
-    }
-  }
-}
+  

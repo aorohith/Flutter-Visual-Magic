@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:visual_magic/Main/load_Data.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 
+var loadedData = [];
+
 class VideosScreen extends StatefulWidget {
+
+  VideosScreen({Key? key}) : super(key: key);
   @override
   State<VideosScreen> createState() => _VideosScreenState();
 }
 
 class _VideosScreenState extends State<VideosScreen> {
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    var data = getVideoList();
+    print(data.length);
+    loadedData = data;
+    print(loadedData[0]);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -31,7 +48,7 @@ class _VideosScreenState extends State<VideosScreen> {
           padding: EdgeInsets.all(_w / 30),
           physics:
               BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-          itemCount: 20,
+          itemCount: loadedData.length,
           itemBuilder: (BuildContext context, int index) {
             return AnimationConfiguration.staggeredList(
               position: index,
@@ -62,7 +79,7 @@ class _VideosScreenState extends State<VideosScreen> {
                     child: Center(
                       child: ListTile(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => VideoPlay()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => VideoPlay(videoLink:loadedData[index])));
                         },
                         onLongPress: () {
                           showDialog(
@@ -76,7 +93,7 @@ class _VideosScreenState extends State<VideosScreen> {
                         },
                         leading: Image.asset("assets/images/download.jpeg"),
                         title: Text(
-                          "Camera",
+                          "Video $index",
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),

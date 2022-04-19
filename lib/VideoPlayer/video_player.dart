@@ -1,10 +1,10 @@
+import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:visual_magic/utils/chewie_player.dart';
-import 'package:video_player/video_player.dart';
 
 
 class VideoPlay extends StatefulWidget {
-  const VideoPlay({Key? key }) : super(key: key);
+  final videoLink;
+  const VideoPlay({Key? key, this.videoLink = "/storage/emulated/0/flutter/file.mp4" }) : super(key: key);
 
   @override
   State<VideoPlay> createState() => _VideoPlayState();
@@ -20,14 +20,14 @@ class _VideoPlayState extends State<VideoPlay> {
         title: Text("Example player"),
       ),
       body: AspectRatio(
-        aspectRatio: 16 / 9,
-        child: ChewieListItem(
-          
-            videoPlayerController:
-                VideoPlayerController.asset('assets/videos/ForBiggerFun.mp4'),
-            looping: true,
+            aspectRatio: 16 / 9,
+            child: BetterPlayer.file(
+              "${widget.videoLink}",
+              betterPlayerConfiguration: BetterPlayerConfiguration(
+                aspectRatio: 16 / 9,
+              ),
+            ),
           ),
-      ),
     );
   }
 } 
