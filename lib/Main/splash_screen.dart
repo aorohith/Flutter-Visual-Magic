@@ -1,10 +1,30 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/Main/bottom_nav.dart';
 
-class SplashScreen extends StatelessWidget {
+
+List<String>? fetchedData;
+
+
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    splashFetch();
+    // TODO: implement initState
+    super.initState();
+  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -44,5 +64,35 @@ class SplashScreen extends StatelessWidget {
         ]),
       )),
     );
+  }
+}
+
+
+  onSuccess(List<String> data) {
+    fetchedData = data;
+    print("##########################################################################");
+    print(fetchedData!.join("\n"));
+  }
+
+splashFetch() async{
+  if(await _requestPermission(Permission.storage)){
+    SearchFilesInStorage.searchInStorage(['.mp4','.mkv',], onSuccess, (p0) {});
+  }
+  else{
+    print("Error");
+  }
+   
+}
+
+Future <bool> _requestPermission(Permission permission) async {
+  if (await permission.isGranted){
+    return true;
+  }else {
+    var result = await permission.request();
+    if(result == PermissionStatus.granted){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

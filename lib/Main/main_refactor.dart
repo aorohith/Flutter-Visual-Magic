@@ -1,5 +1,9 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:visual_magic/MenuDrawer/about_screen.dart';
+import 'package:visual_magic/MenuDrawer/contact_screen.dart';
+import 'package:visual_magic/MenuDrawer/feedback_screen.dart';
+import 'package:visual_magic/MenuDrawer/share_page.dart';
 import 'package:visual_magic/Main/user.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 
@@ -10,7 +14,8 @@ Widget PlayButton(context) {
     onPressed: () {},
     child: IconButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => VideoPlay()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => VideoPlay()));
       },
       icon: const Icon(Icons.play_arrow, size: 30, color: Colors.white),
     ),
@@ -218,27 +223,39 @@ class MenuDrawer extends StatelessWidget {
                     height: 30,
                   ),
                   buildMenuItem(
-                    text: "Settings",
-                    icon: Icons.settings,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  buildMenuItem(text: "Share", icon: Icons.share),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  buildMenuItem(
-                    text: "Feedback",
-                    icon: Icons.feedback_outlined,
+                    text: "Share",
+                    icon: Icons.share,
+                    onClicked: () {
+                      selectedItem(context, 0);
+                    },
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   buildMenuItem(
-                    text: "Contact",
-                    icon: Icons.contact_support_outlined,
+                      text: "Feedback",
+                      icon: Icons.feedback_outlined,
+                      onClicked: () {
+                        selectedItem(context, 1);
+                      }),
+                  const SizedBox(
+                    height: 30,
                   ),
+                  buildMenuItem(
+                      text: "Contact",
+                      icon: Icons.contact_support_outlined,
+                      onClicked: () {
+                        selectedItem(context, 2);
+                      }),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  buildMenuItem(
+                      text: "About us",
+                      icon: Icons.info,
+                      onClicked: () {
+                        selectedItem(context, 3);
+                      }),
                 ],
               ),
             )
@@ -248,10 +265,10 @@ class MenuDrawer extends StatelessWidget {
     );
   }
 
-  Widget buildMenuItem({
-    required String text,
-    required IconData icon,
-  }) {
+  Widget buildMenuItem(
+      {required String text,
+      required IconData icon,
+      required VoidCallback onClicked}) {
     final color = Colors.white;
     final hoverColor = Colors.white70;
     return ListTile(
@@ -265,7 +282,7 @@ class MenuDrawer extends StatelessWidget {
         style: TextStyle(color: color, fontSize: 18),
       ),
       hoverColor: hoverColor,
-      onTap: () {},
+      onTap: onClicked,
     );
   }
 
@@ -309,4 +326,24 @@ class MenuDrawer extends StatelessWidget {
           ),
         ),
       );
+  void selectedItem(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ShareScreen()));
+        break;
+      case 1:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => FeedbackScreen()));
+        break;
+      case 2:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => ContactScreen()));
+        break;
+      case 3:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => AboutScreen()));
+        break;
+    }
+  }
 }

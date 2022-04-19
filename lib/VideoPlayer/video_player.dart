@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:better_player/better_player.dart';
+import 'package:visual_magic/utils/chewie_player.dart';
+import 'package:video_player/video_player.dart';
+
 
 class VideoPlay extends StatefulWidget {
   const VideoPlay({Key? key }) : super(key: key);
@@ -19,12 +21,12 @@ class _VideoPlayState extends State<VideoPlay> {
       ),
       body: AspectRatio(
         aspectRatio: 16 / 9,
-        child: BetterPlayer.network(
-          "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-          betterPlayerConfiguration: BetterPlayerConfiguration(
-            aspectRatio: 16 / 9,
+        child: ChewieListItem(
+          
+            videoPlayerController:
+                VideoPlayerController.asset('assets/videos/ForBiggerFun.mp4'),
+            looping: true,
           ),
-        ),
       ),
     );
   }
