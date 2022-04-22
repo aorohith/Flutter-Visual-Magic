@@ -9,7 +9,7 @@ class sortDropdown extends StatefulWidget {
 }
 
 class _sortDropdownState extends State<sortDropdown> {
-  String dropdownValue = 'A to Z';
+  String dropdownValue = 'Sort';
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +29,20 @@ class _sortDropdownState extends State<sortDropdown> {
           case "A to Z": 
             sortAlphabetical();
             break;
-          case "":
+          case "Duration":
+            sortByDuration();
             break;
+          case "FileSize":
+            sortBySize();
+            break;
+          case "Date":
+            sortByDate();
         }
         setState(() {
           dropdownValue = newValue!;
         });
       },
-      items: <String>['Shuffled', 'A to Z', 'Free', 'Four']
+      items: <String>['Shuffled', 'A to Z', 'Duration', 'Date', 'FileSize']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,

@@ -7,12 +7,11 @@ List<String> fetchedVideos = [];
 ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]);
 List<String> tempDirectory = [];
 ValueNotifier<List> fetchedVideosWithInfo = ValueNotifier([]);
-
-
+var fetchedInfo = [];
 
 final videoInfo = FlutterVideoInfo();
 
- onSuccess(List<String> data) {
+onSuccess(List<String> data) {
   fetchedVideos = data;
   getVideoWithInfo();
 }
@@ -29,7 +28,6 @@ splashFetch() async {
   }
 }
 
-
 //request for the permission
 Future<bool> _requestPermission(Permission permission) async {
   if (await permission.isGranted) {
@@ -45,8 +43,8 @@ Future<bool> _requestPermission(Permission permission) async {
 }
 
 //load all folders list
-Future loadFolderList()async{
-  for(String path in fetchedVideos){
+Future loadFolderList() async {
+  for (String path in fetchedVideos) {
     var splittedPath = path.split('/');
 
     tempDirectory.add(splittedPath[splittedPath.length - 2]);
@@ -56,26 +54,40 @@ Future loadFolderList()async{
 }
 
 //video info collection
-Future getVideoWithInfo() async{
-  
-  for(String path in fetchedVideos){
-    var info  = await videoInfo.getVideoInfo(path);
+Future getVideoWithInfo() async {
+  for (String path in fetchedVideos) {
+    var info = await videoInfo.getVideoInfo(path);
     fetchedVideosWithInfo.value.add(info);
   }
+  fetchedInfo = fetchedVideosWithInfo.value;
 }
 
-sortAlphabetical(){
-  print(fetchedVideosWithInfo.value[200].location);
-  fetchedVideosWithInfo.value.sort((a, b){ 
-    return a.title.toLowerCase().compareTo(b.title.toLowerCase(),);
+sortAlphabetical() {
+  fetchedVideosWithInfo.value.sort((a, b) {
+    return a.title.toLowerCase().compareTo(
+          b.title.toLowerCase(),
+        );
+  });
+  fetchedVideosWithInfo.notifyListeners();
 }
-);
-fetchedVideosWithInfo.notifyListeners();
+
+sortByDuration() {
+  fetchedVideosWithInfo.value.sort((a, b) {
+    return a.duration.compareTo(b.duration);
+  });
+  fetchedVideosWithInfo.notifyListeners();
+}
+
+sortBySize(){
+  fetchedVideosWithInfo.value.sort((a, b) {
+    return a.filesize.compareTo(b.filesize);
+  });
+  fetchedVideosWithInfo.notifyListeners();
 }
 
 sortByDate(){
-
+  fetchedVideosWithInfo.value.sort((a, b) {
+    return a.date.compareTo(b.date);
+  });
+  fetchedVideosWithInfo.notifyListeners();
 }
-
-
-
