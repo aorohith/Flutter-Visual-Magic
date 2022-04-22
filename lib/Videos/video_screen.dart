@@ -3,6 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/FetchFiles/load_Data.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/Videos/refactor.dart';
 
 class VideosScreen extends StatefulWidget {
   VideosScreen({Key? key}) : super(key: key);
@@ -31,19 +32,20 @@ class _VideosScreenState extends State<VideosScreen> {
         title: Text("All Videos"),
         actions: [
           Search(),
+          sortDropdown(),
         ],
         backgroundColor: Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
-            valueListenable: fetchedVideos,
-            builder:
-                (BuildContext ctx, List<String> loadedVideos, Widget? child) {
+            valueListenable: fetchedVideosWithInfo,
+            builder: (BuildContext ctx, List<dynamic> videosWithIndex,
+                Widget? child) {
               return ListView.builder(
                 padding: EdgeInsets.all(_w / 30),
                 physics: BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
-                itemCount: loadedVideos.length,
+                itemCount: videosWithIndex.length,
                 itemBuilder: (BuildContext context, int index) {
                   return AnimationConfiguration.staggeredList(
                     position: index,
@@ -78,7 +80,7 @@ class _VideosScreenState extends State<VideosScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => VideoPlay(
-                                      videoLink: loadedVideos[index],
+                                      videoLink: videosWithIndex[index].path,
                                     ),
                                   ),
                                 );
@@ -96,7 +98,7 @@ class _VideosScreenState extends State<VideosScreen> {
                               leading:
                                   Image.asset("assets/images/download.jpeg"),
                               title: Text(
-                                "Video $index",
+                                videosWithIndex[index].title,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),

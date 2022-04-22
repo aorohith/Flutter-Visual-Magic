@@ -15,6 +15,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   @override
+  void initState() {
+    
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -24,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
         height: double.infinity,
         child: Stack(children: [
           AnimatedSplashScreen.withScreenFunction(
-            duration: 2000,
             backgroundColor: Colors.blue,
             splashIconSize: 350,
             splash: Lottie.asset("assets/json/video-loader3.json"),
