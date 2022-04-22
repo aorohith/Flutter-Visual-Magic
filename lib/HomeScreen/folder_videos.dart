@@ -3,12 +3,15 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 
+List<String>? fetchedVideos;
+
 class FolderVideos extends StatefulWidget {
   @override
   State<FolderVideos> createState() => _FolderVideosState();
 }
 
 class _FolderVideosState extends State<FolderVideos> {
+
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -61,8 +64,11 @@ class _FolderVideosState extends State<FolderVideos> {
                     ),
                     child: Center(
                       child: ListTile(
-                        onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => VideoPlay()));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => VideoPlay()));
                         },
                         onLongPress: () {
                           showDialog(
@@ -97,3 +103,5 @@ class _FolderVideosState extends State<FolderVideos> {
     );
   }
 }
+
+

@@ -1,14 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/Main/bottom_nav.dart';
-import 'package:visual_magic/Main/load_Data.dart';
-
-
-List<String> fetchedData=[];
-
+import 'package:visual_magic/FetchFiles/load_Data.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -19,13 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    splashFetch();
-    // TODO: implement initState
-    super.initState();
-  }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,12 +23,15 @@ class _SplashScreenState extends State<SplashScreen> {
         width: double.infinity,
         height: double.infinity,
         child: Stack(children: [
-          AnimatedSplashScreen(
+          AnimatedSplashScreen.withScreenFunction(
+            duration: 2000,
             backgroundColor: Colors.blue,
             splashIconSize: 350,
-            animationDuration: const Duration(milliseconds: 1500),
             splash: Lottie.asset("assets/json/video-loader3.json"),
-            nextScreen: BottomNavbar(),
+            screenFunction: () async{
+               await splashFetch();
+              return BottomNavbar();
+            },
           ),
           Positioned(
             left: 105,
@@ -66,6 +57,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-
-
-  

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:visual_magic/FavouriteScreen/favourites_screen.dart';
-import 'package:visual_magic/HomeScreen/home_screen.dart';
+import 'package:visual_magic/HomeScreen/folders_screen.dart';
 import 'package:visual_magic/RecentScreen/recent_screen.dart';
 import 'package:visual_magic/Videos/video_screen.dart';
 

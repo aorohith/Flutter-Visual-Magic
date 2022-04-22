@@ -1,5 +1,6 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 class VideoPlay extends StatefulWidget {
@@ -24,7 +25,13 @@ class _VideoPlayState extends State<VideoPlay> {
             child: BetterPlayer.file(
               "${widget.videoLink}",
               betterPlayerConfiguration: BetterPlayerConfiguration(
+                autoDetectFullscreenDeviceOrientation: true, 
+                allowedScreenSleep:false,
+                fit : BoxFit.fill,
+                autoPlay: true,
+                autoDispose: true,
                 aspectRatio: 16 / 9,
+                expandToFill:false,
               ),
             ),
           ),
