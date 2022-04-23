@@ -15,6 +15,7 @@ class _HomeScreenState extends State<HomeScreen>{
   @override
   void initState() {
     loadFolderList();
+    getVideoWithInfo();
     // _fetchedFolders = getFolderList();
     // TODO: implement initState
     super.initState();
@@ -32,9 +33,9 @@ class _HomeScreenState extends State<HomeScreen>{
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          ElevatedButton(onPressed: (){
-            getVideoWithInfo();
-          }, child: Text("Hai"),),
+          // ElevatedButton(onPressed: (){
+            
+          // }, child: Text("Hai"),),
           Search(), //Search Refactor
         ],
         backgroundColor: Color(0xff1f1f55),

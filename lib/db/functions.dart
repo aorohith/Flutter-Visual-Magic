@@ -9,10 +9,14 @@ ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]);
 List<String> tempDirectory = [];
 ValueNotifier<List> fetchedVideosWithInfo = ValueNotifier([]);
 
-
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
-  print(fetchedVideosPath.join("\n"));
+  for (int i = 0; i < fetchedVideosPath.length; i++) {
+    if (fetchedVideosPath[i].startsWith('/storage/emulated/0/Android/data')) {
+      fetchedVideosPath.remove(fetchedVideosPath[i]);
+      i--;
+    }
+  }
   // getVideoWithInfo();
 }
 
@@ -55,14 +59,10 @@ Future loadFolderList() async {
 
 //video info collection
 Future getVideoWithInfo() async {
-  print(fetchedVideosPath[10]);
   fetchedVideosWithInfo.value.clear();
-  for (String path in fetchedVideosPath) {
-      var info = await videoInfo.getVideoInfo(path);
-      print(
-          "###################################################################");
-      print(info!.date);
-      fetchedVideosWithInfo.value.add(info);
+  for (int i = 0; i < fetchedVideosPath.length; i++) {
+    var info = await videoInfo.getVideoInfo(fetchedVideosPath[i]);
+    fetchedVideosWithInfo.value.add(info);
   }
   fetchedVideosWithInfo.notifyListeners();
 }
