@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:visual_magic/FetchFiles/load_Data.dart';
 import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
+import 'package:visual_magic/db/functions.dart';
 
 // List<String>? _fetchedFolders;
 
@@ -32,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen>{
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          // ElevatedButton(onPressed: (){
-          //   var temp = getFolderList();
-          // }, child: Text("Hai"),),
+          ElevatedButton(onPressed: (){
+            getVideoWithInfo();
+          }, child: Text("Hai"),),
           Search(), //Search Refactor
         ],
         backgroundColor: Color(0xff1f1f55),

@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:visual_magic/Main/bottom_nav.dart';
-import 'package:visual_magic/FetchFiles/load_Data.dart';
+import 'package:visual_magic/db/functions.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -31,14 +31,17 @@ class _SplashScreenState extends State<SplashScreen> {
         height: double.infinity,
         child: Stack(children: [
           AnimatedSplashScreen.withScreenFunction(
+            duration: 3000,
             backgroundColor: Colors.blue,
             splashIconSize: 350,
             splash: Lottie.asset("assets/json/video-loader3.json"),
             screenFunction: () async{
-               await splashFetch();
+              await splashFetch();
+              
               return BottomNavbar();
             },
           ),
+          const 
           Positioned(
             left: 105,
             top: 100,

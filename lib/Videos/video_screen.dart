@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:visual_magic/FetchFiles/load_Data.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/Videos/refactor.dart';
+import 'package:visual_magic/db/functions.dart';
 
 class VideosScreen extends StatefulWidget {
   VideosScreen({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class VideosScreen extends StatefulWidget {
 class _VideosScreenState extends State<VideosScreen> {
   @override
   void initState() {
+    print(fetchedVideosWithInfo.value[1]);
     // TODO: implement initState
     super.initState();
   }
@@ -41,6 +42,7 @@ class _VideosScreenState extends State<VideosScreen> {
             valueListenable: fetchedVideosWithInfo,
             builder: (BuildContext ctx, List<dynamic> videosWithIndex,
                 Widget? child) {
+                   print(videosWithIndex.length);
               return ListView.builder(
                 padding: EdgeInsets.all(_w / 30),
                 physics: BouncingScrollPhysics(

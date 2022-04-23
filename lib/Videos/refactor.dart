@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:visual_magic/FetchFiles/load_Data.dart';
+import 'package:visual_magic/db/functions.dart';
 
 class sortDropdown extends StatefulWidget {
   const sortDropdown({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class sortDropdown extends StatefulWidget {
 }
 
 class _sortDropdownState extends State<sortDropdown> {
-  String dropdownValue = 'Sort';
+  String dropdownValue = 'A to Z';
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +32,17 @@ class _sortDropdownState extends State<sortDropdown> {
           case "Duration":
             sortByDuration();
             break;
-          case "FileSize":
+          case "Date":
             sortBySize();
             break;
-          case "Date":
-            sortByDate();
+          case "FileSize":
+            // sortByDate();
         }
         setState(() {
           dropdownValue = newValue!;
         });
       },
-      items: <String>['Shuffled', 'A to Z', 'Duration', 'Date', 'FileSize']
+      items: <String>['A to Z', 'Duration', 'Date', 'FileSize']
           .map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
