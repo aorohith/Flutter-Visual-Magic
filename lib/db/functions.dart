@@ -3,11 +3,12 @@ import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
 
-final videoInfo = FlutterVideoInfo();
-List<String> fetchedVideosPath = [];
-ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]);
-List<String> tempDirectory = [];
-ValueNotifier<List> fetchedVideosWithInfo = ValueNotifier([]);
+final videoInfo = FlutterVideoInfo(); //creating object of infoclass
+List<String> fetchedVideosPath = []; //all videos path loaded first time
+ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]); //folder list
+List<String> temp = []; //temp directory for folder funcion
+ValueNotifier<List> fetchedVideosWithInfo =
+    ValueNotifier([]); //videos with info
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -48,13 +49,39 @@ Future<bool> _requestPermission(Permission permission) async {
 
 //load all folders list
 Future loadFolderList() async {
+  fetchedFolders.value.clear();
   for (String path in fetchedVideosPath) {
-    var splittedPath = path.split('/');
+    temp.add(path.substring(
+        0, path.lastIndexOf('/'))); //removed video name and add to temp
 
-    tempDirectory.add(splittedPath[splittedPath.length - 2]);
-    tempDirectory = tempDirectory.toSet().toList();
   }
-  fetchedFolders.value = tempDirectory;
+  fetchedFolders.value = temp.toSet().toList();
+}
+
+//Load Folder videos
+getFolderVideos(String path) {
+  List<String> matchedVideoPath = [];
+
+  List<String> splittedMatchedVideoPath = [];
+
+  var splitted = path.split('/');
+
+  print(splitted);
+
+  for (String singlePath in fetchedVideosPath) {
+    if (singlePath.startsWith(path)) {
+      matchedVideoPath.add(singlePath);
+    }
+  }
+
+  for (String newPath in matchedVideoPath) {
+    splittedMatchedVideoPath = newPath.split('/');
+    if (splittedMatchedVideoPath[splitted.length].endsWith('.mp4') ||
+        splittedMatchedVideoPath[splitted.length].endsWith('.mkv')){
+          print(newPath);
+        }
+  }
+  // var folderVideos = fetchedVideosPath.start
 }
 
 //video info collection

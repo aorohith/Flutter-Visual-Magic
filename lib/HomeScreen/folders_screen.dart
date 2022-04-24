@@ -33,9 +33,10 @@ class _HomeScreenState extends State<HomeScreen>{
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          // ElevatedButton(onPressed: (){
-            
-          // }, child: Text("Hai"),),
+          ElevatedButton(onPressed: (){
+            print("Button Clicked");
+            getFolderVideos("/storage/emulated/0/Videoder");
+          }, child: Text("Hai"),),
           Search(), //Search Refactor
         ],
         backgroundColor: Color(0xff1f1f55),
