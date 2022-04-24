@@ -60,6 +60,7 @@ Future loadFolderList() async {
 
 //Load Folder videos
 getFolderVideos(String path) {
+  filteredFolderVideos.value.clear();
   List<String> matchedVideoPath = [];
 
   List<String> splittedMatchedVideoPath = [];
