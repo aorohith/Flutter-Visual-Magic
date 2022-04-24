@@ -33,13 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          ElevatedButton(onPressed: (){
-            print("Button Clicked");
-            // ignore: unnecessary_new
-            String filename = '/storage/emulated/0/Videoder/video.mp4';
-            print(filename.split('/').last);
-            // getFolderVideos("/storage/emulated/0/Videoder");
-          }, child: Text("Hai"),),
+          // ElevatedButton(onPressed: (){
+          //   print("Button Clicked");
+          //   // ignore: unnecessary_new
+          //   String filename = '/storage/emulated/0/Videoder/video.mp4';
+          //   print(filename.split('/').last);
+          //   // getFolderVideos("/storage/emulated/0/Videoder");
+          // }, child: Text("Hai"),),
           Search(), //Search Refactor
         ],
         backgroundColor: Color(0xff1f1f55),
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.white,
                               ),
                               title: Text(
-                                updatedFolders[index],
+                                updatedFolders[index].split('/').last,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
