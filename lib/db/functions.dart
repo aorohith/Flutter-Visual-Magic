@@ -7,8 +7,8 @@ final videoInfo = FlutterVideoInfo(); //creating object of infoclass
 List<String> fetchedVideosPath = []; //all videos path loaded first time
 ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]); //folder list
 List<String> temp = []; //temp directory for folder funcion
-ValueNotifier<List> fetchedVideosWithInfo =
-    ValueNotifier([]); //videos with info
+ValueNotifier<List> fetchedVideosWithInfo =ValueNotifier([]); //videos with info
+ValueNotifier<List> filteredFolderVideos =ValueNotifier([]);//folder click videos
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -78,10 +78,10 @@ getFolderVideos(String path) {
     splittedMatchedVideoPath = newPath.split('/');
     if (splittedMatchedVideoPath[splitted.length].endsWith('.mp4') ||
         splittedMatchedVideoPath[splitted.length].endsWith('.mkv')){
-          print(newPath);
+          filteredFolderVideos.value.add(newPath);
         }
   }
-  // var folderVideos = fetchedVideosPath.start
+  // notify listeners if needed
 }
 
 //video info collection
