@@ -4,6 +4,7 @@ import 'package:visual_magic/FavouriteScreen/favourites_screen.dart';
 import 'package:visual_magic/HomeScreen/folders_screen.dart';
 import 'package:visual_magic/RecentScreen/recent_screen.dart';
 import 'package:visual_magic/Videos/video_screen.dart';
+import 'package:visual_magic/db/functions.dart';
 
 var globalData;
 
@@ -23,6 +24,15 @@ class _BottomNavbarState extends State<BottomNavbar> {
     VideosScreen(),
     FavouritesScreen(),
   ];
+
+@override
+  void initState() {
+    getVideoWithInfo();
+
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen>{
   @override
   void initState() {
     loadFolderList();
-    getVideoWithInfo();
+    
     // _fetchedFolders = getFolderList();
     // TODO: implement initState
     super.initState();
