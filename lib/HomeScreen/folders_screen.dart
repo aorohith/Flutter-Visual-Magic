@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
+import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/db/functions.dart';
 
 // List<String>? _fetchedFolders;
@@ -35,12 +37,18 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           // ElevatedButton(onPressed: (){
           //   print("Button Clicked");
-          //   // ignore: unnecessary_new
-          //   String filename = '/storage/emulated/0/Videoder/video.mp4';
-          //   print(filename.split('/').last);
-          //   // getFolderVideos("/storage/emulated/0/Videoder");
           // }, child: Text("Hai"),),
           Search(), //Search Refactor
+          IconButton(
+            onPressed: () {
+              ShowCaseWidget.of(context)!.startShowCase([
+                KeysToBeInherited.of(context).key1,
+                KeysToBeInherited.of(context).key2,
+                KeysToBeInherited.of(context).key3,
+              ]);
+            },
+            icon: Icon(Icons.help_outline_outlined),
+          ),
         ],
         backgroundColor: Color(0xff1f1f55),
       ),
@@ -86,9 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (ctx) => FolderVideos(
-                                    path: updatedFolders[index]
-                                  ),
+                                  builder: (ctx) =>
+                                      FolderVideos(path: updatedFolders[index]),
                                 ),
                               ),
                               leading: Icon(
@@ -96,22 +103,63 @@ class _HomeScreenState extends State<HomeScreen> {
                                 size: 60,
                                 color: Colors.white,
                               ),
-                              title: Text(
-                                updatedFolders[index].split('/').last,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
+
+                              title: index ==
+                                      0 //turnery operator for showcase to select first element of folder
+                                  ? Showcase(
+                                      shapeBorder: const CircleBorder(),
+                                      showcaseBackgroundColor: Colors.indigo,
+                                      descTextStyle: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                      key: KeysToBeInherited.of(context).key2,
+                                      child: Text(
+                                        updatedFolders[index].split('/').last,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      description: "Folder name is here")
+                                  : Text(
+                                      updatedFolders[index].split('/').last,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ), //Turnery end here
+
                               subtitle: Text(
                                 "10 Videos",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              trailing: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.more_vert,
-                                    color: Colors.white,
-                                  )),
+
+                              //Turnery operator
+                              trailing: index == 0
+                                  ? Showcase(
+                                      shapeBorder: const CircleBorder(),
+                                      showcaseBackgroundColor: Colors.indigo,
+                                      descTextStyle: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                      ),
+                                      key: KeysToBeInherited.of(context).key3,
+                                      child: IconButton(
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.more_vert,
+                                            color: Colors.white,
+                                          )),
+                                      description: "More info ")
+                                  : IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.more_vert,
+                                        color: Colors.white,
+                                      )),
+
+                              //Turnery operator ends here
                             ),
                           ),
                         ),

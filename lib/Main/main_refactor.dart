@@ -1,5 +1,7 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/about_screen.dart';
 import 'package:visual_magic/MenuDrawer/contact_screen.dart';
 import 'package:visual_magic/MenuDrawer/feedback_screen.dart';
@@ -49,18 +51,30 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
 
   Widget build(BuildContext context) {
     TextEditingController textController = TextEditingController();
-    return AnimSearchBar(
-      //search dependency
-      width: 150,
-      textController: textController,
-      onSuffixTap: () {
-        textController.clear();
-      },
-      suffixIcon: const Icon(Icons.search),
-      color: const Color(0xff2C2C6D),
+    return Showcase(
+      shapeBorder: const CircleBorder(),
+      showcaseBackgroundColor: Colors.indigo,
+      descTextStyle: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: Colors.white,
+        fontSize: 16,
+      ),
+      key: KeysToBeInherited.of(context).key1,
+      description: "You can Search here",
+      child: AnimSearchBar(
+        //search dependency
+        width: 150,
+        textController: textController,
+        onSuffixTap: () {
+          textController.clear();
+        },
+        suffixIcon: const Icon(Icons.search),
+        color: const Color(0xff2C2C6D),
+      ),
     );
   }
 }
+
 
 //###################...Favourites button Refactoring...########################
 

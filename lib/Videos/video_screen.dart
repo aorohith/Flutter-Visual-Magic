@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
+import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/Videos/refactor.dart';
 import 'package:visual_magic/db/functions.dart';
@@ -33,7 +35,27 @@ class _VideosScreenState extends State<VideosScreen> {
         title: Text("All Videos"),
         actions: [
           Search(),
-          sortDropdown(),
+          Showcase(
+              showcaseBackgroundColor: Colors.indigo,
+              descTextStyle: TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+                fontSize: 16,
+              ),
+              key: KeysToBeInherited.of(context).key2,
+              child: sortDropdown(),
+              description: "Sort your videos here"),
+          IconButton(
+            onPressed: () {
+              ShowCaseWidget.of(context)!.startShowCase([
+                KeysToBeInherited.of(context).key1,
+                KeysToBeInherited.of(context).key2,
+                KeysToBeInherited.of(context).key3,
+                KeysToBeInherited.of(context).key4,
+              ]);
+            },
+            icon: Icon(Icons.help_outline_outlined),
+          ),
         ],
         backgroundColor: Color(0xff2C2C6D),
       ),
@@ -42,7 +64,7 @@ class _VideosScreenState extends State<VideosScreen> {
             valueListenable: fetchedVideosWithInfo,
             builder: (BuildContext ctx, List<dynamic> videosWithIndex,
                 Widget? child) {
-                   print(videosWithIndex.length);
+              print(videosWithIndex.length);
               return ListView.builder(
                 padding: EdgeInsets.all(_w / 30),
                 physics: BouncingScrollPhysics(
@@ -76,41 +98,28 @@ class _VideosScreenState extends State<VideosScreen> {
                             ],
                           ),
                           child: Center(
-                            child: ListTile(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => VideoPlay(
-                                      videoLink: videosWithIndex[index].path,
+                            child: index == 0
+                                ? Showcase(
+                                    shapeBorder: const CircleBorder(),
+                                    showcaseBackgroundColor: Colors.indigo,
+                                    descTextStyle: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                      fontSize: 16,
                                     ),
-                                  ),
-                                );
-                              },
-                              onLongPress: () {
-                                showDialog(
+                                    key: KeysToBeInherited.of(context).key3,
+                                    child: getListView(
+                                      index: index,
+                                      context: context,
+                                      videosWithIndex: videosWithIndex,
+                                    ),
+                                    description:
+                                        "Long Press to view the more info")
+                                : getListView(
+                                    index: index,
                                     context: context,
-                                    builder: (ctx) {
-                                      return AlertDialog(
-                                        backgroundColor: Color(0xf060625),
-                                        content: optionPopup(),
-                                      );
-                                    });
-                              },
-                              leading:
-                                  Image.asset("assets/images/download.jpeg"),
-                              title: Text(
-                                videosWithIndex[index].title,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                "10 Videos",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              trailing: Favourites(),
-                            ),
+                                    videosWithIndex: videosWithIndex,
+                                  ),
                           ),
                         ),
                       ),

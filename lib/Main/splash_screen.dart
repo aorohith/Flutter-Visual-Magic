@@ -1,9 +1,9 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/bottom_nav.dart';
 import 'package:visual_magic/db/functions.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,10 +13,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
-    
     // TODO: implement initState
     super.initState();
   }
@@ -35,13 +33,16 @@ class _SplashScreenState extends State<SplashScreen> {
             backgroundColor: Colors.blue,
             splashIconSize: 350,
             splash: Lottie.asset("assets/json/video-loader3.json"),
-            screenFunction: () async{
+            screenFunction: () async {
               await splashFetch();
-              return BottomNavbar();
+              return ShowCaseWidget(
+                builder: Builder(
+                  builder: (context) => BottomNavbar(),
+                ),
+              );
             },
           ),
-          const 
-          Positioned(
+          const Positioned(
             left: 105,
             top: 100,
             child: Text(
