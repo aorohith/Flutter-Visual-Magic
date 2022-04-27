@@ -34,9 +34,7 @@ class _FolderVideosState extends State<FolderVideos> {
       backgroundColor: Color(0xff060625),
       appBar: AppBar(
         title: Text("Camera"),
-        actions: [
-          Search(),
-        ],
+        
         backgroundColor: Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
