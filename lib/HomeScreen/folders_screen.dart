@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           ElevatedButton(onPressed: () async{
             print("Button Clicked");
-            
+            print(filteredFolderVideos.value.length);
             // final videoDB = await Hive.openBox<VideoModel>('video_db');
             // print(videoDB.values.length);
           }, child: Text("Hai"),),

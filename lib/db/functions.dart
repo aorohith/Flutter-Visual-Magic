@@ -22,6 +22,7 @@ onSuccess(List<String> data) {
       i--;
     }
   }
+  loadFolderList();
   getVideoWithInfo();
 }
 
@@ -29,20 +30,10 @@ onSuccess(List<String> data) {
 Future splashFetch() async {
   if (await _requestPermission(Permission.storage)) {
     final videoDB = await Hive.openBox<VideoModel>('video_db');
-    if(videoDB.isEmpty){
-      SearchFilesInStorage.searchInStorage([
+    SearchFilesInStorage.searchInStorage([
       '.mp4',
       '.mkv',
     ], onSuccess, (p0) {});
-    }else{
-      fetchedVideosWithInfo.value.addAll(videoDB.values);
-      for(VideoModel obj in fetchedVideosWithInfo.value){
-        temp.add(obj.path.substring(
-        0, obj.path.lastIndexOf('/')));
-      }
-      fetchedFolders.value = temp.toSet().toList();
-      print(fetchedVideosWithInfo.value.length);
-    }
   } else {
     print("Error");
   }
@@ -63,28 +54,28 @@ Future<bool> _requestPermission(Permission permission) async {
 }
 
 //load all folders list also called when the app starting time only
-Future loadFolderList(paths) async {
+Future loadFolderList() async {
   fetchedFolders.value.clear();
   for (String path in fetchedVideosPath) {
     temp.add(path.substring(
         0, path.lastIndexOf('/'))); //removed video name and add to temp
 
   }
-  
+
   fetchedFolders.value = temp.toSet().toList();
 }
 
 //Load Folder videos
 getFolderVideos(String path) {
-  filteredFolderVideos.value.clear();
-  List<String> matchedVideoPath = [];
-  List<String> splittedMatchedVideoPath = [];
+  filteredFolderVideos.value.clear();//all video list inside the folder
+  List<String> matchedVideoPath = [];//videos starting with the folder name
+  List<String> splittedMatchedVideoPath = []; // solit the path wich is mached with folder
 
   var splitted = path.split('/');
 
-  for (VideoModel singlePath in fetchedVideosWithInfo.value) {
+  for (dynamic singlePath in fetchedVideosWithInfo.value) {
     if (singlePath.path.startsWith(path)) {
-      matchedVideoPath.add(singlePath.path);
+      matchedVideoPath.add(singlePath.path);//find the foder matched video path
     }
   }
   print(fetchedVideosPath.length);
@@ -95,13 +86,14 @@ getFolderVideos(String path) {
         splittedMatchedVideoPath[splitted.length].endsWith('.mkv')) {
       filteredFolderVideos.value.add(newPath);
     }
+    filteredFolderVideos.notifyListeners();
   }
   // notify listeners if needed
 }
 
 //video info collection
 Future getVideoWithInfo() async {
-  final videoDB = await Hive.openBox<VideoModel>('video_db');
+  final videoDB = await Hive.openBox<VideoModel>('video_db');//you have to clear hive 
   fetchedVideosWithInfo.value.clear();
   for (int i = 0; i < fetchedVideosPath.length; i++) {
     var info = await videoInfo.getVideoInfo(fetchedVideosPath[i]);
@@ -116,7 +108,7 @@ Future getVideoWithInfo() async {
       isFavourite: false,
     );
     videoDB.add(videoModel);
-    
+
     fetchedVideosWithInfo.value.add(info);
   }
   fetchedVideosWithInfo.notifyListeners();
@@ -150,4 +142,15 @@ sortByDate() {
     return a.date.compareTo(b.date);
   });
   fetchedVideosWithInfo.notifyListeners();
+}
+
+Future<void> getFromDB() async {
+  final videoDB = await Hive.openBox<VideoModel>('video_db');
+  fetchedVideosWithInfo.value.addAll(videoDB.values);
+  for (VideoModel obj in fetchedVideosWithInfo.value) {
+    temp.add(obj.path.substring(0, obj.path.lastIndexOf('/')));
+    
+    print(fetchedVideosWithInfo.value.length);
+  }
+  fetchedFolders.value = temp.toSet().toList();
 }

@@ -1,8 +1,10 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/bottom_nav.dart';
+import 'package:visual_magic/db/Models/video_model.dart';
 import 'package:visual_magic/db/functions.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,7 +36,13 @@ class _SplashScreenState extends State<SplashScreen> {
             splashIconSize: 350,
             splash: Lottie.asset("assets/json/video-loader3.json"),
             screenFunction: () async {
-              await splashFetch();
+              final videoDB = await Hive.openBox<VideoModel>('video_db');
+              if (videoDB.isEmpty) {
+                await splashFetch();
+              } else {
+                getFromDB();
+              }
+
               return ShowCaseWidget(
                 builder: Builder(
                   builder: (context) => BottomNavbar(),
