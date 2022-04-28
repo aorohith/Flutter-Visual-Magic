@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Main/splash_screen.dart';
+import 'package:visual_magic/db/Models/video_model.dart';
 
 void main() {
+  Hive.initFlutter();
+  if(!Hive.isAdapterRegistered(VideoModelAdapter().typeId)){
+    Hive.registerAdapter(VideoModelAdapter());
+  }
+  
   runApp(const MyApp());
 }
 

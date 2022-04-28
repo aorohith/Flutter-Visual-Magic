@@ -1,11 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
+import 'package:visual_magic/db/Models/video_model.dart';
 import 'package:visual_magic/db/functions.dart';
 
 // List<String>? _fetchedFolders;
@@ -18,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    loadFolderList();
 
     // _fetchedFolders = getFolderList();
     // TODO: implement initState
@@ -35,9 +34,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          // ElevatedButton(onPressed: (){
-          //   print("Button Clicked");
-          // }, child: Text("Hai"),),
+          ElevatedButton(onPressed: () async{
+            print("Button Clicked");
+            
+            // final videoDB = await Hive.openBox<VideoModel>('video_db');
+            // print(videoDB.values.length);
+          }, child: Text("Hai"),),
           Search(), //Search Refactor
           IconButton(
             onPressed: () {

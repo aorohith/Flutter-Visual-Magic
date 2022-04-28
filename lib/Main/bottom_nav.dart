@@ -34,7 +34,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
 @override
   void initState() {
-    getVideoWithInfo();
+    
 
     // TODO: implement initState
     super.initState();
