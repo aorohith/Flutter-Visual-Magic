@@ -7,7 +7,7 @@ late var box;
 
 void main() async {
   await Hive.initFlutter();
-  box = Hive.openBox('fav_db');
+  box = await Hive.openBox('fav_db');
   runApp(const MyApp());
 }
 

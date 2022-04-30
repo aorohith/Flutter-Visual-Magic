@@ -7,6 +7,7 @@ import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/main.dart';
 
 // List<String>? _fetchedFolders;
 
@@ -19,7 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     loadFolderList();
-
+    if(box.get('favList') != null){
+      fetchFav();
+    }
     // _fetchedFolders = getFolderList();
     // TODO: implement initState
     super.initState();
@@ -35,9 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          // ElevatedButton(onPressed: (){
-          //   print("Button Clicked");
-          // }, child: Text("Hai"),),
+          ElevatedButton(onPressed: (){
+            print("Button Clicked");
+            fetchFav();
+          }, child: Text("Hai"),),
           Search(), //Search Refactor
           IconButton(
             onPressed: () {

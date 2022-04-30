@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/main.dart';
@@ -130,8 +129,17 @@ sortByDate() {
 
 //######################....Favourite section....########################
 
-fetchFav(){
-  favVideos.value.addAll(box.get('favList'));
+fetchFav() async{
+  List temp = await box.get('favList');
+  for(int i=0; i<temp.length; i++){//delete video from fav if the user delete/change directory of the video in storage
+    if(!fetchedVideosPath.contains(temp[i])){
+      print("found");
+      temp.remove(temp[i]);
+    }
+  }
+  favVideos.value.addAll(temp);
+  await box.put('favList',temp);
+
 }
 
 addToFavList(String value){
