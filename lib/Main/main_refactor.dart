@@ -8,6 +8,7 @@ import 'package:visual_magic/MenuDrawer/feedback_screen.dart';
 import 'package:visual_magic/MenuDrawer/share_page.dart';
 import 'package:visual_magic/Main/user.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/db/functions.dart';
 
 //#################...Flosting Video play Button..#############
 
@@ -75,14 +76,18 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
   }
 }
 
-
 //###################...Favourites button Refactoring...########################
 
 class Favourites extends StatefulWidget {
   bool isHighlighted = true;
   bool isPressed = true;
   bool isPressed2 = true;
-  Favourites({Key? key}) : super(key: key);
+  String videoPath;
+  Favourites({
+    Key? key,
+    required this.isPressed2,
+    required this.videoPath
+  }) : super(key: key);
 
   @override
   State<Favourites> createState() => _FavouritesState();
@@ -97,11 +102,14 @@ class _FavouritesState extends State<Favourites> {
       onHighlightChanged: (value) {
         setState(() {
           widget.isHighlighted = !widget.isHighlighted;
+          print(" highlight ${widget.isHighlighted}");
         });
       },
       onTap: () {
         setState(() {
           widget.isPressed2 = !widget.isPressed2;
+          addToFavList(widget.videoPath);
+          print("this ${widget.isPressed2}");
         });
       },
       child: AnimatedContainer(

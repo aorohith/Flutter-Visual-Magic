@@ -49,9 +49,15 @@ Widget getListView(
               fontSize: 16,
             ),
             key: KeysToBeInherited.of(context).key4,
-            child: Favourites(),
+            child: Favourites(
+              videoPath: videosWithIndex[index].path,
+              isPressed2: favVideos.value.contains(videosWithIndex[index].path) ? false : true ,
+            ),
             description: "Add to Favourites Here")
-        : Favourites(),
+        : Favourites(
+          isPressed2: favVideos.value.contains(videosWithIndex[index].path) ? false : true,
+          videoPath: videosWithIndex[index].path,
+        ),
   );
 }
 
