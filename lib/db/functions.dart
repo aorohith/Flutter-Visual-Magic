@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
+import 'package:visual_magic/main.dart';
 
 final videoInfo = FlutterVideoInfo(); //creating object of infoclass
 List<String> fetchedVideosPath = []; //all videos path loaded first time
@@ -9,6 +11,7 @@ ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]); //folder list
 List<String> temp = []; //temp directory for folder funcion
 ValueNotifier<List> fetchedVideosWithInfo =ValueNotifier([]); //videos with info
 ValueNotifier<List> filteredFolderVideos =ValueNotifier([]);//folder click videos
+ValueNotifier<List> favVideos = ValueNotifier([]);
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -123,4 +126,22 @@ sortByDate() {
     return a.date.compareTo(b.date);
   });
   fetchedVideosWithInfo.notifyListeners();
+}
+
+//######################....Favourite section....########################
+
+fetchFav(){
+  favVideos.value.addAll(box.get('favList'));
+}
+
+addToFavList(String value){
+  favVideos.value.add(value);
+  box.put('favList', favVideos.value);
+  print(box.get('favList'));
+}
+
+removeFromFav(String value){
+  favVideos.value.remove(value);
+  box.put('favList', favVideos.value);
+  print(favVideos.value);
 }

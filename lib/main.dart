@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Main/splash_screen.dart';
 
-void main() {
+late var box;
+
+void main() async {
+  await Hive.initFlutter();
+  box = Hive.openBox('fav_db');
   runApp(const MyApp());
 }
 
