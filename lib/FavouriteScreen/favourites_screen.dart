@@ -78,7 +78,7 @@ class FavouritesScreen extends StatelessWidget {
                                   builder: (ctx) {
                                     return AlertDialog(
                                       backgroundColor: Color(0xf060625),
-                                      content: favouritePopup(),
+                                      content: favouritePopup(newFav[index], context),
                                     );
                                   });
                                 },

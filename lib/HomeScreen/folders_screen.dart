@@ -20,9 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     loadFolderList();
-    if(box.get('favList') != null){
-      fetchFav();
-    }
+    
     // _fetchedFolders = getFolderList();
     // TODO: implement initState
     super.initState();
@@ -38,10 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          ElevatedButton(onPressed: (){
-            print("Button Clicked");
-            fetchFav();
-          }, child: Text("Hai"),),
+          ElevatedButton(
+            onPressed: () {
+              print("Button Clicked");
+              fetchFav();
+            },
+            child: Text("Hai"),
+          ),
           Search(), //Search Refactor
           IconButton(
             onPressed: () {

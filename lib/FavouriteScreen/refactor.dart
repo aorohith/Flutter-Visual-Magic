@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:visual_magic/db/functions.dart';
 
-Widget favouritePopup() {
+Widget favouritePopup(String value, BuildContext context) {
   return Container(
     height: 200,
     width: 250,
@@ -18,7 +19,10 @@ Widget favouritePopup() {
             style: ElevatedButton.styleFrom(
               primary: Color(0xff1F1F55),
             ),
-            onPressed: () {},
+            onPressed: () {
+              removeFromFav(value);
+              Navigator.pop(context);
+            },
             child: Text(
               "Remove from Favourite",
               style: TextStyle(fontSize: 18),

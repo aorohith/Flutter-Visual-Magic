@@ -8,8 +8,10 @@ final videoInfo = FlutterVideoInfo(); //creating object of infoclass
 List<String> fetchedVideosPath = []; //all videos path loaded first time
 ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]); //folder list
 List<String> temp = []; //temp directory for folder funcion
-ValueNotifier<List> fetchedVideosWithInfo =ValueNotifier([]); //videos with info
-ValueNotifier<List> filteredFolderVideos =ValueNotifier([]);//folder click videos
+ValueNotifier<List> fetchedVideosWithInfo =
+    ValueNotifier([]); //videos with info
+ValueNotifier<List> filteredFolderVideos =
+    ValueNotifier([]); //folder click videos
 ValueNotifier<List> favVideos = ValueNotifier([]);
 
 onSuccess(List<String> data) {
@@ -80,9 +82,9 @@ getFolderVideos(String path) {
   for (String newPath in matchedVideoPath) {
     splittedMatchedVideoPath = newPath.split('/');
     if (splittedMatchedVideoPath[splitted.length].endsWith('.mp4') ||
-        splittedMatchedVideoPath[splitted.length].endsWith('.mkv')){
-          filteredFolderVideos.value.add(newPath);
-        }
+        splittedMatchedVideoPath[splitted.length].endsWith('.mkv')) {
+      filteredFolderVideos.value.add(newPath);
+    }
   }
   // notify listeners if needed
 }
@@ -129,27 +131,36 @@ sortByDate() {
 
 //######################....Favourite section....########################
 
-fetchFav() async{
-  List temp = await box.get('favList');
-  for(int i=0; i<temp.length; i++){//delete video from fav if the user delete/change directory of the video in storage
-    if(!fetchedVideosPath.contains(temp[i])){
-      print("found");
-      temp.remove(temp[i]);
-    }
-  }
-  favVideos.value.addAll(temp);
-  await box.put('favList',temp);
+fetchFav() async {
+  if (box.get('favList') != null) {
+    favVideos.value.clear();
+    // List temp = await box.get('favList');
+    // for (int i = 0; i < temp.length; i++) {
+    //   //delete video from fav if the user delete/change directory of the video in storage
+    //   if (!fetchedVideosPath.contains(temp[i])) {
+    //     print("found");
+    //     temp.remove(temp[i]);
+    //   }
+    // }
+    // favVideos.value.addAll(temp);
+    // favVideos.notifyListeners();
+    // await box.put('favList', temp);
+    List temp = await box.get('favList');
+    favVideos.value.addAll(temp);
 
+  }
 }
 
-addToFavList(String value){
+addToFavList(String value) {
   favVideos.value.add(value);
+  favVideos.notifyListeners();
   box.put('favList', favVideos.value);
   print(box.get('favList'));
 }
 
-removeFromFav(String value){
+removeFromFav(String value) {
   favVideos.value.remove(value);
+  favVideos.notifyListeners();
   box.put('favList', favVideos.value);
   print(favVideos.value);
 }

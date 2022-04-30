@@ -6,7 +6,7 @@ import 'package:visual_magic/MenuDrawer/about_screen.dart';
 import 'package:visual_magic/MenuDrawer/contact_screen.dart';
 import 'package:visual_magic/MenuDrawer/feedback_screen.dart';
 import 'package:visual_magic/MenuDrawer/share_page.dart';
-import 'package:visual_magic/Main/user.dart';
+import 'package:visual_magic/MenuDrawer/user.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/functions.dart';
 
