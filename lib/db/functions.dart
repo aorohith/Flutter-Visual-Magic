@@ -154,3 +154,22 @@ Future<void> getFromDB() async {
   }
   fetchedFolders.value = temp.toSet().toList();
 }
+
+
+saveUserData(UserModel value) async{
+  print(value);
+  var userDB = await Hive.openBox<UserModel>('user_db');
+  // userDB.put('key1', value);
+  userDB.add(value);
+  // print(userDB.length);
+  print(userDB.get("key1"));
+}
+
+getData() async{
+  final userDB = await Hive.openBox<UserModel>('user_db');
+  // print(userDB.get('user'),);
+  print(userDB.length);
+  return userDB.values ; 
+  
+
+}

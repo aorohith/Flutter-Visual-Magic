@@ -4,12 +4,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Main/splash_screen.dart';
 import 'package:visual_magic/db/Models/video_model.dart';
 
-void main() {
-  Hive.initFlutter();
+Future<void> main() async{
+  await Hive.initFlutter();
   if(!Hive.isAdapterRegistered(VideoModelAdapter().typeId)){
     Hive.registerAdapter(VideoModelAdapter());
+    Hive.registerAdapter(UserModelAdapter());
   }
-  
+  await Hive.openBox('shopping_box');
   runApp(const MyApp());
 }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:hive_flutter/hive_flutter.dart';
 part 'video_model.g.dart';
 
@@ -43,4 +45,19 @@ class VideoModel {
     required this.isFavourite,
   }
   );
+}
+
+@HiveType(typeId: 2)
+class UserModel{
+
+  @HiveField(0)
+  final name;
+
+  @HiveField(1)
+  final email;
+
+  @HiveField(2)
+  final image;
+
+  UserModel({required this.name, required this.email, required this.image});
 }
