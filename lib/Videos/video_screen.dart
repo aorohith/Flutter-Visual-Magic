@@ -33,7 +33,7 @@ class _VideosScreenState extends State<VideosScreen> {
       appBar: AppBar(
         title: Text("All Videos"),
         actions: [
-          Search(),
+          Search(callFrom: 'VideoScreen'),
           Showcase(
               showcaseBackgroundColor: Colors.indigo,
               descTextStyle: TextStyle(

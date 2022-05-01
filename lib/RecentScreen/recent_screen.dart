@@ -34,7 +34,7 @@ class _RecentScreenState extends State<RecentScreen> {
       appBar: AppBar(
         title: Text("Recent"),
         actions: [
-          Search(), //Search Refactor
+          Search(callFrom: "RecentScreen",), //Search Refactor
         ],
         backgroundColor: Color(0xff1f1f55),
       ),

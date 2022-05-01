@@ -8,6 +8,7 @@ import 'package:visual_magic/MenuDrawer/feedback_screen.dart';
 import 'package:visual_magic/MenuDrawer/share_page.dart';
 import 'package:visual_magic/MenuDrawer/user.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/Videos/video_screen.dart';
 import 'package:visual_magic/db/functions.dart';
 
 //#################...Flosting Video play Button..#############
@@ -28,7 +29,11 @@ Widget PlayButton(context) {
 //##################...Search Refactoring...####################
 
 class Search extends StatefulWidget {
-  Search({Key? key}) : super(key: key);
+  String callFrom;
+  Search({
+    Key? key,
+    required this.callFrom,
+  }) : super(key: key);
 
   @override
   State<Search> createState() => _SearchState();
@@ -38,6 +43,7 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
   Animation<double>? animation;
   AnimationController? animController;
   bool isForward = false;
+  List searchList = [];
 
   @override
   void initState() {
@@ -51,7 +57,7 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    TextEditingController textController = TextEditingController();
+    TextEditingController _textController = TextEditingController();
     return Showcase(
       shapeBorder: const CircleBorder(),
       showcaseBackgroundColor: Colors.indigo,
@@ -65,9 +71,26 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
       child: AnimSearchBar(
         //search dependency
         width: 150,
-        textController: textController,
-        onSuffixTap: () {
-          textController.clear();
+        textController: _textController,
+        onSuffixTap: () {},
+        onChanged: () {
+          setState(() {
+            switch (widget.callFrom) {
+              case "VideosScreen":
+                fetchedVideosWithInfo.value = fetchedVideosWithInfo.value
+                    .where((string) => string.title
+                        .toLowerCase()
+                        .contains(_textController.text.toLowerCase()))
+                    .toList();
+                    fetchedVideosWithInfo.notifyListeners();
+                break;
+              case "Favourites":
+                searchList = favVideos.value;
+                break;
+              default:
+            }
+            print("setstate");
+          });
         },
         suffixIcon: const Icon(Icons.search),
         color: const Color(0xff2C2C6D),
@@ -83,11 +106,8 @@ class Favourites extends StatefulWidget {
   bool isPressed = true;
   bool isPressed2 = true;
   String videoPath;
-  Favourites({
-    Key? key,
-    required this.isPressed2,
-    required this.videoPath
-  }) : super(key: key);
+  Favourites({Key? key, required this.isPressed2, required this.videoPath})
+      : super(key: key);
 
   @override
   State<Favourites> createState() => _FavouritesState();

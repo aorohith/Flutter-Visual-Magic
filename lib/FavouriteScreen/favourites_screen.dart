@@ -16,7 +16,7 @@ class FavouritesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Favourites"),
         actions: [
-          Search(),
+          Search(callFrom: "Favourites",),
         ],
         backgroundColor: Color(0xff2C2C6D),
       ),
