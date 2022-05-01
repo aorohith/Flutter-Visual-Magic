@@ -3,6 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
+import 'package:visual_magic/MenuDrawer/menu_drawe.dart';
 import 'package:visual_magic/Videos/refactor.dart';
 import 'package:visual_magic/db/functions.dart';
 

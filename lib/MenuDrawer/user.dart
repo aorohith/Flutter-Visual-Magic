@@ -1,14 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:visual_magic/MenuDrawer/edit_user.dart';
+import 'package:visual_magic/main.dart';
 
 class UserScreen extends StatelessWidget {
-  final name;
-  final assetImage;
-  UserScreen({Key? key, required this.assetImage, required this.name})
+
+  UserScreen({Key? key,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List userData = box.get('user');
     return Scaffold(
         // backgroundColor: Colors.black,
         body: SafeArea(
@@ -23,7 +26,15 @@ class UserScreen extends StatelessWidget {
               bottomLeft: Radius.circular(25.0),
               bottomRight: Radius.circular(25.0),
             ),
-            child: Image.asset(assetImage),
+            child: Container(
+              width: double.infinity,
+              height: 300,
+              color: Colors.red,
+              child: Image.file(
+                File(userData[3]),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Positioned(
             top: 150,
@@ -42,7 +53,7 @@ class UserScreen extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "ROHITH A O",
+                      userData[0],
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -52,7 +63,7 @@ class UserScreen extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "aorohith@gmail.com",
+                      userData[1],
                       style: TextStyle(
                         fontSize: 15,
                       ),
@@ -69,7 +80,7 @@ class UserScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "Lorem Ipsum is simply dummy text of the printing typesetting industry. Look a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap",
+                      userData[2],
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -91,7 +102,7 @@ class UserScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (ctx) => EditUserScreen(
                         name: "ff",
-                        assetImage: "assets/images/user.jpg",
+                        assetImage: userData[3],
                       ),
                     ),
                   );

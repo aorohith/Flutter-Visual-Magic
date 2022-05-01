@@ -132,7 +132,7 @@ sortByDate() {
 //######################....Favourite section....########################
 
 fetchFav() async {
-  if (box.get('favList') != null) {
+  if (box.get('favList') != null) {//first case there is no fav list then hive.get is an error
     favVideos.value.clear();
     // List temp = await box.get('favList');
     // for (int i = 0; i < temp.length; i++) {

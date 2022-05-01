@@ -1,130 +1,149 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-class EditUserScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:visual_magic/main.dart';
+
+class EditUserScreen extends StatefulWidget {
   final name;
-  final assetImage;
+  String assetImage;
   EditUserScreen({Key? key, required this.assetImage, required this.name})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<EditUserScreen> createState() => _EditUserScreenState();
+}
+
+class _EditUserScreenState extends State<EditUserScreen> {
     final _nameController = TextEditingController();
+
     final _emailController = TextEditingController();
+
     final _descriptionController = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
     return Scaffold(
-        // backgroundColor: Colors.black,
         body: SafeArea(
-      child: Stack(
-        alignment: AlignmentDirectional.topCenter,
+      child: ListView(
         children: [
-          Container(
-            color: Colors.blue,
-          ),
           ClipRRect(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(25.0),
               bottomRight: Radius.circular(25.0),
             ),
-            child: Image.asset(assetImage),
+            child: Image.file(File(widget.assetImage)),
           ),
-          Positioned(
-            top: 150,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 25.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                ),
-                width: 320,
-                height: 500,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        "CHNAGE IMAGE",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
+          Padding(
+            padding: const EdgeInsets.only(top: 25.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.white,
+              ),
+              width: 320,
+              height: 550,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "CHNAGE IMAGE",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Open Camera",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final XFile? photo = await _picker.pickImage(
+                              source: ImageSource.camera);
+                          setState(() {
+                            widget.assetImage = photo!.path;
+                          });
+                        },
+                        child: Text(
+                          "Open Camera",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Open Gallery",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Open Gallery",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    TextField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        hintText: "db name",
+                        border: OutlineInputBorder(),
                       ),
-                      TextField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          hintText: "db name",
-                          border: OutlineInputBorder(),
-                        ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: "db email",
+                        border: OutlineInputBorder(),
                       ),
-                      SizedBox(
-                        height: 10,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "About",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
-                      TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          hintText: "db email",
-                          border: OutlineInputBorder(),
-                        ),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 5,
+                      controller: _descriptionController,
+                      decoration: InputDecoration(
+                        hintText: "db description",
+                        border: OutlineInputBorder(),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "About",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 5,
-                        controller: _descriptionController,
-                        decoration: InputDecoration(
-                          hintText: "db description",
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(onPressed: () {
+                      updateUser();
+                    }, child: Text("Update"))
+                  ],
                 ),
               ),
             ),
@@ -133,4 +152,12 @@ class EditUserScreen extends StatelessWidget {
       ),
     ));
   }
+
+  updateUser() async{
+    final name = _nameController.text;
+    final email = _emailController.text;
+    final description = _descriptionController.text;
+    await box.put('user', [name, email, description, widget.assetImage]);
+    Navigator.pop(context);
+      }
 }
