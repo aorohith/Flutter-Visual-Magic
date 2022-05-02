@@ -19,8 +19,13 @@ class MenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(box.get('user')[3] == null || box.get('user')[3] == ''){
-      box.put('user',['User', 'sample@sample.com', 'descriptiom', '']);
+    if (box.get('user')[3] == null) {
+      box.put('user', [
+        'User',
+        'sample@sample.com',
+        'descriptiom',
+        'assets/images/user.jpg'
+      ]);
     }
     List userData = box.get('user');
     return Drawer(
@@ -30,7 +35,7 @@ class MenuDrawer extends StatelessWidget {
           padding: padding,
           children: [
             buildHeader(
-                assetImage: userData[3],
+                assetImages: userData[3],
                 name: userData[0],
                 email: userData[1],
                 onClicked: () {
@@ -115,7 +120,7 @@ class MenuDrawer extends StatelessWidget {
   }
 
   Widget buildHeader({
-    required String assetImage,
+    required String assetImages,
     required String name,
     required String email,
     required VoidCallback onClicked,
@@ -128,7 +133,8 @@ class MenuDrawer extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 30,
-                backgroundImage: FileImage(File(assetImage)),
+                backgroundImage: FileImage(File(
+                    assetImages)), //assetImages!='assets/images/user.jpg' ?  : AssetImage(assetImages)
               ),
               const SizedBox(width: 20),
               Column(

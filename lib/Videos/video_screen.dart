@@ -15,9 +15,7 @@ class VideosScreen extends StatefulWidget {
 
 class _VideosScreenState extends State<VideosScreen> {
   @override
-  void initState() {
-    print(fetchedVideosWithInfo.value[1]);
-    // TODO: implement initState
+  void initState() {    // TODO: implement initState
     super.initState();
   }
 

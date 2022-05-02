@@ -129,8 +129,12 @@ class _FavouritesState extends State<Favourites> {
       onTap: () {
         setState(() {
           widget.isPressed2 = !widget.isPressed2;
-          addToFavList(widget.videoPath);
-          print("this ${widget.isPressed2}");
+          if(!widget.isPressed2){
+            addToFavList(widget.videoPath);
+          }else{
+            removeFromFav(widget.videoPath);
+          }
+          
         });
       },
       child: AnimatedContainer(
