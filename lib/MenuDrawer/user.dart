@@ -5,9 +5,9 @@ import 'package:visual_magic/MenuDrawer/edit_user.dart';
 import 'package:visual_magic/main.dart';
 
 class UserScreen extends StatelessWidget {
-
-  UserScreen({Key? key,})
-      : super(key: key);
+  UserScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,15 @@ class UserScreen extends StatelessWidget {
               width: double.infinity,
               height: 300,
               color: Colors.red,
-              child: Image.file(
-                File(userData[3]),
-                fit: BoxFit.cover,
-              ),
+              child: userData[3] == "assets/images/user.jpg"
+                  ? Image.asset(
+                      userData[3],
+                      fit: BoxFit.cover,
+                    )
+                  : Image.file(
+                      File(userData[3]),
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           Positioned(

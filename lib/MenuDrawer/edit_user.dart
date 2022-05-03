@@ -15,15 +15,16 @@ class EditUserScreen extends StatefulWidget {
 }
 
 class _EditUserScreenState extends State<EditUserScreen> {
-    final _nameController = TextEditingController();
+  final _nameController = TextEditingController();
 
-    final _emailController = TextEditingController();
+  final _emailController = TextEditingController();
 
-    final _descriptionController = TextEditingController();
-
+  final _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var userData = box.get('user');
+    print(userData);
     final ImagePicker _picker = ImagePicker();
     return Scaffold(
         body: SafeArea(
@@ -34,7 +35,9 @@ class _EditUserScreenState extends State<EditUserScreen> {
               bottomLeft: Radius.circular(25.0),
               bottomRight: Radius.circular(25.0),
             ),
-            child: Image.file(File(widget.assetImage)),
+            child: widget.assetImage == 'assets/images/user.jpg'
+                ? Image.asset(widget.assetImage)
+                : Image.file(File(widget.assetImage)),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 25.0),
@@ -49,57 +52,6 @@ class _EditUserScreenState extends State<EditUserScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Text(
-                      "CHNAGE IMAGE",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final XFile? photo = await _picker.pickImage(
-                              source: ImageSource.camera);
-                          setState(() {
-                            widget.assetImage = photo!.path;
-                          });
-                        },
-                        child: Text(
-                          "Open Camera",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Open Gallery",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-
                     TextField(
                       controller: _nameController,
                       decoration: InputDecoration(
@@ -140,9 +92,67 @@ class _EditUserScreenState extends State<EditUserScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    ElevatedButton(onPressed: () {
-                      updateUser();
-                    }, child: Text("Update"))
+                    Text(
+                      "CHNAGE IMAGE",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final XFile? photo = await _picker.pickImage(
+                              source: ImageSource.camera);
+                          setState(() {
+                            widget.assetImage = photo!.path;
+                          });
+                        },
+                        child: Text(
+                          "Open Camera",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final XFile? photo = await _picker.pickImage(
+                              source: ImageSource.gallery);
+                          setState(() {
+                            widget.assetImage = photo!.path;
+                          });
+                        },
+                        child: Text(
+                          "Open Gallery",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          updateUser();
+                        },
+                        child: Text("Update"))
                   ],
                 ),
               ),
@@ -153,11 +163,14 @@ class _EditUserScreenState extends State<EditUserScreen> {
     ));
   }
 
-  updateUser() async{
+  updateUser() async {
     final name = _nameController.text;
     final email = _emailController.text;
     final description = _descriptionController.text;
     await box.put('user', [name, email, description, widget.assetImage]);
     Navigator.pop(context);
-      }
+    Navigator.pop(context);
+    Navigator.pop(context);
+
+  }
 }
