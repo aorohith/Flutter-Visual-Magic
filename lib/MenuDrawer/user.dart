@@ -11,7 +11,7 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List userData = box.get('user');
+    var userData = userDB.get('user');
     return Scaffold(
         // backgroundColor: Colors.black,
         body: SafeArea(
@@ -30,13 +30,13 @@ class UserScreen extends StatelessWidget {
               width: double.infinity,
               height: 300,
               color: Colors.red,
-              child: userData[3] == "assets/images/user.jpg"
+              child: userData.imgPath == "assets/images/user.jpg"
                   ? Image.asset(
-                      userData[3],
+                      userData.imgPath,
                       fit: BoxFit.cover,
                     )
                   : Image.file(
-                      File(userData[3]),
+                      File(userData.imgPath),
                       fit: BoxFit.cover,
                     ),
             ),
@@ -58,7 +58,7 @@ class UserScreen extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      userData[0],
+                      userData.name,
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -68,7 +68,7 @@ class UserScreen extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      userData[1],
+                      userData.email,
                       style: TextStyle(
                         fontSize: 15,
                       ),
@@ -85,7 +85,7 @@ class UserScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      userData[2],
+                      userData.description,
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -107,7 +107,7 @@ class UserScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (ctx) => EditUserScreen(
                         name: "ff",
-                        assetImage: userData[3],
+                        assetImage: userData.imgPath,
                       ),
                     ),
                   );

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
+import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/main.dart';
 
 final videoInfo = FlutterVideoInfo(); //creating object of infoclass
@@ -12,7 +13,7 @@ ValueNotifier<List> fetchedVideosWithInfo =
     ValueNotifier([]); //videos with info
 ValueNotifier<List> filteredFolderVideos =
     ValueNotifier([]); //folder click videos
-ValueNotifier<List> favVideos = ValueNotifier([]);
+ValueNotifier<List<String>> favVideos = ValueNotifier([]);
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -132,7 +133,7 @@ sortByDate() {
 //######################....Favourite section....########################
 
 fetchFav() async {
-  if (box.get('favList') != null) {//first case there is no fav list then hive.get is an error
+  // if (box.get('favList') != null) {//first case there is no fav list then hive.get is an error
     favVideos.value.clear();
     // List temp = await box.get('favList');
     // for (int i = 0; i < temp.length; i++) {
@@ -145,22 +146,33 @@ fetchFav() async {
     // favVideos.value.addAll(temp);
     // favVideos.notifyListeners();
     // await box.put('favList', temp);
-    List temp = await box.get('favList');
+    List<String> temp = await favDB.get('favList').favVideo;
     favVideos.value.addAll(temp);
+    print(favDB.get('favList').favVideo);
 
   }
-}
+// }
 
-addToFavList(String value) {
+addToFavList(String value) async{
   favVideos.value.add(value);
   favVideos.notifyListeners();
-  box.put('favList', favVideos.value);
-  print(box.get('favList'));
+  var fav = Favourites(favVideo: favVideos.value);
+  await favDB.put('favList', fav);
+  print(favVideos.value);
 }
 
 removeFromFav(String value) {
   favVideos.value.remove(value);
   favVideos.notifyListeners();
-  box.put('favList', favVideos.value);
-  print(favVideos.value);
+  favDB.put('favList', favVideos.value);
+  // print(favVideos.value);
+}
+
+//###################...user prfile section...####################
+
+getUser(){
+
+}
+addUser(){
+
 }

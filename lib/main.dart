@@ -2,12 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Main/splash_screen.dart';
+import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
+import 'package:visual_magic/db/Models/user_model.dart';
 
-late var box;
+// late var box;
+late var userDB;
+late var favDB;
+
 
 void main() async {
   await Hive.initFlutter();
-  box = await Hive.openBox('fav_db');
+  if(!Hive.isAdapterRegistered(UserModelAdapter().typeId)){
+    Hive.registerAdapter(UserModelAdapter());
+    Hive.registerAdapter(FavouritesAdapter());
+  }
+  userDB = await Hive.openBox('student_db');
+  favDB = await Hive.openBox('fav_db');
+
+  // box = await Hive.openBox('fav_db');
   runApp(const MyApp());
 }
 

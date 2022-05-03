@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
 
 class EditUserScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var userData = box.get('user');
+    var userData = userDB.values;
     print(userData);
     final ImagePicker _picker = ImagePicker();
     return Scaffold(
@@ -167,7 +168,8 @@ class _EditUserScreenState extends State<EditUserScreen> {
     final name = _nameController.text;
     final email = _emailController.text;
     final description = _descriptionController.text;
-    await box.put('user', [name, email, description, widget.assetImage]);
+    final user = UserModel(name: name, email: email, imgPath: widget.assetImage, description: description);
+    await userDB.put('user', user);
     Navigator.pop(context);
     Navigator.pop(context);
     Navigator.pop(context);

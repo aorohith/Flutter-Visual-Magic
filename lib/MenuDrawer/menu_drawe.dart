@@ -8,6 +8,7 @@ import 'package:visual_magic/MenuDrawer/contact_screen.dart';
 import 'package:visual_magic/MenuDrawer/feedback_screen.dart';
 import 'package:visual_magic/MenuDrawer/share_page.dart';
 import 'package:visual_magic/MenuDrawer/user.dart';
+import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
 
 class MenuDrawer extends StatelessWidget {
@@ -19,15 +20,15 @@ class MenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (box.get('user') == null) {
-      box.put('user', [
-        'User',
-        'sample@sample.com',
-        'descriptiom',
-        'assets/images/user.jpg'
-      ]);
+    if (userDB.get('user') == null) {
+      final user = UserModel(name: 'User', 
+      email: 'sample@sample.com', 
+      imgPath: 'assets/images/user.jpg', 
+      description: 'descriptiom');
+      userDB.put('user', user);
+      
     }
-    List userData = box.get('user');
+    var userData = userDB.get('user');
     return Drawer(
       child: Material(
         color: const Color.fromARGB(255, 41, 62, 170),
@@ -35,9 +36,9 @@ class MenuDrawer extends StatelessWidget {
           padding: padding,
           children: [
             buildHeader(
-                assetImages: userData[3],
-                name: userData[0],
-                email: userData[1],
+                assetImages: userData.imgPath,
+                name: userData.name,
+                email: userData.email,
                 onClicked: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
