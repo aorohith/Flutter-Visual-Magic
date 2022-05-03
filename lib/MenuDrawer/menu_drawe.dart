@@ -19,7 +19,7 @@ class MenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (box.get('user')[3] == null) {
+    if (box.get('user') == null) {
       box.put('user', [
         'User',
         'sample@sample.com',
@@ -131,11 +131,15 @@ class MenuDrawer extends StatelessWidget {
           padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: FileImage(File(
-                    assetImages)), //assetImages!='assets/images/user.jpg' ?  : AssetImage(assetImages)
-              ),
+              assetImages == "assets/images/user.jpg"
+                  ? CircleAvatar(backgroundImage: AssetImage(assetImages))
+                  : CircleAvatar(
+                      backgroundImage: FileImage(
+                        File(
+                          assetImages,
+                        ),
+                      ),
+                    ),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
