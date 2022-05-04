@@ -3,6 +3,7 @@ import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
+import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/main.dart';
 
 final videoInfo = FlutterVideoInfo(); //creating object of infoclass
@@ -14,6 +15,8 @@ ValueNotifier<List> fetchedVideosWithInfo =
 ValueNotifier<List> filteredFolderVideos =
     ValueNotifier([]); //folder click videos
 ValueNotifier<List<String>> favVideos = ValueNotifier([]);
+
+ValueNotifier<List<RecentModel>> recentVideos = ValueNotifier([]);
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -91,6 +94,13 @@ getFolderVideos(String path) {
 }
 
 //video info collection
+
+String formatTime(double time) {
+    Duration duration = Duration(milliseconds: time.round());
+    return [duration.inHours, duration.inMinutes, duration.inSeconds].map((seg) => seg.remainder(60).toString().padLeft(2, '0')).join(':');
+}
+
+
 Future getVideoWithInfo() async {
   fetchedVideosWithInfo.value.clear();
   for (int i = 0; i < fetchedVideosPath.length; i++) {
@@ -168,11 +178,19 @@ removeFromFav(String value) {
   // print(favVideos.value);
 }
 
-//###################...user prfile section...####################
+//###################...recent section...####################
 
-getUser(){
-
+getRecentList(){
+  recentVideos.value.clear();
+  if(recentDB.values != null){
+    recentVideos.value.addAll(recentDB.values);
+  }
 }
-addUser(){
+
+addToRecent(RecentModel value){
+  recentVideos.value.removeWhere((element) => element.recentPath == value.recentPath);//remove the path received form current recent list
+  recentVideos.value.insert(0, value);
+  // recentDB. ;
+
 
 }

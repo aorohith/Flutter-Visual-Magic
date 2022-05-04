@@ -36,7 +36,7 @@ Widget getListView(
       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     ),
     subtitle: Text(
-      "10 Videos",
+      formatTime(videosWithIndex[index].duration),
       style: TextStyle(color: Colors.white),
     ),
     trailing: index == 0
@@ -71,46 +71,46 @@ class sortDropdown extends StatefulWidget {
 }
 
 class _sortDropdownState extends State<sortDropdown> {
-  String dropdownValue = 'A to Z';
+  String dropdownValue = 'Duration';
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      borderRadius: BorderRadius.circular(10),
-      dropdownColor: Colors.black,
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_drop_down),
-      elevation: 16,
-      style: const TextStyle(color: Colors.white),
-      underline: Container(
-        height: 2,
-        color: Colors.black,
+    return DropdownButtonHideUnderline(
+      child: DropdownButton(
+        // iconEnabledColor: Colors.white,
+        // focusColor: Colors.red,
+        borderRadius: BorderRadius.circular(10),
+        dropdownColor: Colors.black,
+        value: dropdownValue,
+        icon: const Icon(Icons.sort),
+        elevation: 16,
+        style: const TextStyle(color: Colors.white),
+        onChanged: (String? newValue) {
+          switch (newValue) {
+            case "A to Z":
+              sortAlphabetical();
+              break;
+            case "Duration":
+              sortByDuration();
+              break;
+            case "Date":
+              sortBySize();
+              break;
+            case "FileSize":
+            // sortByDate();
+          }
+          setState(() {
+            dropdownValue = newValue!;
+          });
+        },
+        items: ['A to Z', 'Duration', 'Date', 'FileSize']
+            .map((String value) {
+          return DropdownMenuItem(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
       ),
-      onChanged: (String? newValue) {
-        switch (newValue) {
-          case "A to Z":
-            sortAlphabetical();
-            break;
-          case "Duration":
-            sortByDuration();
-            break;
-          case "Date":
-            sortBySize();
-            break;
-          case "FileSize":
-          // sortByDate();
-        }
-        setState(() {
-          dropdownValue = newValue!;
-        });
-      },
-      items: <String>['A to Z', 'Duration', 'Date', 'FileSize']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
     );
   }
 }
