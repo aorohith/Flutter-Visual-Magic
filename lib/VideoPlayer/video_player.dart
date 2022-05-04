@@ -1,6 +1,8 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:visual_magic/db/Models/Recent/recent_model.dart';
+import 'package:visual_magic/db/functions.dart';
 
 
 class VideoPlay extends StatefulWidget {
@@ -13,6 +15,13 @@ class VideoPlay extends StatefulWidget {
 
 class _VideoPlayState extends State<VideoPlay> {
 
+@override
+  void initState() {
+    // TODO: implement initState
+    var recent = RecentModel(recentPath: widget.videoLink, recentDate: DateTime.now());
+    addToRecent(recent);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

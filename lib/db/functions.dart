@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
@@ -180,17 +181,59 @@ removeFromFav(String value) {
 
 //###################...recent section...####################
 
-getRecentList(){
-  recentVideos.value.clear();
-  if(recentDB.values != null){
-    recentVideos.value.addAll(recentDB.values);
+getRecentList() async{
+  
+  
+  // values.addAll(await recentDB.values);
+  // List keys = recentDB.keys;
+  // recentDB.delete(6);
+  // print(values.toList());
+  // print(keys);
+  // recentVideos.value.clear();
+  // if(recentDB.values != null){
+  //   recentVideos.value.addAll(recentDB.values);
+  //   recentVideos.value.reversed;
+  //   recentVideos.notifyListeners();
+  //   print(recentVideos.value);
+  // }
+}
+
+addToRecent(RecentModel value) async{
+  final keys = await recentDB.keys.toList();
+  final values = await recentDB.values.toList();
+  for(int i=0; i<keys.length; i++){
+    if(values[i].recentPath == value.recentPath){
+      await recentDB.delete(keys[i]);
+      break;
+    }
+  }  
+  await recentDB.add(value);
+  print(recentDB.length);
+  // await recentDB.add(value);
+  // recentVideos.value.clear();
+  // recentVideos.value.addAll(await recentDB.values.toList());
+  // recentVideos.value.reversed;
+  // print(recentVideos.value);
+  // if(recentDB.values != null){
+  // final didRemove = recentVideos.value.removeWhere((element) => element.recentPath == value.recentPath);//remove the path received form current recent list
+  // deleteItem(value.recentPath);
+  // }
+  // // recentVideos.value.
+  // // var existingItem = items.firstWhere((itemToCheck) => itemToCheck.link == favoriteitem.link, orElse: () => null);
+  // recentVideos.value.add(value);
+  // getRecentList();
+  // // print(recentVideos.value);
+  // // recentDB.addAll();
+
+}
+
+deleteItem(String currentPath) {
+    // final Map<dynamic, RecentModel> deliveriesMap = recentDB.toMap();
+    // dynamic desiredKey;
+    // deliveriesMap.forEach((key, value){
+    //     if (value.recentPath == currentPath){//db path == adding path
+    //       desiredKey = key;
+    //     }
+    // });
+    // recentDB.delete(desiredKey);
   }
-}
-
-addToRecent(RecentModel value){
-  recentVideos.value.removeWhere((element) => element.recentPath == value.recentPath);//remove the path received form current recent list
-  recentVideos.value.insert(0, value);
-  // recentDB. ;
-
-
-}

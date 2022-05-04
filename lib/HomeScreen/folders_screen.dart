@@ -7,6 +7,7 @@ import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawe.dart';
+import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     loadFolderList();
-    
+
     // _fetchedFolders = getFolderList();
     // TODO: implement initState
     super.initState();
@@ -40,11 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ElevatedButton(
             onPressed: () {
               print("Button Clicked");
-              // print(box.get('user'));
+              var recent = RecentModel(
+                  recentPath: "widget.videoLinkghj", recentDate: DateTime.now());
+              addToRecent(recent);
+              getRecentList();
             },
             child: Text("Hai"),
           ),
-          Search(callFrom: "SearchScreen",), //Search Refactor
+          Search(
+            callFrom: "SearchScreen",
+          ), //Search Refactor
           IconButton(
             onPressed: () {
               ShowCaseWidget.of(context)!.startShowCase([

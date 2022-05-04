@@ -4,6 +4,7 @@ import 'package:visual_magic/MenuDrawer/menu_drawe.dart';
 import 'dart:math';
 
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/db/functions.dart';
 
 class RecentScreen extends StatefulWidget {
   @override
@@ -12,6 +13,13 @@ class RecentScreen extends StatefulWidget {
 
 class _RecentScreenState extends State<RecentScreen> {
   double _page = 10;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getRecentList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
