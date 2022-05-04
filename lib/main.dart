@@ -9,7 +9,7 @@ import 'package:visual_magic/db/Models/user_model.dart';
 // late var box;
 late var userDB;
 late var favDB;
-late var recentDB;
+late Box<RecentModel> recentDB;
 
 
 void main() async {

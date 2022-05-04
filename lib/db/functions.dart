@@ -190,12 +190,14 @@ getRecentList() async{
   // print(values.toList());
   // print(keys);
   // recentVideos.value.clear();
-  // if(recentDB.values != null){
-  //   recentVideos.value.addAll(recentDB.values);
-  //   recentVideos.value.reversed;
-  //   recentVideos.notifyListeners();
-  //   print(recentVideos.value);
-  // }
+  if(recentDB.values != null){
+    List<RecentModel> dbRecent = await recentDB.values.toList();
+    print(dbRecent[0].recentDate);
+    recentVideos.value.addAll(dbRecent);
+    recentVideos.value.reversed;
+    recentVideos.notifyListeners();
+    // // print(recentVideos.value);
+  }
 }
 
 addToRecent(RecentModel value) async{
@@ -208,14 +210,16 @@ addToRecent(RecentModel value) async{
     }
   }  
   await recentDB.add(value);
-  print(recentDB.length);
+  recentVideos.value.removeWhere((element) => element.recentPath == value.recentPath);//remove the path received form current recent list
+  recentVideos.value.insert(0,value);
+
+
   // await recentDB.add(value);
   // recentVideos.value.clear();
   // recentVideos.value.addAll(await recentDB.values.toList());
   // recentVideos.value.reversed;
   // print(recentVideos.value);
   // if(recentDB.values != null){
-  // final didRemove = recentVideos.value.removeWhere((element) => element.recentPath == value.recentPath);//remove the path received form current recent list
   // deleteItem(value.recentPath);
   // }
   // // recentVideos.value.
