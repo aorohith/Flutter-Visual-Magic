@@ -37,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
             screenFunction: () async {
               await splashFetch();
               fetchFav();
+              await getRecentList();
               return ShowCaseWidget(
                 builder: Builder(
                   builder: (context) => BottomNavbar(),

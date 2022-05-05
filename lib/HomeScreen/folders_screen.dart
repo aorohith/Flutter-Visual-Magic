@@ -41,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ElevatedButton(
             onPressed: () {
               print("Button Clicked");
-              var recent = RecentModel(
-                  recentPath: "widget.videoLinkghj", recentDate: DateTime.now());
-              addToRecent(recent);
-              getRecentList();
+              // var recent = RecentModel(
+              //     recentPath: "widget.videoLinkghj", recentDate: DateTime.now());
+              // addToRecent(recent);
+              // clear();
             },
             child: Text("Hai"),
           ),

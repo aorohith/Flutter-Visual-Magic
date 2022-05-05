@@ -12,7 +12,7 @@ class RecentScreen extends StatefulWidget {
 }
 
 class _RecentScreenState extends State<RecentScreen> {
-  double _page = 10;
+  double _page = 14;
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _RecentScreenState extends State<RecentScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     PageController pageController;
-    pageController = PageController(initialPage: 10);
+    pageController = PageController(initialPage: recentVideos.length);
     pageController.addListener(
       () {
         setState(
@@ -57,7 +57,7 @@ class _RecentScreenState extends State<RecentScreen> {
                 builder: (context, boxConstraints) {
                   List<Widget> cards = [];
 
-                  for (int i = 0; i <= 11; i++) {
+                  for (int i = 0; i <= recentVideos.length; i++) {
                     double currentPageValue = i - _page;
                     bool pageLocation = currentPageValue > 0;
 
@@ -92,36 +92,40 @@ class _RecentScreenState extends State<RecentScreen> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => VideoPlay()));
                           },
                           child: Container(
-                            child: ListView(
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.all(20.0),
-                              children: [
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  "Name of the video",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Color.fromARGB(255, 221, 206, 206),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Image.asset("assets/images/download.jpeg"),
-                                SizedBox(height: 10),
-                                Text(
-                                  "1 minutes ago",
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Color.fromRGBO(196, 195, 245, 1),
-                                  ),
-                                ),
-                              ],
+                            child: Builder(
+                              builder: (context) {
+                                return ListView(
+                                  shrinkWrap: true,
+                                  padding: const EdgeInsets.all(20.0),
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      recentVideos[i].recentPath,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 221, 206, 206),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Image.asset("assets/images/download.jpeg"),
+                                    SizedBox(height: 10),
+                                    Text(
+                                      "1 minutes ago",
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Color.fromRGBO(196, 195, 245, 1),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }
                             ),
                           ),
                         ),
@@ -137,7 +141,7 @@ class _RecentScreenState extends State<RecentScreen> {
               child: PageView.builder(
                 physics: BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
-                itemCount: 11,
+                itemCount: recentVideos.length,
                 controller: pageController,
                 itemBuilder: (context, index) {
                   return SizedBox();
