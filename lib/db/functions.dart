@@ -185,10 +185,7 @@ getRecentList() async {
   recentVideos.value.clear();
   if (recentDB.values.isNotEmpty) {
     List<RecentModel> dbRecent = recentDB.values.toList();
-    recentVideos.value.addAll(dbRecent);
-    recentVideos.value.reversed;
-    print("##################################################");
-    print(recentVideos.value.length);
+    recentVideos.value.addAll(dbRecent.reversed);
   }
 }
 
@@ -203,8 +200,6 @@ addToRecent(RecentModel value) async {
       }
     }
   }
-  print("777777777777777777777777777777777777777777");
-  print(recentDB.values);
   recentDB.add(value);
   getRecentList();
 }

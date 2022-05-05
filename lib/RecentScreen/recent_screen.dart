@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawe.dart';
-import 'dart:math';
-
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
 
+List<String>? fetchedVideos;
+
 class RecentScreen extends StatefulWidget {
+  const RecentScreen({Key? key}) : super(key: key);
+
   @override
-  _RecentScreenState createState() => _RecentScreenState();
+  State<RecentScreen> createState() => _RecentScreenState();
 }
 
 class _RecentScreenState extends State<RecentScreen> {
-  double _page = 10;
-
   @override
   void initState() {
     getRecentList();
@@ -24,152 +25,104 @@ class _RecentScreenState extends State<RecentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    PageController pageController;
-    pageController = PageController(initialPage: recentVideos.value.length - 1);
-    pageController.addListener(
-      () {
-        setState(
-          () {
-            _page = pageController.page!;
-          },
-        );
-      },
-    );
-
+    double _w = MediaQuery.of(context).size.width;
+    bool isPressed = true;
+    bool isPressed2 = true;
+    bool isHighlighted = true;
     return Scaffold(
-        drawer: MenuDrawer(),
-        floatingActionButton: PlayButton(context),
-        backgroundColor: Color(0xff060625),
-        appBar: AppBar(
-          title: Text("Recent"),
-          actions: [
-            Search(
-              callFrom: "RecentScreen",
-            ), //Search Refactor
-          ],
-          backgroundColor: Color(0xff1f1f55),
-        ),
-        body: ValueListenableBuilder(
+      drawer: MenuDrawer(),
+      floatingActionButton: PlayButton(context),
+      backgroundColor: Color(0xff060625),
+      appBar: AppBar(
+        title: Text("Camera"),
+        
+        backgroundColor: Color(0xff2C2C6D),
+      ),
+      body: AnimationLimiter(
+        child: ValueListenableBuilder(
             valueListenable: recentVideos,
-            builder: (BuildContext ctx, List<RecentModel> recentList,
+            builder: (BuildContext ctx, List<RecentModel> RecentScreenList,
                 Widget? child) {
-              return Center(
-                child: Stack(
-                  children: [
-                    SizedBox(
-                        height: width,
-                        width: width * .95,
-                        child: LayoutBuilder(
-                          builder: (context, boxConstraints) {
-                            List<Widget> cards = [];
-
-                            for (int i = 0;
-                                i <= recentList.length - 1;
-                                i++) {
-                              double currentPageValue = i - _page;
-                              bool pageLocation = currentPageValue > 0;
-
-                              double start = 20 +
-                                  max(
-                                      (boxConstraints.maxWidth - width * .75) -
-                                          ((boxConstraints.maxWidth -
-                                                      width * .75) /
-                                                  2) *
-                                              -currentPageValue *
-                                              (pageLocation ? 9 : 1),
-                                      0.0);
-
-                              var customizableCard = Positioned.directional(
-                                top: 20 + 30 * max(-currentPageValue, 0.0),
-                                bottom: 20 + 30 * max(-currentPageValue, 0.0),
-                                start: start,
-                                textDirection: TextDirection.ltr,
-                                child: Container(
-                                  height: width * .67,
-                                  width: width * .67,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xff1f1f55),
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black.withOpacity(.15),
-                                          blurRadius: 10)
-                                    ],
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  VideoPlay()));
-                                    },
-                                    child: Container(
-                                      child: ListView(
-                                        shrinkWrap: true,
-                                        padding: const EdgeInsets.all(20.0),
-                                        children: [
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            recentList[i]
-                                                .recentPath
-                                                .split('/')
-                                                .last,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 221, 206, 206),
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Image.asset(
-                                              "assets/images/download.jpeg"),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            "1 minutes ago",
-                                            textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                              fontSize: 15,
-                                              color: Color.fromRGBO(
-                                                  196, 195, 245, 1),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+              return ListView.builder(
+                padding: EdgeInsets.all(_w / 30),
+                physics: BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                itemCount: RecentScreenList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    delay: Duration(milliseconds: 100),
+                    child: SlideAnimation(
+                      duration: Duration(milliseconds: 2500),
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      verticalOffset: -250,
+                      child: ScaleAnimation(
+                        duration: Duration(milliseconds: 1500),
+                        curve: Curves.fastLinearToSlowEaseIn,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: _w / 20),
+                          height: _w / 4,
+                          decoration: BoxDecoration(
+                            color: Color(0xff1f1f55),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 40,
+                                spreadRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VideoPlay(
+                                      videoLink: RecentScreenList[index].recentPath,
                                     ),
                                   ),
-                                ),
-                              );
-                              cards.add(customizableCard);
-                            }
-                            return Stack(children: cards);
-                          },
-                        )
-                        //   }
-                        // ),
+                                );
+                              },
+                              onLongPress: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) {
+                                      return AlertDialog(
+                                        backgroundColor: Color(0xf060625),
+                                        content: optionPopup(),
+                                      );
+                                    });
+                              },
+                              leading:
+                                  Image.asset("assets/images/download.jpeg"),
+                              title: Text(
+                                RecentScreenList[index].recentPath.split('/').last,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                "10 Videos",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              trailing: Favourites(
+                                videoPath: RecentScreenList[index].recentPath,
+                                isPressed2: favVideos.value.contains(RecentScreenList[index]) ? false : true
+                              ),
+                            ),
+                          ),
                         ),
-                    Positioned.fill(
-                      child: PageView.builder(
-                        physics: BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics()),
-                        itemCount: recentList.length - 1,
-                        controller: pageController,
-                        itemBuilder: (context, index) {
-                          return SizedBox();
-                        },
                       ),
                     ),
-                  ],
-                ),
+                  );
+                },
               );
-            }));
+            }),
+      ),
+    );
   }
 }
