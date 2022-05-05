@@ -25,7 +25,7 @@ Widget getListView(
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              backgroundColor: Color(0xf060625),
+              backgroundColor: Color.fromARGB(15, 255, 255, 255),
               content: optionPopup(),
             );
           });
@@ -51,13 +51,17 @@ Widget getListView(
             key: KeysToBeInherited.of(context).key4,
             child: Favourites(
               videoPath: videosWithIndex[index].path,
-              isPressed2: favVideos.value.contains(videosWithIndex[index].path) ? false : true ,
+              isPressed2: favVideos.value.contains(videosWithIndex[index].path)
+                  ? false
+                  : true,
             ),
             description: "Add to Favourites Here")
         : Favourites(
-          isPressed2: favVideos.value.contains(videosWithIndex[index].path) ? false : true,
-          videoPath: videosWithIndex[index].path,
-        ),
+            isPressed2: favVideos.value.contains(videosWithIndex[index].path)
+                ? false
+                : true,
+            videoPath: videosWithIndex[index].path,
+          ),
   );
 }
 
@@ -103,8 +107,7 @@ class _sortDropdownState extends State<sortDropdown> {
             dropdownValue = newValue!;
           });
         },
-        items: ['A to Z', 'Duration', 'Date', 'FileSize']
-            .map((String value) {
+        items: ['A to Z', 'Duration', 'Date', 'FileSize'].map((String value) {
           return DropdownMenuItem(
             value: value,
             child: Text(value),

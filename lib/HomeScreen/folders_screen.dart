@@ -6,7 +6,7 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
-import 'package:visual_magic/MenuDrawer/menu_drawe.dart';
+import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';

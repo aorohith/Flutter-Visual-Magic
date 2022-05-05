@@ -2,15 +2,8 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
-import 'package:visual_magic/MenuDrawer/about_screen.dart';
-import 'package:visual_magic/MenuDrawer/contact_screen.dart';
-import 'package:visual_magic/MenuDrawer/feedback_screen.dart';
-import 'package:visual_magic/MenuDrawer/share_page.dart';
-import 'package:visual_magic/MenuDrawer/user.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/Videos/video_screen.dart';
 import 'package:visual_magic/db/functions.dart';
-import 'package:visual_magic/main.dart';
 
 //#################...Flosting Video play Button..#############
 
@@ -161,7 +154,7 @@ class _FavouritesState extends State<Favourites> {
               )
             : Icon(
                 Icons.favorite,
-                color: Colors.pink.withOpacity(1.0),
+                color: Color(0xffED3030),
               ),
       ),
     );

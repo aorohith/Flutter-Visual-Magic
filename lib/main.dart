@@ -1,3 +1,4 @@
+import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,7 +25,7 @@ void main() async {
   recentDB = await Hive.openBox('recent_db');
 
   // box = await Hive.openBox('fav_db');
-  runApp(const MyApp());
+  runApp(BetterFeedback(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,9 +41,10 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             useInheritedMediaQuery: true,
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
+           theme: ThemeData(
+       appBarTheme: AppBarTheme(
+     color: const Color(0xFF151026),
+  )),
             home: SplashScreen(),
           );
         });
