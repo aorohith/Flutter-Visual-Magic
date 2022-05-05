@@ -64,7 +64,7 @@ class FavouritesScreen extends StatelessWidget {
                             },
                             leading: Image.asset("assets/images/download.jpeg"),
                             title: Text(
-                              newFav[index].split('/').last,
+                              newFav[index].split('/').last,  
                               style: TextStyle(
                                   color: Colors.white, fontWeight: FontWeight.bold),
                             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
@@ -18,7 +17,7 @@ ValueNotifier<List> filteredFolderVideos =
     ValueNotifier([]); //folder click videos
 ValueNotifier<List<String>> favVideos = ValueNotifier([]);
 
-List<RecentModel> recentVideos = [];
+ValueNotifier<List<RecentModel>> recentVideos = ValueNotifier([]);
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -183,13 +182,13 @@ removeFromFav(String value) {
 //###################...recent section...####################
 
 getRecentList() async {
-  recentVideos.clear();
-  if (recentDB.values != null) {
+  recentVideos.value.clear();
+  if (recentDB.values.isNotEmpty) {
     List<RecentModel> dbRecent = recentDB.values.toList();
-    recentVideos.addAll(dbRecent);
-    recentVideos.reversed;
+    recentVideos.value.addAll(dbRecent);
+    recentVideos.value.reversed;
     print("##################################################");
-    print(recentVideos.length);
+    print(recentVideos.value.length);
   }
 }
 
@@ -199,13 +198,21 @@ addToRecent(RecentModel value) async {
     final values = recentDB.values.toList();
     for (int i = 0; i < keys.length; i++) {
       if (values[i].recentPath == value.recentPath) {
-        await recentDB.delete(keys[i]);
+        recentDB.delete(keys[i]);
         break;
       }
     }
   }
+  print("777777777777777777777777777777777777777777");
   print(recentDB.values);
-  await recentDB.add(value);
+  recentDB.add(value);
   getRecentList();
 }
-// clear(){print(recentDB.length);}
+
+clear() {
+  recentDB.clear();
+}
+
+length() {
+  print(recentDB.length);
+}
