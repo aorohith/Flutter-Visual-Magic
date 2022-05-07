@@ -16,6 +16,7 @@ Widget getListView(
         MaterialPageRoute(
           builder: (context) => VideoPlay(
             videoLink: videosWithIndex[index].path,
+            videoWithInfo: videosWithIndex[index],
           ),
         ),
       );

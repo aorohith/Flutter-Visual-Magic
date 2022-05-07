@@ -76,8 +76,6 @@ getFolderVideos(String path) {
 
   var splitted = path.split('/');
 
-  print(splitted);
-
   for (String singlePath in fetchedVideosPath) {
     if (singlePath.startsWith(path)) {
       matchedVideoPath.add(singlePath);
@@ -158,9 +156,8 @@ fetchFav() async {
   // favVideos.value.addAll(temp);
   // favVideos.notifyListeners();
   // await box.put('favList', temp);
-  List<String> temp = await favDB.get('favList').favVideo;
-  favVideos.value.addAll(temp);
-  print(favDB.get('favList').favVideo);
+    List<String> temp = await favDB.get('favList').favVideo;
+    favVideos.value.addAll(temp);
 }
 // }
 

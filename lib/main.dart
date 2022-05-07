@@ -2,20 +2,22 @@ import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visual_magic/Main/splash_screen.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
+import 'package:visual_magic/on_boarding_screen.dart';
 
 // late var box;
 late var userDB;
 late var favDB;
 late Box<RecentModel> recentDB;
-
+int? initScreen;
 
 void main() async {
   await Hive.initFlutter();
-  if(!Hive.isAdapterRegistered(UserModelAdapter().typeId)){
+  if (!Hive.isAdapterRegistered(UserModelAdapter().typeId)) {
     Hive.registerAdapter(UserModelAdapter());
     Hive.registerAdapter(FavouritesAdapter());
     Hive.registerAdapter(RecentModelAdapter());
@@ -24,15 +26,21 @@ void main() async {
   favDB = await Hive.openBox('fav_db');
   recentDB = await Hive.openBox('recent_db');
 
-  // box = await Hive.openBox('fav_db');
-  runApp(BetterFeedback(child: const MyApp()));
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  initScreen = prefs.getInt('initScreen');
+  await prefs.setInt('initScreen', 1);
+
+  runApp(BetterFeedback(child:  MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+   MyApp({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+     
+
     return ScreenUtilInit(
         designSize: Size(2246, 1080),
         minTextAdapt: true,
@@ -41,12 +49,17 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             useInheritedMediaQuery: true,
-           theme: ThemeData(
-       appBarTheme: AppBarTheme(
-     color: const Color(0xFF151026),
-  )),
-            home: SplashScreen(),
+            theme: ThemeData(
+                appBarTheme: AppBarTheme(
+              color: const Color(0xFF151026),
+            )),
+            initialRoute: initScreen == 0 || initScreen == null ?  'onBoardingScreen' : 'splashScreen',  
+            routes: {
+        'onBoardingScreen': (context) => OnBoardingScreen(),
+        "splashScreen": (context) => SplashScreen(),
+      },
           );
         });
   }
+  
 }

@@ -5,8 +5,6 @@ import 'dart:io';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'package:visual_magic/MenuDrawer/about_screen.dart';
-import 'package:visual_magic/MenuDrawer/contact_screen.dart';
 import 'package:visual_magic/MenuDrawer/user.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
