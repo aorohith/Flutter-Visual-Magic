@@ -6,6 +6,7 @@ import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:visual_magic/MenuDrawer/user.dart';
+import 'package:visual_magic/Playlist/playlist_screen.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
 
@@ -55,8 +56,8 @@ class MenuDrawer extends StatelessWidget {
                     height: 30,
                   ),
                   buildMenuItem(
-                    text: "Share",
-                    icon: Icons.share,
+                    text: "PlayLists",
+                    icon: Icons.playlist_add_check,
                     onClicked: () {
                       selectedItem(context, 0);
                     },
@@ -65,8 +66,8 @@ class MenuDrawer extends StatelessWidget {
                     height: 30,
                   ),
                   buildMenuItem(
-                      text: "Feedback",
-                      icon: Icons.feedback_outlined,
+                      text: "Share",
+                      icon: Icons.share,
                       onClicked: () {
                         selectedItem(context, 1);
                       }),
@@ -74,10 +75,20 @@ class MenuDrawer extends StatelessWidget {
                     height: 30,
                   ),
                   buildMenuItem(
-                      text: "About Us",
-                      icon: Icons.info,
+                      text: "Feedback",
+                      icon: Icons.feedback_outlined,
                       onClicked: () {
                         selectedItem(context, 2);
+                      }),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  buildMenuItem(
+                      text: "About Us",
+                      icon: Icons.info,
+                      subTitle: "1.0.0",
+                      onClicked: () {
+                        selectedItem(context, 3);
                       }),
                   const SizedBox(
                     height: 30,
@@ -87,7 +98,7 @@ class MenuDrawer extends StatelessWidget {
                       icon: Icons.adb,
                       subTitle: "1.0.0",
                       onClicked: () {
-                        selectedItem(context, 3);
+                        selectedItem(context, 4);
                       }),
                 ],
               ),
@@ -98,12 +109,12 @@ class MenuDrawer extends StatelessWidget {
     );
   }
 
-  Widget buildMenuItem(
-      {required String text,
-      required IconData icon,
-      required VoidCallback onClicked,
-      String subTitle='',
-      }) {
+  Widget buildMenuItem({
+    required String text,
+    required IconData icon,
+    required VoidCallback onClicked,
+    String subTitle = '',
+  }) {
     final color = Colors.white;
     final hoverColor = Colors.white70;
     return ListTile(
@@ -116,7 +127,10 @@ class MenuDrawer extends StatelessWidget {
         text,
         style: TextStyle(color: color, fontSize: 18),
       ),
-      subtitle: Text(subTitle,style: TextStyle(color: Colors.grey),),
+      subtitle: Text(
+        subTitle,
+        style: TextStyle(color: Colors.grey),
+      ),
       hoverColor: hoverColor,
       onTap: onClicked,
     );
@@ -170,15 +184,24 @@ class MenuDrawer extends StatelessWidget {
   void selectedItem(BuildContext context, int index) {
     switch (index) {
       case 0:
-        share();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => Playlist(
+              path: "path",
+            ),
+          ),
+        );
         break;
       case 1:
-        Navigator.pop(context);
-        BetterFeedback.of(context).show((UserFeedback feedback) {});
-
+        share();
         break;
       case 2:
-      showAboutDialog(
+        Navigator.pop(context);
+        BetterFeedback.of(context).show((UserFeedback feedback) {});
+        break;
+      case 3:
+        showAboutDialog(
             context: context,
             applicationIcon: Image(
               image: AssetImage('assets/images/appIcon.png'),
@@ -190,12 +213,13 @@ class MenuDrawer extends StatelessWidget {
             children: [
               Text('V!sual Magic is a Video Player created by Rohith A O')
             ]);
-       
-        break;
-      case 3:
-        
+
         // Navigator.of(context)
         //     .push(MaterialPageRoute(builder: (context) => AboutScreen()));
+        break;
+      case 4:
+        Navigator.pop(context);
+        BetterFeedback.of(context).show((UserFeedback feedback) {});
         break;
     }
   }

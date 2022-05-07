@@ -4,6 +4,7 @@ import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
+import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/main.dart';
 
@@ -18,6 +19,9 @@ ValueNotifier<List> filteredFolderVideos =
 ValueNotifier<List<String>> favVideos = ValueNotifier([]);
 
 ValueNotifier<List<RecentModel>> recentVideos = ValueNotifier([]);
+ValueNotifier<List<PlayListName>> playLists = ValueNotifier([]);
+ValueNotifier<List<PlayListVideos>> playListVideos = ValueNotifier([]);
+
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -207,4 +211,32 @@ clear() {
 
 length() {
   print(recentDB.length);
+}
+
+// ####################....PLAYLIST SECTION....######################
+
+getPlayList() async{
+  if (playListNameDB.values.isNotEmpty) {
+    playLists.value = playListNameDB.values.toList();
+  }
+}
+
+addPlayList(PlayListName playListName) async{
+  playLists.value.add(playListName);
+  await playListNameDB.add(playListName) ;
+  print("playlist added");
+}
+
+editPlayList(){
+  //
+}
+
+addPlayListVideos(PlayListVideos playListVideo) {
+  playListVideos.value.add(playListVideo);
+  playListVideosDB.add(playListVideo);
+}
+
+removePlayListVideos(PlayListVideos playListVideo){
+  playListVideos.value.remove(playListVideo);
+  // for(String video in )
 }

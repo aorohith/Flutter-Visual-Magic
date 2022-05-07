@@ -7,9 +7,8 @@ import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/db/Models/Recent/recent_model.dart';
+import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/db/functions.dart';
-import 'package:visual_magic/main.dart';
 
 // List<String>? _fetchedFolders;
 
@@ -41,11 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ElevatedButton(
             onPressed: () {
               print("Button Clicked");
-              length();
-              // var recent = RecentModel(
-              //     recentPath: "widget.videoLinkghj", recentDate: DateTime.now());
-              // addToRecent(recent);
-              // clear();
+              getPlayList();
+              // final name = PlayListName(playListName: "Rohithhhh");
+              // addPlayList(name);
             },
             child: Text("Hai"),
           ),
