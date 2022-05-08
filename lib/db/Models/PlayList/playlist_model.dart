@@ -21,11 +21,11 @@ class PlayListVideos {
   String playListName;
 
   @HiveField(1)
-  String playListSong;
+  String playListVideo;
 
 
   PlayListVideos ({
     required this.playListName,
-    required this.playListSong,
+    required this.playListVideo,
   });
 }

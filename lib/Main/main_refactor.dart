@@ -164,7 +164,7 @@ class _FavouritesState extends State<Favourites> {
 
 //###########...Popup for videos is Fav, watch later and all videos sec...#############
 
-Widget optionPopup(context) {
+Widget optionPopup({required context, required recentVideoPath}) {
   return Container(
     height: 200,
     width: 250,
@@ -183,7 +183,7 @@ Widget optionPopup(context) {
               primary: const Color(0xff1F1F55),
             ),
             onPressed: () {
-              playlistVideoPopup(context);
+              playlistVideoPopup(context: context, playlistVideoPath: recentVideoPath);
             },
             child: const Text(
               "Add to Playlist",

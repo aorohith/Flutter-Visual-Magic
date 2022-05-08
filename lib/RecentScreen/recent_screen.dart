@@ -111,7 +111,12 @@ class _RecentScreenState extends State<RecentScreen> {
                                           builder: (ctx) {
                                             return AlertDialog(
                                               backgroundColor: Color(0xf060625),
-                                              content: optionPopup(context),
+                                              content: optionPopup(
+                                                context: context,
+                                                recentVideoPath:
+                                                    recentList[index]
+                                                        .recentPath,
+                                              ),
                                             );
                                           });
                                     },

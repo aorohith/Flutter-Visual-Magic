@@ -221,8 +221,16 @@ editPlayList(){
 
 //playlist  video add
 addPlayListVideos(PlayListVideos playListVideo) {
-  playListVideos.value.add(playListVideo);
-  playListVideosDB.add(playListVideo);
+   List<PlayListVideos> currentList = playListVideosDB.values.toList();
+  var contains = currentList.where((element) => element.playListName == playListVideo.playListName && element.playListVideo == playListVideo.playListVideo);
+  if(contains.isNotEmpty){
+    return false;
+  }else{
+    playListVideosDB.add(playListVideo);
+    return true;
+  }
+  // playListVideos.value.add(playListVideo);
+  
 }
 
 removePlayListVideos(PlayListVideos playListVideo){

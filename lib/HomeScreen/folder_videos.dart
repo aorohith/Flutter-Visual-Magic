@@ -35,7 +35,6 @@ class _FolderVideosState extends State<FolderVideos> {
       backgroundColor: Color(0xff060625),
       appBar: AppBar(
         title: Text("Camera"),
-        
         backgroundColor: Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
@@ -93,7 +92,11 @@ class _FolderVideosState extends State<FolderVideos> {
                                     builder: (ctx) {
                                       return AlertDialog(
                                         backgroundColor: Color(0xf060625),
-                                        content: optionPopup(context),
+                                        content: optionPopup(
+                                          context: context,
+                                          recentVideoPath:
+                                              folderVideosList[index],
+                                        ),
                                       );
                                     });
                               },
@@ -110,9 +113,11 @@ class _FolderVideosState extends State<FolderVideos> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               trailing: Favourites(
-                                videoPath: folderVideosList[index],
-                                isPressed2: favVideos.value.contains(folderVideosList[index]) ? false : true
-                              ),
+                                  videoPath: folderVideosList[index],
+                                  isPressed2: favVideos.value
+                                          .contains(folderVideosList[index])
+                                      ? false
+                                      : true),
                             ),
                           ),
                         ),

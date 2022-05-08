@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/main.dart';
+
+import '../db/functions.dart';
 
 Widget playlistAdd(context) {
   return FloatingActionButton(
@@ -70,54 +73,102 @@ addNewPlaylist(String value, BuildContext context) {
 
 //add new play list videos to ########
 
-playlistVideoPopup(context) {
+playlistVideoPopup({required context, required playlistVideoPath}) {
   print("clicked");
   final GlobalKey<FormState> _formKey =
       GlobalKey(); //currentstate.validate not work without <FormState>
   TextEditingController _textController = TextEditingController();
+  bool notifyText = false;
   showDialog(
       context: context,
       builder: (context) => Form(
             key: _formKey,
             child: AlertDialog(
               title: Text("Playlists"),
-              content: Column(
-                children: [
-                  TextFormField(
-                    controller: _textController,
-                    decoration: InputDecoration(labelText: "New Playlist"),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Enter Playlist Name";
-                      } else if (checkPlaylistExists(value).isNotEmpty) {
-                        return "Playlist already exists";
-                      }
-                    },
-                  ),
-                  // ListView.builder(
-                  //     itemCount: 10,
-                  //     itemBuilder: (context, index) {
-                  //       return ListTile(
-                  //         title: Text('playlist$index'),
-                  //       );
-                  //     },
-                  //   ),
-                ],
+              content: ValueListenableBuilder(
+                valueListenable: playListNameDB.listenable(),
+                builder: (BuildContext ctx, Box<PlayListName> playListName,
+                    Widget? child) {
+                  bool notifyEnable = false;
+
+                  return Container(
+                    height: 300,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _textController,
+                          decoration:
+                              InputDecoration(labelText: "New Playlist"),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Playlist Name";
+                            } else if (checkPlaylistExists(value).isNotEmpty) {
+                              return "Playlist already exists";
+                            }
+                          },
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              addNewPlaylist(
+                                  _textController.text.trim(), context);
+                              final snackBar =
+                                  SnackBar(content: Text("Playlist Added"));
+                            }
+                          },
+                          child: Text(
+                            "Add New",
+                          ),
+                        ),
+                        Visibility(
+                          visible: notifyEnable,
+                          child: Text(
+                            "Already Exists",
+                          ),
+                        ),
+                        Container(
+                          height: 190.0, // Change as per your requirement
+                          width: 300.0,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: playListName.length,
+                            itemBuilder: (context, index) {
+                              PlayListName? playName =
+                                  playListName.getAt(index);
+                              return ListTile(
+                                visualDensity:
+                                    VisualDensity(horizontal: 0, vertical: 0),
+                                onTap: () {
+                                  notifyEnable = !notifyEnable;
+                                  ;
+                                  final playListVideoToAdd = PlayListVideos(
+                                    playListName: playName!.playListName,
+                                    playListVideo: playlistVideoPath,
+                                  );
+                                  final contains =
+                                      addPlayListVideos(playListVideoToAdd);
+                                  if (contains) {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context, true);
+
+                                    print("The video added successfully");
+                                  } else {
+                                    //  Navigator.pop(context);
+                                    // Navigator.pop(context, true);
+                                    notifyText = true;
+                                    print("The video already exists");
+                                  }
+                                },
+                                title: Text("${playName!.playListName}"),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      addNewPlaylist(_textController.text.trim(), context);
-                      final snackBar =
-                          SnackBar(content: Text("Playlist Added"));
-                    }
-                  },
-                  child: Text(
-                    "Add New",
-                  ),
-                ),
-              ],
             ),
           ));
 }

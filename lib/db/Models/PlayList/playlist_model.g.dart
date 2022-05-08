@@ -52,7 +52,7 @@ class PlayListVideosAdapter extends TypeAdapter<PlayListVideos> {
     };
     return PlayListVideos(
       playListName: fields[0] as String,
-      playListSong: fields[1] as String,
+      playListVideo: fields[1] as String,
     );
   }
 
@@ -63,7 +63,7 @@ class PlayListVideosAdapter extends TypeAdapter<PlayListVideos> {
       ..writeByte(0)
       ..write(obj.playListName)
       ..writeByte(1)
-      ..write(obj.playListSong);
+      ..write(obj.playListVideo);
   }
 
   @override
