@@ -215,22 +215,11 @@ length() {
 
 // ####################....PLAYLIST SECTION....######################
 
-getPlayList() async{
-  if (playListNameDB.values.isNotEmpty) {
-    playLists.value = playListNameDB.values.toList();
-  }
-}
-
-addPlayList(PlayListName playListName) async{
-  playLists.value.add(playListName);
-  await playListNameDB.add(playListName) ;
-  print("playlist added");
-}
-
 editPlayList(){
   //
 }
 
+//playlist  video add
 addPlayListVideos(PlayListVideos playListVideo) {
   playListVideos.value.add(playListVideo);
   playListVideosDB.add(playListVideo);

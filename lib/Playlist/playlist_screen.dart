@@ -50,7 +50,8 @@ class _PlaylistState extends State<Playlist> {
               return ListView.builder(
                 padding: EdgeInsets.all(_w / 30),
                 physics: BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
                 itemCount: playListName.length,
                 itemBuilder: (BuildContext context, int index) {
                   PlayListName? playName = playListName.getAt(index);
@@ -87,7 +88,8 @@ class _PlaylistState extends State<Playlist> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => PlaylistVideos(path: ""),
+                                    builder: (context) =>
+                                        PlaylistVideos(path: ""),
                                   ),
                                 );
                               },
