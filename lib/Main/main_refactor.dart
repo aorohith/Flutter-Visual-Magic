@@ -2,6 +2,7 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
+import 'package:visual_magic/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/functions.dart';
 
@@ -163,7 +164,7 @@ class _FavouritesState extends State<Favourites> {
 
 //###########...Popup for videos is Fav, watch later and all videos sec...#############
 
-Widget optionPopup() {
+Widget optionPopup(context) {
   return Container(
     height: 200,
     width: 250,
@@ -174,6 +175,22 @@ Widget optionPopup() {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
+        SizedBox(
+          height: 40,
+          width: 200,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: const Color(0xff1F1F55),
+            ),
+            onPressed: () {
+              playlistVideoPopup(context);
+            },
+            child: const Text(
+              "Add to Playlist",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+        ),
         SizedBox(
           height: 40,
           width: 200,

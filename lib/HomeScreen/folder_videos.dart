@@ -93,7 +93,7 @@ class _FolderVideosState extends State<FolderVideos> {
                                     builder: (ctx) {
                                       return AlertDialog(
                                         backgroundColor: Color(0xf060625),
-                                        content: optionPopup(),
+                                        content: optionPopup(context),
                                       );
                                     });
                               },

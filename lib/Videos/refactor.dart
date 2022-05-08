@@ -27,7 +27,7 @@ Widget getListView(
           builder: (ctx) {
             return AlertDialog(
               backgroundColor: Color.fromARGB(15, 255, 255, 255),
-              content: optionPopup(),
+              content: optionPopup(context),
             );
           });
     },
