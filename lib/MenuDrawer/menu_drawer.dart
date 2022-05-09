@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:visual_magic/MenuDrawer/user.dart';
 import 'package:visual_magic/Playlist/playlist_screen.dart';
+import 'package:visual_magic/WatchLater/watch_later.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
 
@@ -56,7 +57,7 @@ class MenuDrawer extends StatelessWidget {
                     height: 30,
                   ),
                   buildMenuItem(
-                    text: "PlayLists",
+                    text: "WatchLater",
                     icon: Icons.playlist_add_check,
                     onClicked: () {
                       selectedItem(context, 0);
@@ -66,10 +67,20 @@ class MenuDrawer extends StatelessWidget {
                     height: 30,
                   ),
                   buildMenuItem(
+                    text: "PlayLists",
+                    icon: Icons.playlist_add_check,
+                    onClicked: () {
+                      selectedItem(context, 1);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  buildMenuItem(
                       text: "Share",
                       icon: Icons.share,
                       onClicked: () {
-                        selectedItem(context, 1);
+                        selectedItem(context, 2);
                       }),
                   const SizedBox(
                     height: 30,
@@ -78,7 +89,7 @@ class MenuDrawer extends StatelessWidget {
                       text: "Feedback",
                       icon: Icons.feedback_outlined,
                       onClicked: () {
-                        selectedItem(context, 2);
+                        selectedItem(context, 3);
                       }),
                   const SizedBox(
                     height: 30,
@@ -88,7 +99,7 @@ class MenuDrawer extends StatelessWidget {
                       icon: Icons.info,
                       subTitle: "1.0.0",
                       onClicked: () {
-                        selectedItem(context, 3);
+                        selectedItem(context, 4);
                       }),
                   const SizedBox(
                     height: 30,
@@ -98,7 +109,7 @@ class MenuDrawer extends StatelessWidget {
                       icon: Icons.adb,
                       subTitle: "1.0.0",
                       onClicked: () {
-                        selectedItem(context, 4);
+                        selectedItem(context, 5);
                       }),
                 ],
               ),
@@ -184,6 +195,14 @@ class MenuDrawer extends StatelessWidget {
   void selectedItem(BuildContext context, int index) {
     switch (index) {
       case 0:
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (ctx) => WatchLater(),
+          ),
+        );
+        break;
+      case 1:
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -192,15 +211,17 @@ class MenuDrawer extends StatelessWidget {
             ),
           ),
         );
-        break;
-      case 1:
-        share();
+
         break;
       case 2:
+        share();
+
+        break;
+      case 3:
         Navigator.pop(context);
         BetterFeedback.of(context).show((UserFeedback feedback) {});
         break;
-      case 3:
+      case 4:
         showAboutDialog(
             context: context,
             applicationIcon: Image(
@@ -214,13 +235,10 @@ class MenuDrawer extends StatelessWidget {
               Text('V!sual Magic is a Video Player created by Rohith A O')
             ]);
 
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => AboutScreen()));
         break;
-      case 4:
+      case 5:
         Navigator.pop(context);
         BetterFeedback.of(context).show((UserFeedback feedback) {});
-        break;
     }
   }
 

@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/main.dart';
 
 List<String>? fetchedVideos;
 
-class FolderVideos extends StatefulWidget {
-  final path;
-  const FolderVideos({Key? key, required this.path}) : super(key: key);
+class WatchLater extends StatefulWidget {
+
+  const WatchLater({Key? key}) : super(key: key);
 
   @override
-  State<FolderVideos> createState() => _FolderVideosState();
+  State<WatchLater> createState() => _WatchLaterState();
 }
 
-class _FolderVideosState extends State<FolderVideos> {
-  @override
-  void initState() {
-    getFolderVideos(widget.path);
-    // TODO: implement initState
-    super.initState();
-  }
+class _WatchLaterState extends State<WatchLater> {
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +31,21 @@ class _FolderVideosState extends State<FolderVideos> {
       floatingActionButton: PlayButton(context),
       backgroundColor: Color(0xff060625),
       appBar: AppBar(
-        title: Text("Camera"),
+        title: Text("WatchLater"),
         backgroundColor: Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
-            valueListenable: filteredFolderVideos,
-            builder: (BuildContext ctx, List<dynamic> folderVideosList,
+            valueListenable: watchlaterDB.listenable(),
+            builder: (BuildContext ctx, Box<WatchlaterModel> watchlaters,
                 Widget? child) {
               return ListView.builder(
                 padding: EdgeInsets.all(_w / 30),
                 physics: BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
-                itemCount: folderVideosList.length,
+                itemCount: watchlaters.length,
                 itemBuilder: (BuildContext context, int index) {
+                  WatchlaterModel? watchlater = watchlaters.getAt(index);
                   return AnimationConfiguration.staggeredList(
                     position: index,
                     delay: Duration(milliseconds: 100),
@@ -81,7 +79,7 @@ class _FolderVideosState extends State<FolderVideos> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => VideoPlay(
-                                      videoLink: folderVideosList[index],
+                                      videoLink: watchlater!.laterPath,
                                     ),
                                   ),
                                 );
@@ -95,7 +93,7 @@ class _FolderVideosState extends State<FolderVideos> {
                                         content: optionPopup(
                                           context: context,
                                           recentVideoPath:
-                                              folderVideosList[index],
+                                              watchlater!.laterPath,
                                               index: index
                                         ),
                                       );
@@ -104,7 +102,7 @@ class _FolderVideosState extends State<FolderVideos> {
                               leading:
                                   Image.asset("assets/images/download.jpeg"),
                               title: Text(
-                                folderVideosList[index].split('/').last,
+                                watchlater!.laterPath.split('/').last,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
@@ -114,9 +112,9 @@ class _FolderVideosState extends State<FolderVideos> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               trailing: Favourites(
-                                  videoPath: folderVideosList[index],
+                                  videoPath: watchlater.laterPath,
                                   isPressed2: favVideos.value
-                                          .contains(folderVideosList[index])
+                                          .contains(watchlater.laterPath)
                                       ? false
                                       : true),
                             ),

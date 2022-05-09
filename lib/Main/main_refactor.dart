@@ -4,7 +4,10 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/WatchLater/watch_later.dart';
+import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/main.dart';
 
 //#################...Flosting Video play Button..#############
 
@@ -77,7 +80,7 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
                         .toLowerCase()
                         .contains(_textController.text.toLowerCase()))
                     .toList();
-                    fetchedVideosWithInfo.notifyListeners();
+                fetchedVideosWithInfo.notifyListeners();
                 break;
               case "Favourites":
                 searchList = favVideos.value;
@@ -123,12 +126,11 @@ class _FavouritesState extends State<Favourites> {
       onTap: () {
         setState(() {
           widget.isPressed2 = !widget.isPressed2;
-          if(!widget.isPressed2){
+          if (!widget.isPressed2) {
             addToFavList(widget.videoPath);
-          }else{
+          } else {
             removeFromFav(widget.videoPath);
           }
-          
         });
       },
       child: AnimatedContainer(
@@ -164,77 +166,127 @@ class _FavouritesState extends State<Favourites> {
 
 //###########...Popup for videos is Fav, watch later and all videos sec...#############
 
-Widget optionPopup({required context, required recentVideoPath}) {
-  return Container(
-    height: 200,
-    width: 250,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20),
-      color: const Color(0xff060625),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: const Color(0xff1F1F55),
-            ),
-            onPressed: () {
-              playlistVideoPopup(context: context, playlistVideoPath: recentVideoPath);
-            },
-            child: const Text(
-              "Add to Playlist",
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
+Widget optionPopup({required context, required recentVideoPath, required index}) {
+  bool isExists = checkWatchlater(recentVideoPath);//true if video not indb Else inDB
+  // print(isExists);
+
+
+  return Builder(
+    builder: (context) {
+      return Container(
+        height: 200,
+        width: 250,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: const Color(0xff060625),
         ),
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: const Color(0xff1F1F55),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff1F1F55),
+                ),
+                onPressed: () {
+                  playlistVideoPopup(
+                      context: context, playlistVideoPath: recentVideoPath);
+                },
+                child: const Text(
+                  "Add to Playlist",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ),
-            onPressed: () {},
-            child: const Text(
-              "Add to Watch Later",
-              style: TextStyle(fontSize: 18),
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff1F1F55),
+                ),
+                onPressed: () {
+                  print("clicked");
+                  final watchlater = WatchlaterModel(laterPath: recentVideoPath);
+                  if(isExists){
+                    watchlaterDB.add(watchlater);
+                    Navigator.pop(context);
+                  }else{
+                    watchlaterDB.deleteAt(index);
+                    Navigator.pop(context);
+                  }
+                },
+                child: isExists
+                    ? Text(
+                        "Add to Watch Later",
+                        style: TextStyle(fontSize: 18),
+                      )
+                    : Text(
+                        "Remove from Watchlater",
+                        style: TextStyle(fontSize: 18),
+                      ),
+              ),
             ),
-          ),
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff1F1F55),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  "Rename",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 40,
+              width: 200,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xff1F1F55),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  "Delete",
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
+          ],
         ),
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: const Color(0xff1F1F55),
-            ),
-            onPressed: () {},
-            child: const Text(
-              "Rename",
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 40,
-          width: 200,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: const Color(0xff1F1F55),
-            ),
-            onPressed: () {},
-            child: const Text(
-              "Delete",
-              style: const TextStyle(fontSize: 18),
-            ),
-          ),
-        ),
-      ],
-    ),
+      );
+    }
   );
 }
 
+
+addWatchLater(WatchlaterModel value){
+  watchlaterDB.add(value);
+}
+
+
+checkWatchlater(String watchlaterVideoPath) {
+  print(watchlaterVideoPath);
+  if (watchlaterDB.isNotEmpty) {
+    List<WatchlaterModel> watchlaterPaths = watchlaterDB.values.toList();
+    final isExists = watchlaterPaths
+        .where((itemToCheck) => itemToCheck.laterPath == watchlaterVideoPath);
+        print(isExists.length);
+    if (isExists.isEmpty) {
+      return true;//no matching element found
+    } else {
+      return false;//matching element found in db
+    }
+  }
+
+
+}
+
+printt(){
+  print(watchlaterDB.length);
+}

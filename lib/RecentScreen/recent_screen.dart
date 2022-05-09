@@ -116,6 +116,7 @@ class _RecentScreenState extends State<RecentScreen> {
                                                 recentVideoPath:
                                                     recentList[index]
                                                         .recentPath,
+                                                        index: index
                                               ),
                                             );
                                           });

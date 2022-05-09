@@ -30,6 +30,7 @@ Widget getListView(
               content: optionPopup(
                 context: context,
                 recentVideoPath: videosWithIndex[index].path,
+                index: index
               ),
             );
           });

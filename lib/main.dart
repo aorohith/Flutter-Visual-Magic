@@ -7,6 +7,7 @@ import 'package:visual_magic/Main/splash_screen.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
+import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/on_boarding_screen.dart';
 
@@ -16,6 +17,8 @@ late var favDB;
 late Box<RecentModel> recentDB;
 late Box<PlayListName> playListNameDB;
 late Box<PlayListVideos> playListVideosDB;
+late Box<WatchlaterModel> watchlaterDB;
+
 
 int? initScreen;
 
@@ -27,6 +30,7 @@ void main() async {
     Hive.registerAdapter(RecentModelAdapter());
     Hive.registerAdapter(PlayListNameAdapter());
     Hive.registerAdapter(PlayListVideosAdapter());
+    Hive.registerAdapter(WatchlaterModelAdapter());
 
   }
   userDB = await Hive.openBox('student_db');
@@ -34,6 +38,8 @@ void main() async {
   recentDB = await Hive.openBox('recent_db');
   playListNameDB = await Hive.openBox('playlist_name_db');
   playListVideosDB = await Hive.openBox('playlist_videos_db');
+  watchlaterDB = await Hive.openBox('watchlater_db');
+
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = prefs.getInt('initScreen');
