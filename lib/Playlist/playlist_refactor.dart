@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:visual_magic/Main/bottom_nav.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/main.dart';
 
 import '../db/functions.dart';
+
+bool notifyPlaylistVideo = false;
 
 Widget playlistAdd(context) {
   return FloatingActionButton(
@@ -89,8 +92,6 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                 valueListenable: playListNameDB.listenable(),
                 builder: (BuildContext ctx, Box<PlayListName> playListName,
                     Widget? child) {
-                  bool notifyEnable = false;
-
                   return Container(
                     height: 300,
                     child: Column(
@@ -112,18 +113,10 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                             if (_formKey.currentState!.validate()) {
                               addNewPlaylist(
                                   _textController.text.trim(), context);
-                              final snackBar =
-                                  SnackBar(content: Text("Playlist Added"));
                             }
                           },
                           child: Text(
                             "Add New",
-                          ),
-                        ),
-                        Visibility(
-                          visible: notifyEnable,
-                          child: Text(
-                            "Already Exists",
                           ),
                         ),
                         Container(
@@ -139,7 +132,7 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                                 visualDensity:
                                     VisualDensity(horizontal: 0, vertical: 0),
                                 onTap: () {
-                                  notifyEnable = !notifyEnable;
+                                  notifyPlaylistVideo = !notifyPlaylistVideo;
                                   ;
                                   final playListVideoToAdd = PlayListVideos(
                                     playListName: playName!.playListName,
@@ -149,13 +142,30 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                                       addPlayListVideos(playListVideoToAdd);
                                   if (contains) {
                                     Navigator.pop(context);
-                                    Navigator.pop(context, true);
-
                                     print("The video added successfully");
                                   } else {
-                                    //  Navigator.pop(context);
-                                    // Navigator.pop(context, true);
-                                    notifyText = true;
+                                    
+                                    // Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                    
+                                    // ScaffoldMessenger.of(context)
+                                    //                 .showSnackBar(const SnackBar(
+                                    //                     duration: Duration(
+                                    //                         seconds: 1),
+                                    //                     behavior:
+                                    //                         SnackBarBehavior
+                                    //                             .floating,
+                                    //                     // margin: EdgeInsets.only(
+                                    //                     //     bottom: 70.0),
+                                    //                     content: Text(
+                                    //                         "Already in list")));
+                                              
+                                    
+                                    
+                                    
+                                    notifyPlaylistVideo = true;
+                                      
                                     print("The video already exists");
                                   }
                                 },
