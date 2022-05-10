@@ -7,9 +7,6 @@ import 'package:visual_magic/HomeScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/WatchLater/watch_later.dart';
-import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
-import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/functions.dart';
 
 // List<String>? _fetchedFolders;
@@ -39,15 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text("Folders"),
         actions: [
-          ElevatedButton(
-            onPressed: () {
-              print("Button Clicked");
-              // printt();
-              // addWatchLater(WatchlaterModel(laterPath: "ggg"));
-              checkWatchlater("ggg");
-            },
-            child: Text("Hai"),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     print("Button Clicked");
+          //   },
+          //   child: Text("Hai"),
+          // ),
           Search(
             callFrom: "SearchScreen",
           ), //Search Refactor

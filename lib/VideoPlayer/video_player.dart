@@ -1,6 +1,5 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
 
@@ -38,9 +37,10 @@ class _VideoPlayState extends State<VideoPlay> {
         child: BetterPlayer.file(
           widget.videoLink,
           betterPlayerConfiguration: BetterPlayerConfiguration(
-            aspectRatio: 16 / 9,
-            autoDetectFullscreenAspectRatio:true,
-            // fullScreenByDefault:true,
+            aspectRatio: 16/9,
+            fullScreenByDefault:true,
+            autoPlay: true,
+            allowedScreenSleep:false,
           ),
         ),
       ),

@@ -206,10 +206,6 @@ addToRecent(RecentModel value) async {
   getRecentList();
 }
 
-clear() {
-  recentDB.clear();
-}
-
 length() {
   print(recentDB.length);
 }

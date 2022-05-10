@@ -3,9 +3,9 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/Videos/video_screen.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/main.dart';
 
 List<String>? fetchedVideos;
 
@@ -37,6 +37,39 @@ class _RecentScreenState extends State<RecentScreen> {
       appBar: AppBar(
         title: Text("Recently Played"),
         backgroundColor: Color(0xff2C2C6D),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Delete RecentVideos"),
+                    content: Text("Do you wants to clear recent?"),
+                    actions: [
+                      ElevatedButton(
+                        child: Text("Cancel"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ElevatedButton(
+                        child: Text("Delete"),
+                        onPressed: () {
+                        recentDB.clear();
+                        recentVideos.value.clear();
+                        recentVideos.notifyListeners();
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.delete),
+          ),
+        ],
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
@@ -112,12 +145,11 @@ class _RecentScreenState extends State<RecentScreen> {
                                             return AlertDialog(
                                               backgroundColor: Color(0xf060625),
                                               content: optionPopup(
-                                                context: context,
-                                                recentVideoPath:
-                                                    recentList[index]
-                                                        .recentPath,
-                                                        index: index
-                                              ),
+                                                  context: context,
+                                                  recentVideoPath:
+                                                      recentList[index]
+                                                          .recentPath,
+                                                  index: index),
                                             );
                                           });
                                     },
