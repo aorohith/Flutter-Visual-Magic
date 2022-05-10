@@ -169,7 +169,7 @@ class _FavouritesState extends State<Favourites> {
 Widget optionPopup({required context, required recentVideoPath, required index}) {
   bool isExists = checkWatchlater(recentVideoPath);//true if video not indb Else inDB
   // print(isExists);
-
+  final watchlaterModel = WatchlaterModel(laterPath: recentVideoPath);
 
   return Builder(
     builder: (context) {
@@ -209,12 +209,13 @@ Widget optionPopup({required context, required recentVideoPath, required index})
                 ),
                 onPressed: () {
                   print("clicked");
-                  final watchlater = WatchlaterModel(laterPath: recentVideoPath);
                   if(isExists){
-                    watchlaterDB.add(watchlater);
+                    watchlaterDB.add(watchlaterModel);
                     Navigator.pop(context);
                   }else{
-                    watchlaterDB.deleteAt(index);
+                    // watchlaterDB.deleteAt(index);
+
+                    deleteWatchlater(watchlaterModel);
                     Navigator.pop(context);
                   }
                 },
@@ -276,13 +277,13 @@ checkWatchlater(String watchlaterVideoPath) {
     List<WatchlaterModel> watchlaterPaths = watchlaterDB.values.toList();
     final isExists = watchlaterPaths
         .where((itemToCheck) => itemToCheck.laterPath == watchlaterVideoPath);
-        print(isExists.length);
     if (isExists.isEmpty) {
       return true;//no matching element found
     } else {
       return false;//matching element found in db
     }
   }
+  return true;
 
 
 }

@@ -6,6 +6,7 @@ import 'package:visual_magic/FetchFiles/search_files.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
+import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/main.dart';
 
 final videoInfo = FlutterVideoInfo(); //creating object of infoclass
@@ -236,4 +237,25 @@ addPlayListVideos(PlayListVideos playListVideo) {
 removePlayListVideos(PlayListVideos playListVideo){
   playListVideos.value.remove(playListVideo);
   // for(String video in )
+}
+
+//#################...Watch later...#####################
+
+deleteWatchlater(WatchlaterModel watchlater){
+  // final tempDB = watchlaterDB.values.toList();
+  // for(int i=0; i<tempDB.length; i++){
+  //   if(tempDB[i].laterPath == value.laterPath){
+      
+  //   }
+  // }
+
+  final Map<dynamic, WatchlaterModel> watchlaterMap = watchlaterDB.toMap();
+  dynamic desiredKey;
+  watchlaterMap.forEach((key, value) { 
+    if(value.laterPath == watchlater.laterPath){
+      desiredKey = key;
+    }
+  });
+  watchlaterDB.delete(desiredKey);
+
 }
