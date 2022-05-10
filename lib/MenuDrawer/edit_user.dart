@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
 
+UserModel _userData = userDB.values.toList()[0];
+
 class EditUserScreen extends StatefulWidget {
   final name;
   String assetImage;
@@ -16,16 +18,15 @@ class EditUserScreen extends StatefulWidget {
 }
 
 class _EditUserScreenState extends State<EditUserScreen> {
-  final _nameController = TextEditingController();
+  final _nameController = TextEditingController(text: _userData.name);
 
-  final _emailController = TextEditingController();
+  final _emailController = TextEditingController(text: _userData.email);
 
-  final _descriptionController = TextEditingController();
+  final _descriptionController =
+      TextEditingController(text: _userData.description);
 
   @override
   Widget build(BuildContext context) {
-    var userData = userDB.values;
-    print(userData);
     final ImagePicker _picker = ImagePicker();
     return Scaffold(
         body: SafeArea(
@@ -53,17 +54,17 @@ class _EditUserScreenState extends State<EditUserScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    TextField(
+                    TextFormField(
                       controller: _nameController,
                       decoration: InputDecoration(
-                        hintText: "db name",
+                        hintText: "Name",
                         border: OutlineInputBorder(),
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    TextField(
+                    TextFormField(
                       controller: _emailController,
                       decoration: InputDecoration(
                         hintText: "db email",
@@ -81,7 +82,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    TextField(
+                    TextFormField(
                       keyboardType: TextInputType.multiline,
                       maxLines: 5,
                       controller: _descriptionController,
@@ -91,60 +92,76 @@ class _EditUserScreenState extends State<EditUserScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 20,
                     ),
-                    Text(
-                      "CHNAGE IMAGE",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
+                    TextButton(
+                      child: Text(
+                        "SELECT IMAGE",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  actions: [
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                          final XFile? photo =
+                                              await _picker.pickImage(
+                                                  source: ImageSource.camera);
+                                          
+                                          setState(() {
+                                            widget.assetImage = photo!.path;
+                                          });
+                                        },
+                                        child: Text(
+                                          "Open Camera",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                          final XFile? photo =
+                                              await _picker.pickImage(
+                                                  source: ImageSource.gallery);
+
+                                          setState(() {
+                                            widget.assetImage = photo!.path;
+                                          });
+                                        },
+                                        child: Text(
+                                          "Open Gallery",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ));
+                      },
                     ),
                     SizedBox(
                       height: 20,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final XFile? photo = await _picker.pickImage(
-                              source: ImageSource.camera);
-                          setState(() {
-                            widget.assetImage = photo!.path;
-                          });
-                        },
-                        child: Text(
-                          "Open Camera",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final XFile? photo = await _picker.pickImage(
-                              source: ImageSource.gallery);
-                          setState(() {
-                            widget.assetImage = photo!.path;
-                          });
-                        },
-                        child: Text(
-                          "Open Gallery",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
                     ),
                     SizedBox(
                       height: 10,
@@ -168,11 +185,14 @@ class _EditUserScreenState extends State<EditUserScreen> {
     final name = _nameController.text;
     final email = _emailController.text;
     final description = _descriptionController.text;
-    final user = UserModel(name: name, email: email, imgPath: widget.assetImage, description: description);
+    final user = UserModel(
+        name: name,
+        email: email,
+        imgPath: widget.assetImage,
+        description: description);
     await userDB.put('user', user);
     Navigator.pop(context);
     Navigator.pop(context);
     Navigator.pop(context);
-
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:visual_magic/MenuDrawer/edit_user.dart';
 import 'package:visual_magic/main.dart';
 
@@ -11,6 +12,9 @@ class UserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.blue,
+    ));
     var userData = userDB.get('user');
     return Scaffold(
         // backgroundColor: Colors.black,

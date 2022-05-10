@@ -237,8 +237,7 @@ class MenuDrawer extends StatelessWidget {
 
         break;
       case 5:
-        Navigator.pop(context);
-        BetterFeedback.of(context).show((UserFeedback feedback) {});
+      break;
     }
   }
 
