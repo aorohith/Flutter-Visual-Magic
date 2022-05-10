@@ -84,18 +84,14 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => VideoPlay(
-                                      videoLink: "",
+                                      videoLink: playlistVideo!.playListVideo,
                                     ),
                                   ),
                                 );
                               },
-                              leading: Icon(
-                                Icons.playlist_add_check,
-                                color: Colors.white,
-                                size: 30,
-                              ),
+                              leading: Image.asset("assets/images/download.jpeg"),
                               title: Text(
-                                playlistVideo!.playListName,
+                                playlistVideo!.playListVideo.split("/").last,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
