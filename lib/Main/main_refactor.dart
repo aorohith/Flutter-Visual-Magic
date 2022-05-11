@@ -13,9 +13,11 @@ import 'package:visual_magic/main.dart';
 Widget PlayButton(context) {
   return FloatingActionButton(
     onPressed: () {
-      
-            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => VideoPlay(videoLink:recentDB.values.toList().last.recentPath)));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => VideoPlay(
+                  videoLink: recentDB.values.toList().last.recentPath)));
     },
     child: Icon(Icons.play_arrow),
   );
@@ -97,12 +99,15 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
 //###################...Favourites button Refactoring...########################
 
 class Favourites extends StatefulWidget {
-  bool isHighlighted = true;
-  bool isPressed = true;
-  bool isPressed2 = true;
   String videoPath;
   Favourites({Key? key, required this.isPressed2, required this.videoPath})
       : super(key: key);
+
+  dynamic favList = favDB.get('favList').toList();
+
+  bool isHighlighted = true;
+  bool isPressed = true;
+  bool isPressed2 = true;
 
   @override
   State<Favourites> createState() => _FavouritesState();
@@ -111,13 +116,20 @@ class Favourites extends StatefulWidget {
 class _FavouritesState extends State<Favourites> {
   @override
   Widget build(BuildContext context) {
+    var existingItem = widget.favList.firstWhere(
+        (itemToCheck) => itemToCheck.favVideo == widget.videoPath,
+        orElse: () => null);
+    if (existingItem == null) {
+      widget.isPressed2 = true;
+    }else{
+      widget.isPressed2 = false;
+    }
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       onHighlightChanged: (value) {
         setState(() {
           widget.isHighlighted = !widget.isHighlighted;
-          print(" highlight ${widget.isHighlighted}");
         });
       },
       onTap: () {
@@ -163,110 +175,108 @@ class _FavouritesState extends State<Favourites> {
 
 //###########...Popup for videos is Fav, watch later and all videos sec...#############
 
-Widget optionPopup({required context, required recentVideoPath, required index}) {
-  bool isExists = checkWatchlater(recentVideoPath);//true if video not indb Else inDB
+Widget optionPopup(
+    {required context, required recentVideoPath, required index}) {
+  bool isExists =
+      checkWatchlater(recentVideoPath); //true if video not indb Else inDB
   // print(isExists);
   final watchlaterModel = WatchlaterModel(laterPath: recentVideoPath);
 
-  return Builder(
-    builder: (context) {
-      return Container(
-        height: 200,
-        width: 250,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color(0xff060625),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              height: 40,
-              width: 200,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff1F1F55),
-                ),
-                onPressed: () {
-                  playlistVideoPopup(
-                      context: context, playlistVideoPath: recentVideoPath);
-                },
-                child: const Text(
-                  "Add to Playlist",
-                  style: TextStyle(fontSize: 18),
-                ),
+  return Builder(builder: (context) {
+    return Container(
+      height: 200,
+      width: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: const Color(0xff060625),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SizedBox(
+            height: 40,
+            width: 200,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xff1F1F55),
+              ),
+              onPressed: () {
+                playlistVideoPopup(
+                    context: context, playlistVideoPath: recentVideoPath);
+              },
+              child: const Text(
+                "Add to Playlist",
+                style: TextStyle(fontSize: 18),
               ),
             ),
-            SizedBox(
-              height: 40,
-              width: 200,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff1F1F55),
-                ),
-                onPressed: () {
-                  print("clicked");
-                  if(isExists){
-                    watchlaterDB.add(watchlaterModel);
-                    Navigator.pop(context);
-                  }else{
-                    // watchlaterDB.deleteAt(index);
+          ),
+          SizedBox(
+            height: 40,
+            width: 200,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xff1F1F55),
+              ),
+              onPressed: () {
+                print("clicked");
+                if (isExists) {
+                  watchlaterDB.add(watchlaterModel);
+                  Navigator.pop(context);
+                } else {
+                  // watchlaterDB.deleteAt(index);
 
-                    deleteWatchlater(watchlaterModel);
-                    Navigator.pop(context);
-                  }
-                },
-                child: isExists
-                    ? Text(
-                        "Add to Watch Later",
-                        style: TextStyle(fontSize: 18),
-                      )
-                    : Text(
-                        "Remove from Watchlater",
-                        style: TextStyle(fontSize: 18),
-                      ),
+                  deleteWatchlater(watchlaterModel);
+                  Navigator.pop(context);
+                }
+              },
+              child: isExists
+                  ? Text(
+                      "Add to Watch Later",
+                      style: TextStyle(fontSize: 18),
+                    )
+                  : Text(
+                      "Remove from Watchlater",
+                      style: TextStyle(fontSize: 18),
+                    ),
+            ),
+          ),
+          SizedBox(
+            height: 40,
+            width: 200,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xff1F1F55),
+              ),
+              onPressed: () {},
+              child: const Text(
+                "Rename",
+                style: TextStyle(fontSize: 18),
               ),
             ),
-            SizedBox(
-              height: 40,
-              width: 200,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff1F1F55),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  "Rename",
-                  style: TextStyle(fontSize: 18),
-                ),
+          ),
+          SizedBox(
+            height: 40,
+            width: 200,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xff1F1F55),
+              ),
+              onPressed: () {},
+              child: const Text(
+                "Delete",
+                style: const TextStyle(fontSize: 18),
               ),
             ),
-            SizedBox(
-              height: 40,
-              width: 200,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xff1F1F55),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  "Delete",
-                  style: const TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-  );
+          ),
+        ],
+      ),
+    );
+  });
 }
 
-
-addWatchLater(WatchlaterModel value){
+addWatchLater(WatchlaterModel value) {
   watchlaterDB.add(value);
 }
-
 
 checkWatchlater(String watchlaterVideoPath) {
   print(watchlaterVideoPath);
@@ -275,16 +285,14 @@ checkWatchlater(String watchlaterVideoPath) {
     final isExists = watchlaterPaths
         .where((itemToCheck) => itemToCheck.laterPath == watchlaterVideoPath);
     if (isExists.isEmpty) {
-      return true;//no matching element found
+      return true; //no matching element found
     } else {
-      return false;//matching element found in db
+      return false; //matching element found in db
     }
   }
   return true;
-
-
 }
 
-printt(){
+printt() {
   print(watchlaterDB.length);
 }
