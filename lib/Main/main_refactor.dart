@@ -4,7 +4,6 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/WatchLater/watch_later.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
@@ -13,14 +12,12 @@ import 'package:visual_magic/main.dart';
 
 Widget PlayButton(context) {
   return FloatingActionButton(
-    onPressed: () {},
-    child: IconButton(
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => VideoPlay()));
-      },
-      icon: const Icon(Icons.play_arrow, size: 30, color: Colors.white),
-    ),
+    onPressed: () {
+      
+            Navigator.push(
+            context, MaterialPageRoute(builder: (context) => VideoPlay(videoLink:recentDB.values.toList().last.recentPath)));
+    },
+    child: Icon(Icons.play_arrow),
   );
 }
 

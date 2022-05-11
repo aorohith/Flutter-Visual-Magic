@@ -1,46 +1,63 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:visual_magic/db/Models/Recent/recent_model.dart';
-import 'package:visual_magic/db/functions.dart';
 
 class VideoPlay extends StatefulWidget {
   final videoLink;
   final videoWithInfo;
   const VideoPlay({
-    Key? key,
     this.videoLink = "/storage/emulated/0/flutter/file.mp4",
     this.videoWithInfo,
-  }) : super(key: key);
+  });
 
   @override
   State<VideoPlay> createState() => _VideoPlayState();
 }
 
 class _VideoPlayState extends State<VideoPlay> {
+  late BetterPlayerController _betterPlayerController;
+  final GlobalKey _betterPlayerKey = GlobalKey();
+
   @override
   void initState() {
-    // TODO: implement initState
-    var recent =
-        RecentModel(recentPath: widget.videoLink, recentDate: DateTime.now());
-    addToRecent(recent);
+    BetterPlayerConfiguration betterPlayerConfiguration =
+        BetterPlayerConfiguration(
+            autoPlay: true,
+            aspectRatio: 16 / 9,
+            fit: BoxFit.contain,
+            autoDetectFullscreenDeviceOrientation: true);
+    BetterPlayerDataSource dataSource = BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      widget.videoLink,
+    );
+    _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
+    _betterPlayerController.setupDataSource(dataSource);
+    _betterPlayerController.setBetterPlayerGlobalKey(_betterPlayerKey);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Example player"),
-      ),
-      body: AspectRatio(
-        aspectRatio: widget.videoWithInfo.width / widget.videoWithInfo.height,
-        child: BetterPlayer.file(
-          widget.videoLink,
-          betterPlayerConfiguration: BetterPlayerConfiguration(
-            aspectRatio: 16/9,
-            fullScreenByDefault:true,
-            autoPlay: true,
-            allowedScreenSleep:false,
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                widget.videoLink.split('/').last,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: BetterPlayer(
+                  controller: _betterPlayerController,
+                  key: _betterPlayerKey,
+                ),
+              ),
+            ],
           ),
         ),
       ),
