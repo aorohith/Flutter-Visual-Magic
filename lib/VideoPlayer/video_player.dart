@@ -1,5 +1,6 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
+import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
 
 class VideoPlay extends StatefulWidget {
@@ -20,6 +21,9 @@ class _VideoPlayState extends State<VideoPlay> {
 
   @override
   void initState() {
+    var recent =
+        RecentModel(recentPath: widget.videoLink, recentDate: DateTime.now());
+    addToRecent(recent);
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
             autoPlay: true,
@@ -27,8 +31,12 @@ class _VideoPlayState extends State<VideoPlay> {
             fit: BoxFit.contain,
             autoDetectFullscreenDeviceOrientation: true);
     BetterPlayerDataSource dataSource = BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
+      BetterPlayerDataSourceType.file,
       widget.videoLink,
+      notificationConfiguration: BetterPlayerNotificationConfiguration(
+        showNotification: true,
+        title: getVideoName(),
+      )
     );
     _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
     _betterPlayerController.setupDataSource(dataSource);
@@ -46,7 +54,7 @@ class _VideoPlayState extends State<VideoPlay> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                widget.videoLink.split('/').last,
+                getVideoName(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -63,5 +71,8 @@ class _VideoPlayState extends State<VideoPlay> {
         ),
       ),
     );
+  }
+  getVideoName(){
+    return widget.videoLink.split('/').last;
   }
 }

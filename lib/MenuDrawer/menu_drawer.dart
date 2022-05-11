@@ -97,7 +97,6 @@ class MenuDrawer extends StatelessWidget {
                   buildMenuItem(
                       text: "About Us",
                       icon: Icons.info,
-                      subTitle: "1.0.0",
                       onClicked: () {
                         selectedItem(context, 4);
                       }),

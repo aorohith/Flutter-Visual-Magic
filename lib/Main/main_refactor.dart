@@ -103,7 +103,7 @@ class Favourites extends StatefulWidget {
   Favourites({Key? key, required this.isPressed2, required this.videoPath})
       : super(key: key);
 
-  dynamic favList = favDB.get('favList').toList();
+  dynamic favList = favDB.values == null ? favDB : favDB.get('favList');
 
   bool isHighlighted = true;
   bool isPressed = true;
@@ -116,13 +116,15 @@ class Favourites extends StatefulWidget {
 class _FavouritesState extends State<Favourites> {
   @override
   Widget build(BuildContext context) {
-    var existingItem = widget.favList.firstWhere(
-        (itemToCheck) => itemToCheck.favVideo == widget.videoPath,
-        orElse: () => null);
-    if (existingItem == null) {
-      widget.isPressed2 = true;
-    }else{
-      widget.isPressed2 = false;
+    if (favDB == null) {
+      var existingItem = widget.favList.firstWhere(
+          (itemToCheck) => itemToCheck.favVideo == widget.videoPath,
+          orElse: () => null);
+      if (existingItem == null) {
+        widget.isPressed2 = true;
+      } else {
+        widget.isPressed2 = false;
+      }
     }
     return InkWell(
       highlightColor: Colors.transparent,
