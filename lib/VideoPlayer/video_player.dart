@@ -2,6 +2,7 @@ import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:wakelock/wakelock.dart';
 
 class VideoPlay extends StatefulWidget {
   final videoLink;
@@ -26,6 +27,7 @@ class _VideoPlayState extends State<VideoPlay> {
     addToRecent(recent);
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
+        allowedScreenSleep: false,
             autoPlay: true,
             aspectRatio: 16 / 9,
             fit: BoxFit.contain,
@@ -41,6 +43,7 @@ class _VideoPlayState extends State<VideoPlay> {
     _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
     _betterPlayerController.setupDataSource(dataSource);
     _betterPlayerController.setBetterPlayerGlobalKey(_betterPlayerKey);
+    Wakelock.enable();
     super.initState();
   }
 
