@@ -1,15 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/Thumbnail/thumbnail_generator.dart';
 
 List<String>? fetchedVideos;
 
 class FolderVideos extends StatefulWidget {
   final path;
-  const FolderVideos({Key? key, required this.path}) : super(key: key);
+   FolderVideos({Key? key, required this.path}) : super(key: key);
 
   @override
   State<FolderVideos> createState() => _FolderVideosState();
@@ -101,8 +104,7 @@ class _FolderVideosState extends State<FolderVideos> {
                                       );
                                     });
                               },
-                              leading:
-                                  Image.asset("assets/images/download.jpeg"),
+                              leading: ThumbGenerator(videoPath: folderVideosList[index]),
                               title: Text(
                                 folderVideosList[index].split('/').last,
                                 style: TextStyle(
@@ -131,4 +133,7 @@ class _FolderVideosState extends State<FolderVideos> {
       ),
     );
   }
+
+
+
 }

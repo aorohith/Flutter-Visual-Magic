@@ -8,6 +8,7 @@ import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/main.dart';
+import 'package:visual_magic/HomeScreen/folder_videos.dart';
 
 final videoInfo = FlutterVideoInfo(); //creating object of infoclass
 List<String> fetchedVideosPath = []; //all videos path loaded first time
@@ -22,7 +23,6 @@ ValueNotifier<List<String>> favVideos = ValueNotifier([]);
 ValueNotifier<List<RecentModel>> recentVideos = ValueNotifier([]);
 ValueNotifier<List<PlayListName>> playLists = ValueNotifier([]);
 ValueNotifier<List<PlayListVideos>> playListVideos = ValueNotifier([]);
-
 
 onSuccess(List<String> data) {
   fetchedVideosPath = data;
@@ -94,7 +94,7 @@ getFolderVideos(String path) {
       filteredFolderVideos.value.add(newPath);
     }
   }
-  // notify listeners if needed
+  // notify listeners if needed\
 }
 
 //video info collection
@@ -161,8 +161,8 @@ fetchFav() async {
   // favVideos.value.addAll(temp);
   // favVideos.notifyListeners();
   // await box.put('favList', temp);
-    List<String> temp = await favDB.get('favList').favVideo;
-    favVideos.value.addAll(temp);
+  List<String> temp = await favDB.get('favList').favVideo;
+  favVideos.value.addAll(temp);
 }
 // }
 
@@ -212,48 +212,47 @@ length() {
 
 // ####################....PLAYLIST SECTION....######################
 
-editPlayList(){
+editPlayList() {
   //
 }
 
 //playlist  video add
 addPlayListVideos(PlayListVideos playListVideo) {
-   List<PlayListVideos> currentList = playListVideosDB.values.toList();
-  var contains = currentList.where((element) => element.playListName == playListVideo.playListName && element.playListVideo == playListVideo.playListVideo);
-  if(contains.isNotEmpty){
+  List<PlayListVideos> currentList = playListVideosDB.values.toList();
+  var contains = currentList.where((element) =>
+      element.playListName == playListVideo.playListName &&
+      element.playListVideo == playListVideo.playListVideo);
+  if (contains.isNotEmpty) {
     return false;
-  }else{
+  } else {
     playListVideosDB.add(playListVideo);
     return true;
   }
   // playListVideos.value.add(playListVideo);
-  
 }
 
-removePlayListVideos(PlayListVideos playListVideo){
+removePlayListVideos(PlayListVideos playListVideo) {
   playListVideos.value.remove(playListVideo);
   // for(String video in )
 }
 
 //#################...Watch later...#####################
 
-deleteWatchlater(WatchlaterModel watchlater){
+deleteWatchlater(WatchlaterModel watchlater) {
   // final tempDB = watchlaterDB.values.toList();
   // for(int i=0; i<tempDB.length; i++){
   //   if(tempDB[i].laterPath == value.laterPath){
-      
+
   //   }
   // }
 
   final Map<dynamic, WatchlaterModel> watchlaterMap = watchlaterDB.toMap();
   dynamic desiredKey;
-  watchlaterMap.forEach((key, value) { 
-    if(value.laterPath == watchlater.laterPath){
+  watchlaterMap.forEach((key, value) {
+    if (value.laterPath == watchlater.laterPath) {
       desiredKey = key;
     }
   });
   watchlaterDB.delete(desiredKey);
-
 }
-
 
