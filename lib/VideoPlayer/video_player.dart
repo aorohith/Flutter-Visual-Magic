@@ -8,7 +8,7 @@ class VideoPlay extends StatefulWidget {
   final videoLink;
   final videoWithInfo;
   const VideoPlay({
-    this.videoLink = "/storage/emulated/0/flutter/file.mp4",
+    required this.videoLink,
     this.videoWithInfo,
   });
 
