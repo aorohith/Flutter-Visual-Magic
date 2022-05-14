@@ -75,7 +75,7 @@ class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
             switch (widget.callFrom) {
               case "VideosScreen":
                 fetchedVideosWithInfo.value = fetchedVideosWithInfo.value
-                    .where((string) => string.title
+                    .where((string) => string.title!
                         .toLowerCase()
                         .contains(_textController.text.toLowerCase()))
                     .toList();

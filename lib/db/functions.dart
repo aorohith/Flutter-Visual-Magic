@@ -14,7 +14,7 @@ final videoInfo = FlutterVideoInfo(); //creating object of infoclass
 List<String> fetchedVideosPath = []; //all videos path loaded first time
 ValueNotifier<List<String>> fetchedFolders = ValueNotifier([]); //folder list
 List<String> temp = []; //temp directory for folder funcion
-ValueNotifier<List> fetchedVideosWithInfo =
+ValueNotifier<List<VideoData>> fetchedVideosWithInfo =
     ValueNotifier([]); //videos with info
 ValueNotifier<List> filteredFolderVideos =
     ValueNotifier([]); //folder click videos
@@ -110,15 +110,15 @@ Future getVideoWithInfo() async {
   fetchedVideosWithInfo.value.clear();
   for (int i = 0; i < fetchedVideosPath.length; i++) {
     var info = await videoInfo.getVideoInfo(fetchedVideosPath[i]);
-    fetchedVideosWithInfo.value.add(info);
+    fetchedVideosWithInfo.value.add(info!);
   }
   fetchedVideosWithInfo.notifyListeners();
 }
 
 sortAlphabetical() {
   fetchedVideosWithInfo.value.sort((a, b) {
-    return a.title.toLowerCase().compareTo(
-          b.title.toLowerCase(),
+    return a.title!.toLowerCase().compareTo(
+          b.title!.toLowerCase(),
         );
   });
   fetchedVideosWithInfo.notifyListeners();
@@ -126,21 +126,21 @@ sortAlphabetical() {
 
 sortByDuration() {
   fetchedVideosWithInfo.value.sort((a, b) {
-    return a.duration.compareTo(b.duration);
+    return a.duration!.compareTo(b.duration!);
   });
   fetchedVideosWithInfo.notifyListeners();
 }
 
 sortBySize() {
   fetchedVideosWithInfo.value.sort((a, b) {
-    return a.filesize.compareTo(b.filesize);
+    return a.filesize!.compareTo(b.filesize!);
   });
   fetchedVideosWithInfo.notifyListeners();
 }
 
 sortByDate() {
   fetchedVideosWithInfo.value.sort((a, b) {
-    return a.date.compareTo(b.date);
+    return a.date!.compareTo(b.date!);
   });
   fetchedVideosWithInfo.notifyListeners();
 }

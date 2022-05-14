@@ -4,6 +4,7 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/Videos/refactor.dart';
 import 'package:visual_magic/db/functions.dart';
 
@@ -35,6 +36,9 @@ class _VideosScreenState extends State<VideosScreen> {
         title: Text("All Videos"),
         actions: [
           Search(callFrom: 'VideoScreen'),
+          IconButton(onPressed: (){
+          showSearch(context: context, delegate: searchVideos());
+          }, icon: Icon(Icons.search)),
           Showcase(
               showcaseBackgroundColor: Color.fromARGB(255, 63, 81, 181),
               descTextStyle: TextStyle(
