@@ -28,10 +28,9 @@ Widget getListView(
             return AlertDialog(
               backgroundColor: Color.fromARGB(15, 255, 255, 255),
               content: optionPopup(
-                context: context,
-                recentVideoPath: videosWithIndex[index].path,
-                index: index
-              ),
+                  context: context,
+                  recentVideoPath: videosWithIndex[index].path,
+                  index: index),
             );
           });
     },
@@ -103,10 +102,10 @@ class _sortDropdownState extends State<sortDropdown> {
               sortByDuration();
               break;
             case "Date":
-              sortBySize();
+              sortByDate();
               break;
             case "FileSize":
-            // sortByDate();
+              sortBySize();
           }
           setState(() {
             dropdownValue = newValue!;

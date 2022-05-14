@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/Playlist/playlist_refactor.dart';
+import 'package:visual_magic/Playlist/playlist_videos.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/functions.dart';
@@ -14,10 +15,14 @@ Widget PlayButton(context) {
   return FloatingActionButton(
     onPressed: () {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => VideoPlay(
-                  videoLink: recentDB.values.toList().last.recentPath)));
+        context,
+        MaterialPageRoute(
+          builder: (context) => VideoPlay(
+              videoLink: recentDB.isNotEmpty
+                  ? recentDB.values.toList().last.recentPath
+                  : fetchedVideosWithInfo.value.first.path),
+        ),
+      );
     },
     child: Icon(Icons.play_arrow),
   );
