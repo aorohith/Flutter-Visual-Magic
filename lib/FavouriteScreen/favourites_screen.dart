@@ -3,6 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/FavouriteScreen/refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/functions.dart';
 
@@ -17,7 +18,11 @@ class FavouritesScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Favourites"),
         actions: [
-          Search(callFrom: "Favourites",),
+          IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: searchVideos());
+                },
+                icon: Icon(Icons.search)),
         ],
         backgroundColor: Color(0xff2C2C6D),
       ),

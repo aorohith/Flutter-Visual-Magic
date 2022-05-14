@@ -25,76 +25,76 @@ Widget PlayButton(context) {
 
 //##################...Search Refactoring...####################
 
-class Search extends StatefulWidget {
-  String callFrom;
-  Search({
-    Key? key,
-    required this.callFrom,
-  }) : super(key: key);
+// class Search extends StatefulWidget {
+//   String callFrom;
+//   Search({
+//     Key? key,
+//     required this.callFrom,
+//   }) : super(key: key);
 
-  @override
-  State<Search> createState() => _SearchState();
-}
+//   @override
+//   State<Search> createState() => _SearchState();
+// }
 
-class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
-  Animation<double>? animation;
-  AnimationController? animController;
-  bool isForward = false;
-  List searchList = [];
+// class _SearchState extends State<Search> with SingleTickerProviderStateMixin {
+//   Animation<double>? animation;
+//   AnimationController? animController;
+//   bool isForward = false;
+//   List searchList = [];
 
-  @override
-  void initState() {
-    super.initState();
-    animController = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
-    final curvedAnimation = CurvedAnimation(
-      parent: animController!,
-      curve: Curves.easeOutExpo,
-    );
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     animController = AnimationController(
+//         duration: const Duration(milliseconds: 1000), vsync: this);
+//     final curvedAnimation = CurvedAnimation(
+//       parent: animController!,
+//       curve: Curves.easeOutExpo,
+//     );
+//   }
 
-  Widget build(BuildContext context) {
-    TextEditingController _textController = TextEditingController();
-    return Showcase(
-      shapeBorder: const CircleBorder(),
-      showcaseBackgroundColor: Colors.indigo,
-      descTextStyle: TextStyle(
-        fontWeight: FontWeight.w500,
-        color: Colors.white,
-        fontSize: 16,
-      ),
-      key: KeysToBeInherited.of(context).key1,
-      description: "You can Search here",
-      child: AnimSearchBar(
-        //search dependency
-        width: 150,
-        textController: _textController,
-        onSuffixTap: () {},
-        onChanged: () {
-          setState(() {
-            switch (widget.callFrom) {
-              case "VideosScreen":
-                fetchedVideosWithInfo.value = fetchedVideosWithInfo.value
-                    .where((string) => string.title!
-                        .toLowerCase()
-                        .contains(_textController.text.toLowerCase()))
-                    .toList();
-                fetchedVideosWithInfo.notifyListeners();
-                break;
-              case "Favourites":
-                searchList = favVideos.value;
-                break;
-              default:
-            }
-            print("setstate");
-          });
-        },
-        suffixIcon: const Icon(Icons.search),
-        color: const Color(0xff2C2C6D),
-      ),
-    );
-  }
-}
+//   Widget build(BuildContext context) {
+//     TextEditingController _textController = TextEditingController();
+//     return Showcase(
+//       shapeBorder: const CircleBorder(),
+//       showcaseBackgroundColor: Colors.indigo,
+//       descTextStyle: TextStyle(
+//         fontWeight: FontWeight.w500,
+//         color: Colors.white,
+//         fontSize: 16,
+//       ),
+//       key: KeysToBeInherited.of(context).key1,
+//       description: "You can Search here",
+//       child: AnimSearchBar(
+//         //search dependency
+//         width: 150,
+//         textController: _textController,
+//         onSuffixTap: () {},
+//         onChanged: () {
+//           setState(() {
+//             switch (widget.callFrom) {
+//               case "VideosScreen":
+//                 fetchedVideosWithInfo.value = fetchedVideosWithInfo.value
+//                     .where((string) => string.title!
+//                         .toLowerCase()
+//                         .contains(_textController.text.toLowerCase()))
+//                     .toList();
+//                 fetchedVideosWithInfo.notifyListeners();
+//                 break;
+//               case "Favourites":
+//                 searchList = favVideos.value;
+//                 break;
+//               default:
+//             }
+//             print("setstate");
+//           });
+//         },
+//         suffixIcon: const Icon(Icons.search),
+//         color: const Color(0xff2C2C6D),
+//       ),
+//     );
+//   }
+// }
 
 //###################...Favourites button Refactoring...########################
 

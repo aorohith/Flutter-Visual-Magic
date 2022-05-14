@@ -32,13 +32,24 @@ class _VideosScreenState extends State<VideosScreen> {
       floatingActionButton: PlayButton(context),
       // backgroundColor: Color(0xff1f1f1f),
       appBar: AppBar(
-        
         title: Text("All Videos"),
         actions: [
-          Search(callFrom: 'VideoScreen'),
-          IconButton(onPressed: (){
-          showSearch(context: context, delegate: searchVideos());
-          }, icon: Icon(Icons.search)),
+          Showcase(
+            shapeBorder: const CircleBorder(),
+            showcaseBackgroundColor: Colors.indigo,
+            descTextStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+              fontSize: 16,
+            ),
+            key: KeysToBeInherited.of(context).key1,
+            description: "You can Search here",
+            child: IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: searchVideos());
+                },
+                icon: Icon(Icons.search)),
+          ),
           Showcase(
               showcaseBackgroundColor: Color.fromARGB(255, 63, 81, 181),
               descTextStyle: TextStyle(
@@ -61,15 +72,15 @@ class _VideosScreenState extends State<VideosScreen> {
             icon: Icon(Icons.help_outline_outlined),
           ),
         ],
-  backgroundColor: Color.fromARGB(255, 81, 73, 150),
+        backgroundColor: Color.fromARGB(255, 81, 73, 150),
       ),
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
-
           image: DecorationImage(
-            opacity: 0.7,
-              image: AssetImage("assets/images/download8.jpg"), fit: BoxFit.cover),
+              opacity: 0.7,
+              image: AssetImage("assets/images/download8.jpg"),
+              fit: BoxFit.cover),
         ),
         child: AnimationLimiter(
           child: ValueListenableBuilder(
@@ -96,7 +107,8 @@ class _VideosScreenState extends State<VideosScreen> {
                             margin: EdgeInsets.only(bottom: _w / 20),
                             height: _w / 4,
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 114, 102, 224).withOpacity(.5),
+                              color: Color.fromARGB(255, 114, 102, 224)
+                                  .withOpacity(.5),
                               borderRadius: BorderRadius.all(
                                 Radius.circular(20),
                               ),
@@ -131,7 +143,6 @@ class _VideosScreenState extends State<VideosScreen> {
                                       context: context,
                                       videosWithIndex: videosWithIndex,
                                     ),
-                                    
                             ),
                           ),
                         ),
