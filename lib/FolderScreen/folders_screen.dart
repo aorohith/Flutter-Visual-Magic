@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:visual_magic/HomeScreen/folder_videos.dart';
+import 'package:visual_magic/FolderScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
@@ -44,10 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
           //   child: Text("Hai"),
           // ),
           IconButton(
-                onPressed: () {
-                  showSearch(context: context, delegate: searchVideos());
-                },
-                icon: Icon(Icons.search)), //Search Refactor
+              onPressed: () {
+                showSearch(context: context, delegate: searchVideos());
+              },
+              icon: Icon(Icons.search)), //Search Refactor
           IconButton(
             onPressed: () {
               ShowCaseWidget.of(context)!.startShowCase([

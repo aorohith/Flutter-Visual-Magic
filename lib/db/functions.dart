@@ -8,7 +8,6 @@ import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/main.dart';
-import 'package:visual_magic/HomeScreen/folder_videos.dart';
 
 final videoInfo = FlutterVideoInfo(); //creating object of infoclass
 List<String> fetchedVideosPath = []; //all videos path loaded first time
