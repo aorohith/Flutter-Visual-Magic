@@ -115,7 +115,7 @@ class _FolderVideosState extends State<FolderVideos> {
                                 "10 Videos",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              trailing: Favourites(
+                              trailing: Favourite(
                                   videoPath: folderVideosList[index],
                                   isPressed2: favVideos.value
                                           .contains(folderVideosList[index])

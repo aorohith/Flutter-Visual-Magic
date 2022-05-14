@@ -111,7 +111,7 @@ class _WatchLaterState extends State<WatchLater> {
                                 "10 Videos",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              trailing: Favourites(
+                              trailing: Favourite(
                                   videoPath: watchlater.laterPath,
                                   isPressed2: favVideos.value
                                           .contains(watchlater.laterPath)

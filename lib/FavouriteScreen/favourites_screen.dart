@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
-import 'package:visual_magic/FavouriteScreen/refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/PopupMenuButton/popup_menu_button.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/functions.dart';
@@ -85,8 +85,9 @@ class FavouritesScreen extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  VideoPlay(videoLink: newFav[index],)));
+                                              builder: (context) => VideoPlay(
+                                                    videoLink: newFav[index],
+                                                  )));
                                     },
                                     leading: Image.asset(
                                         "assets/images/download.jpeg"),
@@ -96,27 +97,7 @@ class FavouritesScreen extends StatelessWidget {
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    trailing: PopupMenuButton(
-                                        icon: Icon(
-                                          Icons.more_vert,
-                                          color: Colors.white,
-                                        ),
-                                        itemBuilder: (_) =>
-                                            <PopupMenuItem<String>>[
-                                              PopupMenuItem<String>(
-                                                  onTap: () {
-                                                    removeFromFav(
-                                                        newFav[index]);
-                                                  },
-                                                  child: Text(
-                                                      'Remove from favourites'),
-                                                  value: 'Doge'),
-                                              PopupMenuItem<String>(
-                                                  child: Text(
-                                                      'Add to Watch Later'),
-                                                  value: 'Lion'),
-                                            ],
-                                        onSelected: (_) {}),
+                                    trailing: PopupOption(videoPath: newFav[index]),
 
                                     // IconButton(
                                     //     onPressed: () {

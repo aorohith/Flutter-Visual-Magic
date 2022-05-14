@@ -103,9 +103,9 @@ Widget PlayButton(context) {
 
 //###################...Favourites button Refactoring...########################
 
-class Favourites extends StatefulWidget {
+class Favourite extends StatefulWidget {
   String videoPath;
-  Favourites({Key? key, required this.isPressed2, required this.videoPath})
+  Favourite({Key? key, required this.isPressed2, required this.videoPath})
       : super(key: key);
 
   dynamic favList = favDB.values == null ? favDB : favDB.get('favList');
@@ -115,10 +115,10 @@ class Favourites extends StatefulWidget {
   bool isPressed2 = true;
 
   @override
-  State<Favourites> createState() => _FavouritesState();
+  State<Favourite> createState() => _FavouriteState();
 }
 
-class _FavouritesState extends State<Favourites> {
+class _FavouriteState extends State<Favourite> {
   @override
   Widget build(BuildContext context) {
     if (favDB == null) {
@@ -186,7 +186,6 @@ Widget optionPopup(
     {required context, required recentVideoPath, required index}) {
   bool isExists =
       checkWatchlater(recentVideoPath); //true if video not indb Else inDB
-  // print(isExists);
   final watchlaterModel = WatchlaterModel(laterPath: recentVideoPath);
 
   return Builder(builder: (context) {
