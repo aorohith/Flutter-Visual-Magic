@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
             splash: Lottie.asset("assets/json/video-loader3.json"),
             screenFunction: () async {
               splashFetch();
-              fetchFav();
+              // fetchFav();
               return ShowCaseWidget(
                 builder: Builder(
                   builder: (context) => BottomNavbar(),

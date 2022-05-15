@@ -5,14 +5,15 @@ import 'package:visual_magic/main.dart';
 
 class PopupOption extends StatefulWidget {
   String videoPath;
-  PopupOption({Key? key, required this.videoPath}) : super(key: key);
+  int favIndex;
+  PopupOption({Key? key, required this.videoPath, required this.favIndex}) : super(key: key);
 
   @override
   State<PopupOption> createState() => _PopupOptionState();
 }
 
 class _PopupOptionState extends State<PopupOption> {
-  List<Favourites>favData = favDB.get(''); 
+  // List<Favourites>favData = favDB.get(''); 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -24,7 +25,7 @@ class _PopupOptionState extends State<PopupOption> {
 
               PopupMenuItem<String>(
                   onTap: () {
-                    removeFromFav(widget.videoPath);
+                    favDB.deleteAt(widget.favIndex);
                   },
                   child: Text('Remove from favourites'),
                   value: 'Doge'),

@@ -54,6 +54,7 @@ Widget getListView(
             ),
             key: KeysToBeInherited.of(context).key4,
             child: Favourite(
+              favIndex: index,
               videoPath: videosWithIndex[index].path,
               isPressed2: favVideos.value.contains(videosWithIndex[index].path)
                   ? false
@@ -61,6 +62,7 @@ Widget getListView(
             ),
             description: "Add to Favourites Here")
         : Favourite(
+          favIndex: index,
             isPressed2: favVideos.value.contains(videosWithIndex[index].path)
                 ? false
                 : true,

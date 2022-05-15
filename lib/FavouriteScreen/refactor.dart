@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/main.dart';
 
-Widget favouritePopup(String value, BuildContext context) {
+Widget favouritePopup({required String value, required BuildContext context, required int favIndex}) {
   return Container(
     height: 200,
     width: 250,
@@ -20,7 +21,7 @@ Widget favouritePopup(String value, BuildContext context) {
               primary: Color(0xff1F1F55),
             ),
             onPressed: () {
-              removeFromFav(value);
+              favDB.deleteAt(favIndex);
               Navigator.pop(context);
             },
             child: Text(

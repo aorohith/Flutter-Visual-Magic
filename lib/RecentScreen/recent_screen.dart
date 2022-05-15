@@ -169,6 +169,7 @@ class _RecentScreenState extends State<RecentScreen> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     trailing: Favourite(
+                                      favIndex: index,
                                         videoPath: recentList[index].recentPath,
                                         isPressed2: favVideos.value
                                                 .contains(recentList[index])

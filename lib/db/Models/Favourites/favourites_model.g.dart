@@ -17,7 +17,7 @@ class FavouritesAdapter extends TypeAdapter<Favourites> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Favourites(
-      favVideo: (fields[0] as List).cast<String>(),
+      favVideo: fields[0] as String,
     );
   }
 

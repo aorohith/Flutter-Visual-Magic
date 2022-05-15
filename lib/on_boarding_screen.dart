@@ -33,7 +33,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
         // backgroundProvider: NetworkImage('https://picsum.photos/720/1280'),
         finishCallback: () async {
           await splashFetch();
-          fetchFav();
+          // fetchFav();
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>SplashScreen())) ;
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('showHome', true);

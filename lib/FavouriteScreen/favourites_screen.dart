@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/PopupMenuButton/popup_menu_button.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/main.dart';
 
 class FavouritesScreen extends StatelessWidget {
   @override
@@ -28,8 +31,8 @@ class FavouritesScreen extends StatelessWidget {
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
-            valueListenable: favVideos,
-            builder: (BuildContext ctx, List<dynamic> newFav, Widget? child) {
+            valueListenable: favDB.listenable(),
+            builder: (BuildContext ctx, Box<Favourites> newFav, Widget? child) {
               return newFav.isEmpty
                   ? Center(
                       child: Column(
@@ -53,6 +56,7 @@ class FavouritesScreen extends StatelessWidget {
                           parent: AlwaysScrollableScrollPhysics()),
                       itemCount: newFav.length,
                       itemBuilder: (BuildContext context, int index) {
+                        Favourites favourite = favDB.getAt(index)!;
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           delay: Duration(milliseconds: 100),
@@ -86,18 +90,22 @@ class FavouritesScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => VideoPlay(
-                                                    videoLink: newFav[index],
+                                                    videoLink:
+                                                        favourite.favVideo,
                                                   )));
                                     },
                                     leading: Image.asset(
                                         "assets/images/download.jpeg"),
                                     title: Text(
-                                      newFav[index].split('/').last,
+                                      favourite.favVideo.split('/').last,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    trailing: PopupOption(videoPath: newFav[index]),
+                                    trailing: PopupOption(
+                                      videoPath: favourite.favVideo,
+                                      favIndex: index,
+                                    ),
 
                                     // IconButton(
                                     //     onPressed: () {

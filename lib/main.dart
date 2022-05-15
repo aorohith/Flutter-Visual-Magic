@@ -13,7 +13,7 @@ import 'package:visual_magic/on_boarding_screen.dart';
 
 // late var box;
 late var userDB;
-late var favDB;
+late Box<Favourites> favDB;
 late Box<RecentModel> recentDB;
 late Box<PlayListName> playListNameDB;
 late Box<PlayListVideos> playListVideosDB;

@@ -5,6 +5,7 @@ import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/Playlist/playlist_videos.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
+import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
@@ -105,10 +106,13 @@ Widget PlayButton(context) {
 
 class Favourite extends StatefulWidget {
   String videoPath;
-  Favourite({Key? key, required this.isPressed2, required this.videoPath})
-      : super(key: key);
-
-  dynamic favList = favDB.values == null ? favDB : favDB.get('favList');
+  int favIndex;
+  Favourite({
+    Key? key,
+    required this.isPressed2,
+    required this.videoPath,
+    required this.favIndex,
+  }) : super(key: key);
 
   bool isHighlighted = true;
   bool isPressed = true;
@@ -121,11 +125,11 @@ class Favourite extends StatefulWidget {
 class _FavouriteState extends State<Favourite> {
   @override
   Widget build(BuildContext context) {
-    if (favDB == null) {
-      var existingItem = widget.favList.firstWhere(
-          (itemToCheck) => itemToCheck.favVideo == widget.videoPath,
-          orElse: () => null);
-      if (existingItem == null) {
+    if (favDB.values.isNotEmpty) {
+        List<Favourites> favList = favDB.values.toList();
+      var existingItem = favList.where(
+          (itemToCheck) => itemToCheck.favVideo == widget.videoPath);
+      if (existingItem.isEmpty) {
         widget.isPressed2 = true;
       } else {
         widget.isPressed2 = false;
@@ -143,9 +147,10 @@ class _FavouriteState extends State<Favourite> {
         setState(() {
           widget.isPressed2 = !widget.isPressed2;
           if (!widget.isPressed2) {
-            addToFavList(widget.videoPath);
+            Favourites favObj = Favourites(favVideo: widget.videoPath);
+            favDB.add(favObj);
           } else {
-            removeFromFav(widget.videoPath);
+            favDB.deleteAt(widget.favIndex);
           }
         });
       },
