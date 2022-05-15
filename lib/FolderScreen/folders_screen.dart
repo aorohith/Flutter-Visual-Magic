@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ), //Turnery end here
 
                                     subtitle: Text(
-                                      "${filteredFolderVideos.value.length}",
+                                      "${filteredFolderVideos.value.length} Videos",
                                       style: TextStyle(color: Colors.white),
                                     ),
 

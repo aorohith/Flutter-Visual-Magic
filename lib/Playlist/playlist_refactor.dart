@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Main/bottom_nav.dart';
+import 'package:visual_magic/Playlist/playlist_popup_button.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/main.dart';
 
@@ -9,6 +10,7 @@ import '../db/functions.dart';
 bool notifyPlaylistVideo = false;
 
 Widget playlistAdd(context) {
+  //playlist screen popup of info button
   return FloatingActionButton(
     onPressed: () {},
     child: IconButton(
@@ -21,6 +23,7 @@ Widget playlistAdd(context) {
 }
 
 playlistPopup(context) {
+  //popup items
   final GlobalKey<FormState> _formKey =
       GlobalKey(); //currentstate.validate not work without <FormState>
   TextEditingController _textController = TextEditingController();
@@ -167,11 +170,11 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
           ));
 }
 
-//playlist popup
-
+//rename playlist delete playlist
 class PlaylistPopup extends StatefulWidget {
   int playIndex;
-  PlaylistPopup({Key? key, required this.playIndex})
+  String playName;
+  PlaylistPopup({Key? key, required this.playIndex, required this.playName})
       : super(key: key);
 
   @override
@@ -191,10 +194,19 @@ class _PlaylistPopupState extends State<PlaylistPopup> {
         ),
         itemBuilder: (_) => <PopupMenuItem<String>>[
               PopupMenuItem<String>(
-                  onTap: () {}, child: Text('Rename Playlist'), value: 'Doge'),
+                  onTap: () {
+                    playlistEdit(
+                        context: context,
+                        playName: widget.playName); //edit playlist popup call
+                  },
+                  child: Text('Rename Playlist'),
+                  value: 'Doge'),
               PopupMenuItem<String>(
                   onTap: () {
-                    playListNameDB.deleteAt(widget.playIndex);
+                    _deletePlaylist(
+                        playlistVideoName: widget.playName,
+                        index: widget.playIndex);
+                    playListNameDB.deleteAt(widget.playIndex); //54345345345345
                   },
                   child: Text('Delete Playlist'),
                   value: 'Lion'),
@@ -221,12 +233,60 @@ class _PlaylistPopupState extends State<PlaylistPopup> {
   //   }
   // }
 
-  _deleteWatchlater(PlayListName _playlistName) {
-    final Map<dynamic, PlayListName> watchlaterMap = playListNameDB.toMap();
+  _deletePlaylist({required String playlistVideoName, required int index}) {
+    playListNameDB.deleteAt(index); //playlist name delete from db
+
+    final Map<dynamic, PlayListVideos> watchlaterMap = playListVideosDB.toMap();
     dynamic desiredKey;
     watchlaterMap.forEach((key, value) {
-      if (value.playListName == _playlistName.playListName) desiredKey = key;
+      if (value.playListName == playlistVideoName) desiredKey = key;
+      watchlaterDB.delete(desiredKey); //playlist song objects delete from db
     });
-    watchlaterDB.delete(desiredKey);
   }
+}
+
+//playlist edit popup
+
+playlistEdit(
+    {required BuildContext context, required String playName, required}) {
+  final GlobalKey<FormState> _formKey =
+      GlobalKey(); //currentstate.validate not work without <FormState>
+  TextEditingController _textController = TextEditingController(text: playName);
+  showDialog(
+      context: context,
+      builder: (context) => Form(
+            key: _formKey,
+            child: AlertDialog(
+              title: Text("Edit Playlist"),
+              content: TextFormField(
+                controller: _textController,
+                decoration: InputDecoration(labelText: "Playlist Name"),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Enter Playlist Name";
+                  } else if (checkPlaylistExists(value).isNotEmpty) {
+                    return "Playlist already exists";
+                  }
+                },
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      editPlayDB(
+                        oldValue: playName,
+                        newValue: _textController.text.trim(),
+                      );
+                      Navigator.pop(context);
+                      final snackBar =
+                          SnackBar(content: Text("Playlist Name Updated"));
+                    }
+                  },
+                  child: Text(
+                    "Update",
+                  ),
+                ),
+              ],
+            ),
+          ));
 }

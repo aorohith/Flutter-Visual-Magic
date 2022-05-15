@@ -113,6 +113,7 @@ class _PlaylistState extends State<Playlist> {
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       trailing: PlaylistPopup(
+                                        playName: playName.playListName,
                                         playIndex: index,
                                       )),
                                 ),
