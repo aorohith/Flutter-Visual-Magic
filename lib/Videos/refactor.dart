@@ -34,7 +34,14 @@ Widget getListView(
             );
           });
     },
-    leading: Image.asset("assets/images/download.jpeg"),
+    leading: ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        height: 50,
+        width: 80,
+        child: Image.asset("assets/images/download.jpeg"),
+      ),
+    ),
     title: Text(
       videosWithIndex[index].title,
       style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -62,7 +69,7 @@ Widget getListView(
             ),
             description: "Add to Favourites Here")
         : Favourite(
-          favIndex: index,
+            favIndex: index,
             isPressed2: favVideos.value.contains(videosWithIndex[index].path)
                 ? false
                 : true,

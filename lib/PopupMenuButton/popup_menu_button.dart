@@ -31,7 +31,6 @@ class _PopupOptionState extends State<PopupOption> {
                   child: Text('Remove from favourites'),
                   value: 'Doge'),
 
-
               PopupMenuItem<String>(
                   onTap: () {
                     final watchlater =
@@ -67,7 +66,7 @@ class _PopupOptionState extends State<PopupOption> {
       }
     });
     }else{
-      return true;
+      isWatchlater = true;
     }
   }
 

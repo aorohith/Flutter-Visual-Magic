@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
-import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
@@ -143,42 +142,6 @@ sortByDate() {
   });
   fetchedVideosWithInfo.notifyListeners();
 }
-
-//######################....Favourite section....########################
-
-// fetchFav() async {
-//   // if (box.get('favList') != null) {//first case there is no fav list then hive.get is an error
-//   favVideos.value.clear();
-//   // List temp = await box.get('favList');
-//   // for (int i = 0; i < temp.length; i++) {
-//   //   //delete video from fav if the user delete/change directory of the video in storage
-//   //   if (!fetchedVideosPath.contains(temp[i])) {
-//   //     print("found");
-//   //     temp.remove(temp[i]);
-//   //   }
-//   // }
-//   // favVideos.value.addAll(temp);
-//   // favVideos.notifyListeners();
-//   // await box.put('favList', temp);
-//   List<String> temp = await favDB.get('favList').favVideo;
-//   favVideos.value.addAll(temp);
-// }
-// // }
-
-// addToFavList(String value) async {
-//   favVideos.value.add(value);
-//   favVideos.notifyListeners();
-//   var fav = Favourites(favVideo: favVideos.value);
-//   await favDB.put('favList', fav);
-//   print(favVideos.value);
-// }
-
-// removeFromFav(String value) {
-//   favVideos.value.remove(value);
-//   favVideos.notifyListeners();
-//   favDB.put('favList', favVideos.value);
-//   // print(favVideos.value);
-// }
 
 //###################...recent section...####################
 

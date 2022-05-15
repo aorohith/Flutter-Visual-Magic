@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:visual_magic/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/Recent/recent_model.dart';
 import 'package:visual_magic/db/functions.dart';
@@ -39,6 +41,11 @@ class _RecentScreenState extends State<RecentScreen> {
         backgroundColor: Color(0xff2C2C6D),
         actions: [
           IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: searchVideos());
+              },
+              icon: Icon(Icons.search)),
+          IconButton(
             onPressed: () {
               showDialog(
                 context: context,
@@ -56,9 +63,9 @@ class _RecentScreenState extends State<RecentScreen> {
                       ElevatedButton(
                         child: Text("Delete"),
                         onPressed: () {
-                        recentDB.clear();
-                        recentVideos.value.clear();
-                        recentVideos.notifyListeners();
+                          recentDB.clear();
+                          recentVideos.value.clear();
+                          recentVideos.notifyListeners();
                           Navigator.pop(context);
                         },
                       ),
@@ -77,22 +84,7 @@ class _RecentScreenState extends State<RecentScreen> {
             builder: (BuildContext ctx, List<RecentModel> recentList,
                 Widget? child) {
               return recentList.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "No Recent Videos Found\nADD NOW",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    )
+                  ? emptyDisplay("Recent Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
                       physics: BouncingScrollPhysics(
@@ -169,7 +161,7 @@ class _RecentScreenState extends State<RecentScreen> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     trailing: Favourite(
-                                      favIndex: index,
+                                        favIndex: index,
                                         videoPath: recentList[index].recentPath,
                                         isPressed2: favVideos.value
                                                 .contains(recentList[index])

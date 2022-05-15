@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:visual_magic/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/PopupMenuButton/popup_menu_button.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 
 class FavouritesScreen extends StatelessWidget {
@@ -26,6 +26,35 @@ class FavouritesScreen extends StatelessWidget {
                 showSearch(context: context, delegate: searchVideos());
               },
               icon: Icon(Icons.search)),
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text("Delete FAvourite Videos"),
+                    content: Text("Do you wants to clear Favourites?"),
+                    actions: [
+                      ElevatedButton(
+                        child: Text("Cancel"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ElevatedButton(
+                        child: Text("Delete"),
+                        onPressed: () {
+                          favDB.clear();
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: Icon(Icons.delete),
+          ),
         ],
         backgroundColor: Color(0xff2C2C6D),
       ),
@@ -34,22 +63,7 @@ class FavouritesScreen extends StatelessWidget {
             valueListenable: favDB.listenable(),
             builder: (BuildContext ctx, Box<Favourites> newFav, Widget? child) {
               return newFav.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "No Favourite Videos Found\nADD NOW",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    )
+                  ? emptyDisplay("Favourite Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
                       physics: BouncingScrollPhysics(

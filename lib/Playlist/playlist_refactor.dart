@@ -144,28 +144,12 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                                     Navigator.pop(context);
                                     print("The video added successfully");
                                   } else {
-                                    
                                     // Navigator.pop(context);
                                     Navigator.pop(context);
                                     Navigator.pop(context);
-                                    
-                                    // ScaffoldMessenger.of(context)
-                                    //                 .showSnackBar(const SnackBar(
-                                    //                     duration: Duration(
-                                    //                         seconds: 1),
-                                    //                     behavior:
-                                    //                         SnackBarBehavior
-                                    //                             .floating,
-                                    //                     // margin: EdgeInsets.only(
-                                    //                     //     bottom: 70.0),
-                                    //                     content: Text(
-                                    //                         "Already in list")));
-                                              
-                                    
-                                    
-                                    
+
                                     notifyPlaylistVideo = true;
-                                      
+
                                     print("The video already exists");
                                   }
                                 },
@@ -181,4 +165,68 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
               ),
             ),
           ));
+}
+
+//playlist popup
+
+class PlaylistPopup extends StatefulWidget {
+  int playIndex;
+  PlaylistPopup({Key? key, required this.playIndex})
+      : super(key: key);
+
+  @override
+  State<PlaylistPopup> createState() => _PlaylistPopupState();
+}
+
+class _PlaylistPopupState extends State<PlaylistPopup> {
+  var isWatchlater;
+
+  @override
+  Widget build(BuildContext context) {
+    // _checkWatchlater();
+    return PopupMenuButton(
+        icon: Icon(
+          Icons.more_vert,
+          color: Colors.white,
+        ),
+        itemBuilder: (_) => <PopupMenuItem<String>>[
+              PopupMenuItem<String>(
+                  onTap: () {}, child: Text('Rename Playlist'), value: 'Doge'),
+              PopupMenuItem<String>(
+                  onTap: () {
+                    playListNameDB.deleteAt(widget.playIndex);
+                  },
+                  child: Text('Delete Playlist'),
+                  value: 'Lion'),
+            ],
+        onSelected: (_selected) {
+          print(_selected);
+        });
+  }
+
+  // _checkWatchlater() {
+  //   if (watchlaterDB.values.isNotEmpty) {
+  //     final watchlater = watchlaterDB.values.toList();
+  //     final isFound =
+  //         watchlater.where((element) => element.laterPath == widget.videoPath);
+  //     setState(() {
+  //       if (isFound.isEmpty) {
+  //         isWatchlater = true; //video not exist watchlater
+  //       } else {
+  //         isWatchlater = false; //video exists in watchlater
+  //       }
+  //     });
+  //   } else {
+  //     isWatchlater = true;
+  //   }
+  // }
+
+  _deleteWatchlater(PlayListName _playlistName) {
+    final Map<dynamic, PlayListName> watchlaterMap = playListNameDB.toMap();
+    dynamic desiredKey;
+    watchlaterMap.forEach((key, value) {
+      if (value.playListName == _playlistName.playListName) desiredKey = key;
+    });
+    watchlaterDB.delete(desiredKey);
+  }
 }

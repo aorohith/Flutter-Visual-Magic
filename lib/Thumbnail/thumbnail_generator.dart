@@ -39,12 +39,18 @@ class _ThumbGeneratorState extends State<ThumbGenerator> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 70,
-      child: _thumbnail != null
-          ? Image.file(File(_thumbnail))
-          : Image.asset("assets/images/download.jpeg"),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        height: 50,
+        width: 80,
+        child: _thumbnail != null
+            ? Image.file(
+                File(_thumbnail),
+                fit: BoxFit.cover,
+              )
+            : Image.asset("assets/images/download.jpeg"),
+      ),
     );
   }
 

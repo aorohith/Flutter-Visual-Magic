@@ -194,14 +194,17 @@ class MenuDrawer extends StatelessWidget {
   void selectedItem(BuildContext context, int index) {
     switch (index) {
       case 0:
+      Navigator.pop(context);
       Navigator.push(
           context,
           MaterialPageRoute(
             builder: (ctx) => WatchLater(),
+            
           ),
         );
         break;
       case 1:
+      Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -213,14 +216,17 @@ class MenuDrawer extends StatelessWidget {
 
         break;
       case 2:
+      Navigator.pop(context);
         share();
 
         break;
       case 3:
+      Navigator.pop(context);
         Navigator.pop(context);
         BetterFeedback.of(context).show((UserFeedback feedback) {});
         break;
       case 4:
+      Navigator.pop(context);
         showAboutDialog(
             context: context,
             applicationIcon: Image(
@@ -236,6 +242,7 @@ class MenuDrawer extends StatelessWidget {
 
         break;
       case 5:
+      Navigator.pop(context);
       break;
     }
   }
