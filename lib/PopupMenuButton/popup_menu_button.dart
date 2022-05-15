@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 
 class PopupOption extends StatefulWidget {
@@ -57,7 +55,8 @@ class _PopupOptionState extends State<PopupOption> {
   }
 
   _checkWatchlater() {
-    final watchlater = watchlaterDB.values.toList();
+    if(watchlaterDB.values.isNotEmpty){
+      final watchlater = watchlaterDB.values.toList();
     final isFound =
         watchlater.where((element) => element.laterPath == widget.videoPath);
     setState(() {
@@ -67,6 +66,9 @@ class _PopupOptionState extends State<PopupOption> {
         isWatchlater = false; //video exists in watchlater
       }
     });
+    }else{
+      return true;
+    }
   }
 
   _deleteWatchlater(WatchlaterModel _watchlater) {
