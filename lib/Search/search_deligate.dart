@@ -58,7 +58,9 @@ class searchVideos extends SearchDelegate<VideoData> {
       backgroundColor: Colors.black,
       body: myList.isEmpty
           ? Text("No matching found")
-          : ListView.builder(
+          : ListView.separated(
+            padding: EdgeInsets.only(top: 10),
+            separatorBuilder: (BuildContext context, int index) => Divider(),
               itemCount: myList.length,
               itemBuilder: (context, index) {
                 final VideoData video = myList[index];

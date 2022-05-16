@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:visual_magic/FavouriteScreen/favourites_screen.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
+import 'package:visual_magic/Screens/FavouriteScreen/favourites_screen.dart';
 import 'package:visual_magic/Screens/FolderScreen/folders_screen.dart';
 import 'package:visual_magic/Screens/RecentScreen/recent_screen.dart';
 import 'package:visual_magic/Screens/Videos/video_screen.dart';

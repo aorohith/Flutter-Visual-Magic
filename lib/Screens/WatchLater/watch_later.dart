@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:visual_magic/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
 import 'package:visual_magic/db/functions.dart';
@@ -32,6 +32,38 @@ class _WatchLaterState extends State<WatchLater> {
       appBar: AppBar(
         title: Text("WatchLater"),
         backgroundColor: Color(0xff2C2C6D),
+        actions: [
+          watchlaterDB.isEmpty
+              ? SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Delete FAvourite Videos"),
+                          content: Text("Do you wants to clear Favourites?"),
+                          actions: [
+                            ElevatedButton(
+                              child: Text("Cancel"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            ElevatedButton(
+                              child: Text("Delete"),
+                              onPressed: () {
+                                watchlaterDB.clear();
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.delete)),
+        ],
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(

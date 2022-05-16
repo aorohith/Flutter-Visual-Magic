@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:visual_magic/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_videos.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
@@ -40,7 +40,39 @@ class _PlaylistState extends State<Playlist> {
       backgroundColor: Color(0xff060625),
       appBar: AppBar(
         title: Text("PlayList"),
-        backgroundColor: Color(0xff2C2C6D),
+        actions: [
+          playListNameDB.isEmpty
+              ? SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Delete Playlist"),
+                          content: Text("Do you wants to clear Playlist?"),
+                          actions: [
+                            ElevatedButton(
+                              child: Text("Cancel"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                            ElevatedButton(
+                              child: Text("Delete"),
+                              onPressed: () {
+                                playListNameDB.clear();
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.delete),
+                ),
+        ],
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(

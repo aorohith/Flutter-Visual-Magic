@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:visual_magic/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Screens/Videos/refactor.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/db/functions.dart';
@@ -29,6 +29,8 @@ class _VideosScreenState extends State<VideosScreen> {
     bool isPressed2 = true;
     bool isHighlighted = true;
     return Scaffold(
+      backgroundColor: Color(0xff060625),
+
       drawer: MenuDrawer(),
       floatingActionButton: PlayButton(context),
       // backgroundColor: Color(0xff1f1f1f),
@@ -73,16 +75,9 @@ class _VideosScreenState extends State<VideosScreen> {
             icon: Icon(Icons.help_outline_outlined),
           ),
         ],
-        backgroundColor: Color.fromARGB(255, 81, 73, 150),
       ),
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              opacity: 0.7,
-              image: AssetImage("assets/images/download8.jpg"),
-              fit: BoxFit.cover),
-        ),
         child: AnimationLimiter(
           child: ValueListenableBuilder(
               valueListenable: fetchedVideosWithInfo,

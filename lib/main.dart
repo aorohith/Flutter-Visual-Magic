@@ -21,7 +21,6 @@ late Box<WatchlaterModel> watchlaterDB;
 
 late SharedPreferences sharedPref;
 
-
 int? initScreen;
 
 void main() async {
@@ -33,7 +32,6 @@ void main() async {
     Hive.registerAdapter(PlayListNameAdapter());
     Hive.registerAdapter(PlayListVideosAdapter());
     Hive.registerAdapter(WatchlaterModelAdapter());
-
   }
   userDB = await Hive.openBox('student_db');
   favDB = await Hive.openBox('fav_db');
@@ -44,24 +42,18 @@ void main() async {
 
   sharedPref = await SharedPreferences.getInstance();
 
-
-
-
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = prefs.getInt('initScreen');
   await prefs.setInt('initScreen', 1);
 
-  runApp(BetterFeedback(child:  MyApp()));
+  runApp(BetterFeedback(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-     
-
     return ScreenUtilInit(
         designSize: Size(2246, 1080),
         minTextAdapt: true,
@@ -72,15 +64,16 @@ class MyApp extends StatelessWidget {
             useInheritedMediaQuery: true,
             theme: ThemeData(
                 appBarTheme: AppBarTheme(
-              color: const Color(0xFF151026),
+              color: const Color(0xff1f1f55),
             )),
-            initialRoute: initScreen == 0 || initScreen == null ?  'onBoardingScreen' : 'splashScreen',  
+            initialRoute: initScreen == 0 || initScreen == null
+                ? 'onBoardingScreen'
+                : 'splashScreen',
             routes: {
-        'onBoardingScreen': (context) => OnBoardingScreen(),
-        "splashScreen": (context) => SplashScreen(),
-      },
+              'onBoardingScreen': (context) => OnBoardingScreen(),
+              "splashScreen": (context) => SplashScreen(),
+            },
           );
         });
   }
-  
 }
