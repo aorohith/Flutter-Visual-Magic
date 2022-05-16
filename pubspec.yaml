@@ -36,6 +36,7 @@ dependencies:
   feedback: ^2.4.1
   flutter:
     sdk: flutter
+  flutter_colorpicker: ^1.0.3
   flutter_overboard: ^3.1.1
   flutter_screenutil: ^5.4.0
   flutter_share: ^2.0.0

@@ -8,6 +8,7 @@ import 'package:flutter_share/flutter_share.dart';
 import 'package:visual_magic/MenuDrawer/user.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_screen.dart';
 import 'package:visual_magic/Screens/WatchLater/watch_later.dart';
+import 'package:visual_magic/Variables/color_change.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
 
@@ -243,6 +244,7 @@ class MenuDrawer extends StatelessWidget {
         break;
       case 5:
       Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (ctx)=> ColorChangeScren()) );
       break;
     }
   }
