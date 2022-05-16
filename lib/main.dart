@@ -19,6 +19,8 @@ late Box<PlayListName> playListNameDB;
 late Box<PlayListVideos> playListVideosDB;
 late Box<WatchlaterModel> watchlaterDB;
 
+late SharedPreferences sharedPref;
+
 
 int? initScreen;
 
@@ -39,6 +41,10 @@ void main() async {
   playListNameDB = await Hive.openBox('playlist_name_db');
   playListVideosDB = await Hive.openBox('playlist_videos_db');
   watchlaterDB = await Hive.openBox('watchlater_db');
+
+  sharedPref = await SharedPreferences.getInstance();
+
+
 
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
