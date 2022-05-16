@@ -1,7 +1,7 @@
 //playlist popup
 
 import 'package:flutter/material.dart';
-import 'package:visual_magic/Playlist/playlist_refactor.dart';
+import 'package:visual_magic/Screens/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/main.dart';
 

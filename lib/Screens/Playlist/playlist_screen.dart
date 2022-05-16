@@ -3,8 +3,8 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/Playlist/playlist_refactor.dart';
-import 'package:visual_magic/Playlist/playlist_videos.dart';
+import 'package:visual_magic/Screens/Playlist/playlist_refactor.dart';
+import 'package:visual_magic/Screens/Playlist/playlist_videos.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
 import 'package:visual_magic/main.dart';
 
@@ -107,10 +107,6 @@ class _PlaylistState extends State<Playlist> {
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
-                                      ),
-                                      subtitle: Text(
-                                        "10 Videos",
-                                        style: TextStyle(color: Colors.white),
                                       ),
                                       trailing: PlaylistPopup(
                                         playName: playName.playListName,

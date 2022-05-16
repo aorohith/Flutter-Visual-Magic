@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Emptydisplay/empty_text.dart';
-import 'package:visual_magic/FolderScreen/folder_videos.dart';
 import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
+import 'package:visual_magic/Screens/FolderScreen/folder_videos.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/db/functions.dart';
 
@@ -40,25 +38,25 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           // ElevatedButton(
           //   onPressed: () {
-          //     print("Button Clicked");
+          //     print("Button Clicked");//a test button for all purpouse
           //   },
-          //   child: Text("Hai"),
+          //   child: Text("Click"),
           // ),
           IconButton(
               onPressed: () {
                 showSearch(context: context, delegate: searchVideos());
               },
               icon: Icon(Icons.search)), //Search Refactor
-          IconButton(
-            onPressed: () {
-              ShowCaseWidget.of(context)!.startShowCase([
-                KeysToBeInherited.of(context).key1,
-                KeysToBeInherited.of(context).key2,
-                KeysToBeInherited.of(context).key3,
-              ]);
-            },
-            icon: Icon(Icons.help_outline_outlined),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     ShowCaseWidget.of(context)!.startShowCase([
+          //       KeysToBeInherited.of(context).key1,
+          //       KeysToBeInherited.of(context).key2,
+          //       KeysToBeInherited.of(context).key3,
+          //     ]);
+          //   },
+          //   icon: Icon(Icons.help_outline_outlined),
+          // ),
         ],
         backgroundColor: Color(0xff1f1f55),
       ),

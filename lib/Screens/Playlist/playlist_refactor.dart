@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:visual_magic/Main/bottom_nav.dart';
-import 'package:visual_magic/Playlist/playlist_popup_button.dart';
+import 'package:visual_magic/Screens/Playlist/playlist_popup_button.dart';
 import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
+import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 
-import '../db/functions.dart';
 
 bool notifyPlaylistVideo = false;
 
@@ -80,7 +79,6 @@ addNewPlaylist(String value, BuildContext context) {
 //add new play list videos to ########
 
 playlistVideoPopup({required context, required playlistVideoPath}) {
-  print("clicked");
   final GlobalKey<FormState> _formKey =
       GlobalKey(); //currentstate.validate not work without <FormState>
   TextEditingController _textController = TextEditingController();
@@ -186,7 +184,6 @@ class _PlaylistPopupState extends State<PlaylistPopup> {
 
   @override
   Widget build(BuildContext context) {
-    // _checkWatchlater();
     return PopupMenuButton(
         icon: Icon(
           Icons.more_vert,
@@ -215,23 +212,6 @@ class _PlaylistPopupState extends State<PlaylistPopup> {
           print(_selected);
         });
   }
-
-  // _checkWatchlater() {
-  //   if (watchlaterDB.values.isNotEmpty) {
-  //     final watchlater = watchlaterDB.values.toList();
-  //     final isFound =
-  //         watchlater.where((element) => element.laterPath == widget.videoPath);
-  //     setState(() {
-  //       if (isFound.isEmpty) {
-  //         isWatchlater = true; //video not exist watchlater
-  //       } else {
-  //         isWatchlater = false; //video exists in watchlater
-  //       }
-  //     });
-  //   } else {
-  //     isWatchlater = true;
-  //   }
-  // }
 
   _deletePlaylist({required String playlistVideoName, required int index}) {
     playListNameDB.deleteAt(index); //playlist name delete from db
