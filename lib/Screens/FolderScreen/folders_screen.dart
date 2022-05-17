@@ -6,9 +6,9 @@ import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Screens/FolderScreen/folder_videos.dart';
+import 'package:visual_magic/Screens/FolderScreen/folder_popupmenubutton.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/db/functions.dart';
-
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -149,32 +149,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                       style: TextStyle(color: Colors.white),
                                     ),
 
-                                    //more option for future usage
-                                    // trailing: index == 0
-                                    //     ? Showcase(
-                                    //         shapeBorder: const CircleBorder(),
-                                    //         showcaseBackgroundColor:
-                                    //             Colors.indigo,
-                                    //         descTextStyle: TextStyle(
-                                    //           fontWeight: FontWeight.w500,
-                                    //           color: Colors.white,
-                                    //           fontSize: 16,
-                                    //         ),
-                                    //         key: KeysToBeInherited.of(context)
-                                    //             .key3,
-                                    //         child: IconButton(
-                                    //             onPressed: () {},
-                                    //             icon: Icon(
-                                    //               Icons.more_vert,
-                                    //               color: Colors.white,
-                                    //             )),
-                                    //         description: "More info ")
-                                    //     : IconButton(
-                                    //         onPressed: () {},
-                                    //         icon: Icon(
-                                    //           Icons.more_vert,
-                                    //           color: Colors.white,
-                                    //         )),
+                                    // more option for future usage
+                                    trailing: index == 0
+                                        ? Showcase(
+                                            shapeBorder: const CircleBorder(),
+                                            showcaseBackgroundColor:
+                                                Colors.indigo,
+                                            descTextStyle: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                            key: KeysToBeInherited.of(context)
+                                                .key3,
+                                            child: FolderPopupMenuButton(
+                                                folderPath:
+                                                    updatedFolders[index]),
+                                            description: "More info ")
+                                        : FolderPopupMenuButton(
+                                            folderPath: updatedFolders[index]),
 
                                     //Turnery operator ends here
                                   ),
