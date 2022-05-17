@@ -34,7 +34,7 @@ class FavouritesScreen extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Delete FAvourite Videos"),
+                          title: Text("Delete Favourite Videos"),
                           content: Text("Do you wants to clear Favourites?"),
                           actions: [
                             ElevatedButton(
@@ -44,7 +44,7 @@ class FavouritesScreen extends StatelessWidget {
                               },
                             ),
                             ElevatedButton(
-                              child: Text("Delete"),
+                              child: Text("Clear"),
                               onPressed: () {
                                 favDB.clear();
                                 Navigator.pop(context);
@@ -123,21 +123,6 @@ class FavouritesScreen extends StatelessWidget {
                                       favIndex: index,
                                     ),
 
-                                    // IconButton(
-                                    //     onPressed: () {
-                                    //       showDialog(
-                                    //       context: context,
-                                    //       builder: (ctx) {
-                                    //         return AlertDialog(
-                                    //           backgroundColor: Color(0xf060625),
-                                    //           content: favouritePopup(newFav[index], context),
-                                    //         );
-                                    //       });
-                                    //     },
-                                    //     icon: Icon(
-                                    //       Icons.more_vert,
-                                    //       color: Colors.white,
-                                    //     )),
                                   ),
                                 ),
                               ),

@@ -149,32 +149,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                       style: TextStyle(color: Colors.white),
                                     ),
 
-                                    //Turnery operator
-                                    trailing: index == 0
-                                        ? Showcase(
-                                            shapeBorder: const CircleBorder(),
-                                            showcaseBackgroundColor:
-                                                Colors.indigo,
-                                            descTextStyle: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                            ),
-                                            key: KeysToBeInherited.of(context)
-                                                .key3,
-                                            child: IconButton(
-                                                onPressed: () {},
-                                                icon: Icon(
-                                                  Icons.more_vert,
-                                                  color: Colors.white,
-                                                )),
-                                            description: "More info ")
-                                        : IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.more_vert,
-                                              color: Colors.white,
-                                            )),
+                                    //more option for future usage
+                                    // trailing: index == 0
+                                    //     ? Showcase(
+                                    //         shapeBorder: const CircleBorder(),
+                                    //         showcaseBackgroundColor:
+                                    //             Colors.indigo,
+                                    //         descTextStyle: TextStyle(
+                                    //           fontWeight: FontWeight.w500,
+                                    //           color: Colors.white,
+                                    //           fontSize: 16,
+                                    //         ),
+                                    //         key: KeysToBeInherited.of(context)
+                                    //             .key3,
+                                    //         child: IconButton(
+                                    //             onPressed: () {},
+                                    //             icon: Icon(
+                                    //               Icons.more_vert,
+                                    //               color: Colors.white,
+                                    //             )),
+                                    //         description: "More info ")
+                                    //     : IconButton(
+                                    //         onPressed: () {},
+                                    //         icon: Icon(
+                                    //           Icons.more_vert,
+                                    //           color: Colors.white,
+                                    //         )),
 
                                     //Turnery operator ends here
                                   ),

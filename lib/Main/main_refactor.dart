@@ -25,7 +25,6 @@ Widget PlayButton(context) {
   );
 }
 
-
 //###################...Favourites button Refactoring...########################
 
 class Favourite extends StatefulWidget {
@@ -50,9 +49,9 @@ class _FavouriteState extends State<Favourite> {
   @override
   Widget build(BuildContext context) {
     if (favDB.values.isNotEmpty) {
-        List<Favourites> favList = favDB.values.toList();
-      var existingItem = favList.where(
-          (itemToCheck) => itemToCheck.favVideo == widget.videoPath);
+      List<Favourites> favList = favDB.values.toList();
+      var existingItem = favList
+          .where((itemToCheck) => itemToCheck.favVideo == widget.videoPath);
       if (existingItem.isEmpty) {
         widget.isPressed2 = true;
       } else {
@@ -74,7 +73,15 @@ class _FavouriteState extends State<Favourite> {
             Favourites favObj = Favourites(favVideo: widget.videoPath);
             favDB.add(favObj);
           } else {
-            favDB.deleteAt(widget.favIndex);
+            //delete the fav from db
+            final Map<dynamic, Favourites> favMap = favDB.toMap();
+            dynamic desiredKey;
+            favMap.forEach((key, value) {
+              if (value.favVideo == widget.videoPath) {
+                desiredKey = key;
+              }
+            });
+            favDB.delete(desiredKey);
           }
         });
       },
@@ -175,34 +182,34 @@ Widget optionPopup(
                     ),
             ),
           ),
-          SizedBox(
-            height: 40,
-            width: 200,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: const Color(0xff1F1F55),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Rename",
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            width: 200,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: const Color(0xff1F1F55),
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Delete",
-                style: const TextStyle(fontSize: 18),
-              ),
-            ),
-          ),
+          // SizedBox(
+          //   height: 40,
+          //   width: 200,
+          //   child: ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //       primary: const Color(0xff1F1F55),
+          //     ),
+          //     onPressed: () {},
+          //     child: const Text(
+          //       "Rename",
+          //       style: TextStyle(fontSize: 18),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 40,
+          //   width: 200,
+          //   child: ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //       primary: const Color(0xff1F1F55),
+          //     ),
+          //     onPressed: () {},
+          //     child: const Text(
+          //       "Delete",
+          //       style: const TextStyle(fontSize: 18),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
