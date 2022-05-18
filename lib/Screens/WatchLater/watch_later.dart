@@ -41,8 +41,8 @@ class _WatchLaterState extends State<WatchLater> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Delete FAvourite Videos"),
-                          content: Text("Do you wants to clear Favourites?"),
+                          title: Text("Delete Watchlater Videos"),
+                          content: Text("Do you wants to clear Watchlater Videos?"),
                           actions: [
                             ElevatedButton(
                               child: Text("Cancel"),
@@ -138,10 +138,6 @@ class _WatchLaterState extends State<WatchLater> {
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text(
-                                      "10 Videos",
-                                      style: TextStyle(color: Colors.white),
                                     ),
                                     trailing: Favourite(
                                         favIndex: index,

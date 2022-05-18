@@ -27,24 +27,34 @@ class _VideoPlayState extends State<VideoPlay> {
     addToRecent(recent);
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
-        allowedScreenSleep: false,
-            autoPlay: true,
-            aspectRatio: 16 / 9,
-            fit: BoxFit.contain,
-            autoDetectFullscreenDeviceOrientation: true);
-    BetterPlayerDataSource dataSource = BetterPlayerDataSource(
-      BetterPlayerDataSourceType.file,
-      widget.videoLink,
-      notificationConfiguration: BetterPlayerNotificationConfiguration(
-        showNotification: true,
-        title: getVideoName(),
-      )
+      allowedScreenSleep: false,
+      autoPlay: true,
+      aspectRatio: 16 / 9,
+      fit: BoxFit.contain,
+      autoDetectFullscreenDeviceOrientation: true,
+      fullScreenByDefault: true,
+      controlsConfiguration: BetterPlayerControlsConfiguration(
+
+    ),
     );
+    BetterPlayerDataSource dataSource = BetterPlayerDataSource(
+        BetterPlayerDataSourceType.file, widget.videoLink,
+        notificationConfiguration: BetterPlayerNotificationConfiguration(
+          showNotification: true,
+          title: getVideoName(),
+        ));
     _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
     _betterPlayerController.setupDataSource(dataSource);
     _betterPlayerController.setBetterPlayerGlobalKey(_betterPlayerKey);
     Wakelock.enable();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _betterPlayerController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -75,7 +85,8 @@ class _VideoPlayState extends State<VideoPlay> {
       ),
     );
   }
-  getVideoName(){
+
+  getVideoName() {
     return widget.videoLink.split('/').last;
   }
 }

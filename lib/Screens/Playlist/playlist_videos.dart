@@ -42,7 +42,7 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text("Delete RecentVideos"),
-                          content: Text("Do you wants to clear recent?"),
+                          content: Text("Do you wants to clear Recent?"),
                           actions: [
                             ElevatedButton(
                               child: Text("Cancel"),
@@ -132,18 +132,6 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),
-                                          ),
-                                          subtitle: Text(
-                                            "10 Videos",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                          trailing: IconButton(
-                                            icon: Icon(
-                                              Icons.more_vert,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {},
                                           ),
                                         ),
                                       ),
