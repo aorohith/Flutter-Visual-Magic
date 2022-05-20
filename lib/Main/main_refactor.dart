@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
-import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 

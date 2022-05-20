@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:visual_magic/db/Models/user_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 
 UserModel _userData = userDB.values.toList()[0];

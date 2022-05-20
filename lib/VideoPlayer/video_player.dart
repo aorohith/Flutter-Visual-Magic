@@ -1,6 +1,6 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
-import 'package:visual_magic/db/Models/Recent/recent_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:wakelock/wakelock.dart';
 

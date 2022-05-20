@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:visual_magic/FetchFiles/search_files.dart';
-import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
-import 'package:visual_magic/db/Models/Recent/recent_model.dart';
-import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 
 final videoInfo = FlutterVideoInfo(); //creating object of infoclass

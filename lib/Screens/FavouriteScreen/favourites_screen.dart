@@ -7,7 +7,7 @@ import 'package:visual_magic/PopupMenuButton/popup_menu_button.dart';
 import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 
 class FavouritesScreen extends StatelessWidget {

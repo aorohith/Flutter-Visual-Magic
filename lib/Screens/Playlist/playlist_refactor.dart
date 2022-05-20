@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_popup_button.dart';
-import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 

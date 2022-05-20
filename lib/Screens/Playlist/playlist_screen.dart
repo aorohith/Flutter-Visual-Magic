@@ -5,7 +5,7 @@ import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_refactor.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_videos.dart';
-import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 
 List<String>? fetchedVideos;

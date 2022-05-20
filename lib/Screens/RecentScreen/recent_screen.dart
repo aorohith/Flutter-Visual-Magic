@@ -5,7 +5,7 @@ import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/db/Models/Recent/recent_model.dart';
+import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 

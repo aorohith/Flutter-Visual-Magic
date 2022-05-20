@@ -3,12 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visual_magic/Screens/splash_screen.dart';
-import 'package:visual_magic/db/Models/Favourites/favourites_model.dart';
-import 'package:visual_magic/db/Models/PlayList/playlist_model.dart';
-import 'package:visual_magic/db/Models/Recent/recent_model.dart';
-import 'package:visual_magic/db/Models/Watchlater/watch_later_model.dart';
-import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/Screens/on_boarding_screen.dart';
+import 'package:visual_magic/db/Models/models.dart';
 
 // late var box;
 late var userDB;
@@ -26,11 +22,7 @@ void main() async {
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(UserModelAdapter().typeId)) {
     Hive.registerAdapter(UserModelAdapter());
-    Hive.registerAdapter(FavouritesAdapter());
-    Hive.registerAdapter(RecentModelAdapter());
-    Hive.registerAdapter(PlayListNameAdapter());
-    Hive.registerAdapter(PlayListVideosAdapter());
-    Hive.registerAdapter(WatchlaterModelAdapter());
+
   }
   userDB = await Hive.openBox('student_db');
   favDB = await Hive.openBox('fav_db');
