@@ -1,4 +1,3 @@
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -46,7 +45,7 @@ void main() async {
   initScreen = prefs.getInt('initScreen');
   await prefs.setInt('initScreen', 1);
 
-  runApp(BetterFeedback(child: MyApp()));
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {

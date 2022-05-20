@@ -13,7 +13,7 @@ class VideoPlay extends StatefulWidget {
   });
 
   @override
-  State<VideoPlay> createState() => _VideoPlayState();
+  _VideoPlayState createState() => _VideoPlayState();
 }
 
 class _VideoPlayState extends State<VideoPlay> {
@@ -27,15 +27,12 @@ class _VideoPlayState extends State<VideoPlay> {
     addToRecent(recent);
     BetterPlayerConfiguration betterPlayerConfiguration =
         BetterPlayerConfiguration(
-      allowedScreenSleep: false,
       autoPlay: true,
+      looping: true,
       aspectRatio: 16 / 9,
       fit: BoxFit.contain,
       autoDetectFullscreenDeviceOrientation: true,
       fullScreenByDefault: true,
-      controlsConfiguration: BetterPlayerControlsConfiguration(
-
-    ),
     );
     BetterPlayerDataSource dataSource = BetterPlayerDataSource(
         BetterPlayerDataSourceType.file, widget.videoLink,
@@ -50,12 +47,12 @@ class _VideoPlayState extends State<VideoPlay> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _betterPlayerController.dispose();
-    // TODO: implement dispose
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // _betterPlayerController.dispose();
+  //   // TODO: implement dispose
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -89,4 +86,11 @@ class _VideoPlayState extends State<VideoPlay> {
   getVideoName() {
     return widget.videoLink.split('/').last;
   }
+}
+
+Widget fullScreen(BuildContext context, Animation<double> animation,
+    Animation<double> animation2, BetterPlayerControllerProvider) {
+  return Scaffold(
+    backgroundColor: Colors.redAccent,
+  );
 }

@@ -2,13 +2,12 @@
 
 import 'dart:io';
 
-import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:visual_magic/MenuDrawer/terms_and_conditions.dart';
 import 'package:visual_magic/MenuDrawer/user.dart';
 import 'package:visual_magic/Screens/Playlist/playlist_screen.dart';
 import 'package:visual_magic/Screens/WatchLater/watch_later.dart';
-import 'package:visual_magic/Variables/color_change.dart';
 import 'package:visual_magic/db/Models/user_model.dart';
 import 'package:visual_magic/main.dart';
 
@@ -83,15 +82,16 @@ class MenuDrawer extends StatelessWidget {
                       onClicked: () {
                         selectedItem(context, 2);
                       }),
-                  // const SizedBox(
-                  //   height: 30,
-                  // ),
-                  // buildMenuItem(
-                  //     text: "Feedback",
-                  //     icon: Icons.feedback_outlined,
-                  //     onClicked: () {
-                  //       selectedItem(context, 3);
-                  //     }),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  buildMenuItem(
+                      text: "T & C",
+                      icon: Icons.feedback_outlined,
+                      onClicked: () {
+                        termsAndConditions(context);
+                        selectedItem(context, 3);
+                      }),
                   const SizedBox(
                     height: 30,
                   ),
@@ -223,8 +223,7 @@ class MenuDrawer extends StatelessWidget {
         break;
       case 3:
       Navigator.pop(context);
-        Navigator.pop(context);
-        // BetterFeedback.of(context).show((UserFeedback feedback) {});//showing error while clicking
+       termsAndConditions(context);
         break;
       case 4:
       Navigator.pop(context);

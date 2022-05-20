@@ -33,7 +33,6 @@ dependencies:
   better_player: ^0.0.82
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
-  feedback: ^2.4.1
   flutter:
     sdk: flutter
   flutter_colorpicker: ^1.0.3
