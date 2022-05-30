@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 
 Widget favouritePopup({required String value, required BuildContext context, required int favIndex}) {
@@ -8,7 +7,7 @@ Widget favouritePopup({required String value, required BuildContext context, req
     width: 250,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
-      color: Color(0xff060625),
+      color: const Color(0xff060625),
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -18,13 +17,13 @@ Widget favouritePopup({required String value, required BuildContext context, req
           width: 200,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color(0xff1F1F55),
+              primary: const Color(0xff1F1F55),
             ),
             onPressed: () {
               favDB.deleteAt(favIndex);
               Navigator.pop(context);
             },
-            child: Text(
+            child: const Text(
               "Remove from Favourite",
               style: TextStyle(fontSize: 18),
             ),
@@ -35,10 +34,10 @@ Widget favouritePopup({required String value, required BuildContext context, req
           width: 200,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color(0xff1F1F55),
+              primary: const Color(0xff1F1F55),
             ),
             onPressed: () {},
-            child: Text(
+            child: const Text(
               "Add to Watch Later",
               style: TextStyle(fontSize: 18),
             ),
@@ -49,10 +48,10 @@ Widget favouritePopup({required String value, required BuildContext context, req
           width: 200,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color(0xff1F1F55),
+              primary: const Color(0xff1F1F55),
             ),
             onPressed: () {},
-            child: Text(
+            child: const Text(
               "Rename",
               style: TextStyle(fontSize: 18),
             ),
@@ -63,10 +62,10 @@ Widget favouritePopup({required String value, required BuildContext context, req
           width: 200,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color(0xff1F1F55),
+              primary: const Color(0xff1F1F55),
             ),
             onPressed: () {},
-            child: Text(
+            child: const Text(
               "Delete",
               style: TextStyle(fontSize: 18),
             ),

@@ -23,7 +23,7 @@ class _PlaylistScreenPopupState extends State<PlaylistScreenPopup> {
   Widget build(BuildContext context) {
     // _checkWatchlater();
     return PopupMenuButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.more_vert,
           color: Colors.white,
         ),
@@ -36,27 +36,17 @@ class _PlaylistScreenPopupState extends State<PlaylistScreenPopup> {
                       index: widget.playIndex,
                     );
                   },
-                  child: Text('Rename Playlist'),
+                  child: const Text('Rename Playlist'),
                   value: 'Doge'),
               PopupMenuItem<String>(
                   onTap: () {
                     playListNameDB.deleteAt(widget.playIndex);
                   },
-                  child: Text('Delete Playlist'),
+                  child: const Text('Delete Playlist'),
                   value: 'Lion'),
             ],
         onSelected: (_selected) {
-          print(_selected);
         });
-  }
-
-  _deleteWatchlater(PlayListName _playlistName) {
-    final Map<dynamic, PlayListName> watchlaterMap = playListNameDB.toMap();
-    dynamic desiredKey;
-    watchlaterMap.forEach((key, value) {
-      if (value.playListName == _playlistName.playListName) desiredKey = key;
-    });
-    watchlaterDB.delete(desiredKey);
   }
 }
 
@@ -74,10 +64,10 @@ playlistEdit(
       builder: (context) => Form(
             key: _formKey,
             child: AlertDialog(
-              title: Text("Edit Playlist"),
+              title: const Text("Edit Playlist"),
               content: TextFormField(
                 controller: _textController,
-                decoration: InputDecoration(labelText: "Playlist Name"),
+                decoration: const InputDecoration(labelText: "Playlist Name"),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Enter Playlist Name";
@@ -91,11 +81,11 @@ playlistEdit(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       addNewPlaylist(_textController.text.trim(), context);
-                      final snackBar =
+                      const  snackBar =
                           SnackBar(content: Text("Playlist Name Updated"));
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "Update",
                   ),
                 ),
@@ -117,7 +107,7 @@ editPlayDB({
   playListNameDB.put(desiredKey, playlistObj); //playlist name changed successfully
 
 
-  PlayListVideos playVideos;
+
   final Map<dynamic, PlayListVideos> playlistVideoMap =
       playListVideosDB.toMap();
   playlistVideoMap.forEach((key, value) {

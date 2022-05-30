@@ -7,7 +7,7 @@ Widget emptyDisplay(String section) {
       children: [
         Text(
           "No $section Found\nADD NOW",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 25,
             fontWeight: FontWeight.bold,

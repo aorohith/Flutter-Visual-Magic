@@ -7,7 +7,7 @@ import 'package:visual_magic/main.dart';
 
 //#################...Floating Video play Button..#############
 
-Widget PlayButton(context) {
+Widget playButton(context) {
   return FloatingActionButton(
     onPressed: () {
       Navigator.push(
@@ -20,7 +20,7 @@ Widget PlayButton(context) {
         ),
       );
     },
-    child: Icon(Icons.play_arrow),
+    child: const Icon(Icons.play_arrow),
   );
 }
 
@@ -106,7 +106,7 @@ class _FavouriteState extends State<Favourite> {
                 Icons.favorite_border,
                 color: Colors.black.withOpacity(0.6),
               )
-            : Icon(
+            : const Icon(
                 Icons.favorite,
                 color: Color(0xffED3030),
               ),
@@ -129,17 +129,17 @@ Widget optionPopup(
       width: 250,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: const Color(0xff060625),
+        color: Color.fromARGB(255, 108, 99, 226),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           SizedBox(
-            height: 40,
+            height: 80,
             width: 200,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xff1F1F55),
+                primary: Color.fromARGB(255, 77, 77, 194),
               ),
               onPressed: () {
                 playlistVideoPopup(
@@ -147,68 +147,37 @@ Widget optionPopup(
               },
               child: const Text(
                 "Add to Playlist",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 20),
               ),
             ),
           ),
           SizedBox(
-            height: 40,
+            height: 80,
             width: 200,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xff1F1F55),
+                primary: Color.fromARGB(255, 77, 77, 194),
               ),
               onPressed: () {
-                print("clicked");
                 if (isExists) {
                   watchlaterDB.add(watchlaterModel);
                   Navigator.pop(context);
                 } else {
-                  // watchlaterDB.deleteAt(index);
-
                   deleteWatchlater(watchlaterModel);
                   Navigator.pop(context);
                 }
               },
               child: isExists
-                  ? Text(
+                  ? const Text(
                       "Add to Watch Later",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 20),
                     )
-                  : Text(
+                  : const Text(
                       "Remove from Watchlater",
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(fontSize: 20),textAlign: TextAlign.center,
                     ),
             ),
           ),
-          // SizedBox(
-          //   height: 40,
-          //   width: 200,
-          //   child: ElevatedButton(
-          //     style: ElevatedButton.styleFrom(
-          //       primary: const Color(0xff1F1F55),
-          //     ),
-          //     onPressed: () {},
-          //     child: const Text(
-          //       "Rename",
-          //       style: TextStyle(fontSize: 18),
-          //     ),
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: 40,
-          //   width: 200,
-          //   child: ElevatedButton(
-          //     style: ElevatedButton.styleFrom(
-          //       primary: const Color(0xff1F1F55),
-          //     ),
-          //     onPressed: () {},
-          //     child: const Text(
-          //       "Delete",
-          //       style: const TextStyle(fontSize: 18),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -220,7 +189,6 @@ addWatchLater(WatchlaterModel value) {
 }
 
 checkWatchlater(String watchlaterVideoPath) {
-  print(watchlaterVideoPath);
   if (watchlaterDB.isNotEmpty) {
     List<WatchlaterModel> watchlaterPaths = watchlaterDB.values.toList();
     final isExists = watchlaterPaths

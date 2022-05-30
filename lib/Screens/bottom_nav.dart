@@ -11,6 +11,8 @@ import 'package:visual_magic/db/functions.dart';
 var globalData;
 
 class BottomNavbar extends StatefulWidget {
+  const BottomNavbar({Key? key}) : super(key: key);
+
   @override
   _BottomNavbarState createState() => _BottomNavbarState();
 }
@@ -28,9 +30,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   final _pages = [
     HomeScreen(),
-    RecentScreen(),
+    const RecentScreen(),
     VideosScreen(),
-    FavouritesScreen(),
+    const FavouritesScreen(),
   ];
 
 @override
@@ -48,12 +50,12 @@ class _BottomNavbarState extends State<BottomNavbar> {
     return WillPopScope(
       onWillPop: ()async {
         final difference = DateTime.now().difference(timeBackPressed);
-        final isExitWarning = difference >= Duration(seconds: 2);
+        final isExitWarning = difference >= const Duration(seconds: 2);
 
         timeBackPressed = DateTime.now();
 
         if(isExitWarning){
-          final message = 'Press back again to Exit';
+          const message = 'Press back again to Exit';
           Fluttertoast.showToast(msg: message, fontSize: 18);
           return false;
         }else{
@@ -71,17 +73,17 @@ class _BottomNavbarState extends State<BottomNavbar> {
               key: _bottomNavigationKey,
               index: 0,
               height: 60.0,
-              items: [
+              items: const [
                 Icon(Icons.folder, size: 30),
                 Icon(Icons.history, size: 30),
                 Icon(Icons.play_circle, size: 30),
                 Icon(Icons.favorite, size: 30),
               ],
-              color:Color.fromARGB(255, 81, 73, 150),
+              color:const Color.fromARGB(255, 81, 73, 150),
               buttonBackgroundColor: Colors.white,
-              backgroundColor: Color(0xff060625),
+              backgroundColor: const Color(0xff060625),
               animationCurve: Curves.easeInOut,
-              animationDuration: Duration(milliseconds: 600),
+              animationDuration: const Duration(milliseconds: 600),
               onTap: (index) {
                 setState(() {
                   _page = index;

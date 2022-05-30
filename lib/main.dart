@@ -22,6 +22,11 @@ void main() async {
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(UserModelAdapter().typeId)) {
     Hive.registerAdapter(UserModelAdapter());
+    Hive.registerAdapter(FavouritesAdapter());
+    Hive.registerAdapter(RecentModelAdapter());
+    Hive.registerAdapter(PlayListNameAdapter());
+    Hive.registerAdapter(PlayListVideosAdapter());
+    Hive.registerAdapter(WatchlaterModelAdapter());
 
   }
   userDB = await Hive.openBox('student_db');
@@ -37,16 +42,16 @@ void main() async {
   initScreen = prefs.getInt('initScreen');
   await prefs.setInt('initScreen', 1);
 
-  runApp( MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: Size(2246, 1080),
+        designSize: const Size(2246, 1080),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_) {
@@ -54,15 +59,15 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             useInheritedMediaQuery: true,
             theme: ThemeData(
-                appBarTheme: AppBarTheme(
-              color: const Color(0xff1f1f55),
+                appBarTheme: const AppBarTheme(
+              color: Color(0xff1f1f55),
             )),
             initialRoute: initScreen == 0 || initScreen == null
                 ? 'onBoardingScreen'
                 : 'splashScreen',
             routes: {
-              'onBoardingScreen': (context) => OnBoardingScreen(),
-              "splashScreen": (context) => SplashScreen(),
+              'onBoardingScreen': (context) => const OnBoardingScreen(),
+              "splashScreen": (context) => const SplashScreen(),
             },
           );
         });

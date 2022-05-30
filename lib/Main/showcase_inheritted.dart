@@ -25,7 +25,6 @@ class KeysToBeInherited extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    // TODO: implement updateShouldNotify
     return true;
   }
 }

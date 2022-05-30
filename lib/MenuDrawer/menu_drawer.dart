@@ -16,7 +16,7 @@ class MenuDrawer extends StatelessWidget {
   final name = "User";
   final email = "sample@gmail.com";
 
-  MenuDrawer({Key? key}) : super(key: key);
+  const MenuDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class MenuDrawer extends StatelessWidget {
                 onClicked: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => UserScreen(),
+                      builder: (context) => const UserScreen(),
                     ),
                   );
                 }),
@@ -126,8 +126,8 @@ class MenuDrawer extends StatelessWidget {
     required VoidCallback onClicked,
     String subTitle = '',
   }) {
-    final color = Colors.white;
-    final hoverColor = Colors.white70;
+    const  color = Colors.white;
+    const  hoverColor = Colors.white70;
     return ListTile(
       leading: Icon(
         icon,
@@ -136,11 +136,11 @@ class MenuDrawer extends StatelessWidget {
       ),
       title: Text(
         text,
-        style: TextStyle(color: color, fontSize: 18),
+        style: const TextStyle(color: color, fontSize: 18),
       ),
       subtitle: Text(
         subTitle,
-        style: TextStyle(color: Colors.grey),
+        style: const TextStyle(color: Colors.grey),
       ),
       hoverColor: hoverColor,
       onTap: onClicked,
@@ -199,7 +199,7 @@ class MenuDrawer extends StatelessWidget {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (ctx) => WatchLater(),
+            builder: (ctx) => const WatchLater(),
             
           ),
         );
@@ -209,7 +209,7 @@ class MenuDrawer extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (ctx) => Playlist(
+            builder: (ctx) => const Playlist(
               path: "path",
             ),
           ),
@@ -229,7 +229,7 @@ class MenuDrawer extends StatelessWidget {
       Navigator.pop(context);
         showAboutDialog(
             context: context,
-            applicationIcon: Image(
+            applicationIcon: const Image(
               image: AssetImage('assets/images/appIcon.png'),
               height: 50,
               width: 50,
@@ -237,7 +237,7 @@ class MenuDrawer extends StatelessWidget {
             applicationName: "V!sual Magic",
             applicationVersion: '1.0.1',
             children: [
-              Text('V!sual Magic is a Video Player created by Rohith A O')
+              const Text('V!sual Magic is a Video Player created by Rohith A O')
             ]);
 
         break;

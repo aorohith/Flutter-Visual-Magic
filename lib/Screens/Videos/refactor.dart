@@ -16,7 +16,6 @@ Widget getListView(
         MaterialPageRoute(
           builder: (context) => VideoPlay(
             videoLink: videosWithIndex[index].path,
-            videoWithInfo: videosWithIndex[index],
           ),
         ),
       );
@@ -26,7 +25,7 @@ Widget getListView(
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              backgroundColor: Color.fromARGB(15, 255, 255, 255),
+              backgroundColor: const Color.fromARGB(15, 255, 255, 255),
               content: optionPopup(
                   context: context,
                   recentVideoPath: videosWithIndex[index].path,
@@ -36,7 +35,7 @@ Widget getListView(
     },
     leading: ClipRRect(
       borderRadius: BorderRadius.circular(15),
-      child: Container(
+      child: SizedBox(
         height: 50,
         width: 80,
         child: Image.asset("assets/images/download.jpeg"),
@@ -44,17 +43,17 @@ Widget getListView(
     ),
     title: Text(
       videosWithIndex[index].title,
-      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
     ),
     subtitle: Text(
       formatTime(videosWithIndex[index].duration),
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
     ),
     trailing: index == 0
         ? Showcase(
             shapeBorder: const CircleBorder(),
             showcaseBackgroundColor: Colors.indigo,
-            descTextStyle: TextStyle(
+            descTextStyle: const TextStyle(
               fontWeight: FontWeight.w500,
               color: Colors.white,
               fontSize: 16,
@@ -80,14 +79,14 @@ Widget getListView(
 
 //Listtile ends here
 
-class sortDropdown extends StatefulWidget {
-  const sortDropdown({Key? key}) : super(key: key);
+class SortDropdown extends StatefulWidget {
+  const SortDropdown({Key? key}) : super(key: key);
 
   @override
-  State<sortDropdown> createState() => _sortDropdownState();
+  State<SortDropdown> createState() => _SortDropdownState();
 }
 
-class _sortDropdownState extends State<sortDropdown> {
+class _SortDropdownState extends State<SortDropdown> {
   String dropdownValue = 'Duration';
 
   @override

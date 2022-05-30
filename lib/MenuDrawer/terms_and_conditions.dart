@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 termsAndConditions(BuildContext context) {
   // set up the button
   Widget okButton = TextButton(
-    child: Text(
+    child: const Text(
       "I Accept",
       style: TextStyle(
         fontWeight: FontWeight.bold,
@@ -17,14 +17,14 @@ termsAndConditions(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    backgroundColor: Color.fromARGB(255, 149, 191, 226),
-    title: Text("Privacy Policy"),
+    backgroundColor: const Color.fromARGB(255, 149, 191, 226),
+    title: const Text("Privacy Policy"),
     content: Container(
       // width: 300,
       height: 300,
       child: SingleChildScrollView(
         child: Column(
-          children: [
+          children: const [
             Text(_termAndCondition),
           ],
         ),
@@ -44,7 +44,7 @@ termsAndConditions(BuildContext context) {
   );
 }
 
-String _termAndCondition = ''' 
+const _termAndCondition = ''' 
 Rohith A O built the V!sual Magic app as a Free app. This SERVICE is provided by Rohith A O at no cost and is intended for use as is.
 
 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.

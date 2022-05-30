@@ -6,13 +6,13 @@ import 'package:visual_magic/MenuDrawer/edit_user.dart';
 import 'package:visual_magic/main.dart';
 
 class UserScreen extends StatelessWidget {
-  UserScreen({
+  const UserScreen({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.blue,
     ));
     var userData = userDB.get('user');
@@ -26,7 +26,7 @@ class UserScreen extends StatelessWidget {
             color: Colors.blue,
           ),
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(25.0),
               bottomRight: Radius.circular(25.0),
             ),
@@ -58,39 +58,39 @@ class UserScreen extends StatelessWidget {
                 height: 220,
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       userData.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       userData.email,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "About",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       userData.description,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
                           color: Colors.grey),
@@ -116,7 +116,7 @@ class UserScreen extends StatelessWidget {
                     ),
                   );
                 },
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
               ),
             ),
           ),

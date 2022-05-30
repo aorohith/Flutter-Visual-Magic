@@ -10,6 +10,7 @@ import 'package:visual_magic/Screens/FolderScreen/folder_popupmenubutton.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/db/functions.dart';
 
+// ignore: use_key_in_widget_constructors
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     loadFolderList();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -27,11 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: MenuDrawer(),
-      floatingActionButton: PlayButton(context),
-      backgroundColor: Color(0xff060625),
+      drawer: const MenuDrawer(),
+      floatingActionButton: playButton(context),
+      backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: Text("Folders"),
+        title: const Text("Folders"),
         actions: [
           // ElevatedButton(
           //   onPressed: () {
@@ -41,9 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
           // ),
           IconButton(
               onPressed: () {
-                showSearch(context: context, delegate: searchVideos());
+                showSearch(context: context, delegate: SearchVideos());
               },
-              icon: Icon(Icons.search)), //Search Refactor
+              icon: const Icon(Icons.search)), //Search Refactor
           // IconButton(
           //   onPressed: () {
           //     ShowCaseWidget.of(context)!.startShowCase([
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? emptyDisplay("Folders")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
-                      physics: BouncingScrollPhysics(
+                      physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       itemCount: updatedFolders.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -74,20 +74,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         return AnimationConfiguration.staggeredList(
                           position: index,
-                          delay: Duration(milliseconds: 100),
+                          delay: const Duration(milliseconds: 100),
                           child: SlideAnimation(
-                            duration: Duration(milliseconds: 2500),
+                            duration: const Duration(milliseconds: 2500),
                             curve: Curves.fastLinearToSlowEaseIn,
                             verticalOffset: -250,
                             child: ScaleAnimation(
-                              duration: Duration(milliseconds: 1500),
+                              duration: const Duration(milliseconds: 1500),
                               curve: Curves.fastLinearToSlowEaseIn,
                               child: Container(
                                 margin: EdgeInsets.only(bottom: _w / 20),
                                 height: _w / 4,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff1f1f55),
-                                  borderRadius: BorderRadius.all(
+                                  color: const Color(0xff1f1f55),
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),
                                   boxShadow: [
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             path: updatedFolders[index]),
                                       ),
                                     ),
-                                    leading: Icon(
+                                    leading: const Icon(
                                       Icons.folder_outlined,
                                       size: 60,
                                       color: Colors.white,
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             shapeBorder: const CircleBorder(),
                                             showcaseBackgroundColor:
                                                 Colors.indigo,
-                                            descTextStyle: TextStyle(
+                                            descTextStyle: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.white,
                                               fontSize: 16,
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               updatedFolders[index]
                                                   .split('/')
                                                   .last,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -139,14 +139,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                             updatedFolders[index]
                                                 .split('/')
                                                 .last,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),
                                           ), //Turnery end here
 
                                     subtitle: Text(
                                       "${filteredFolderVideos.value.length} Videos",
-                                      style: TextStyle(color: Colors.white),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
 
                                     // more option for future usage
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             shapeBorder: const CircleBorder(),
                                             showcaseBackgroundColor:
                                                 Colors.indigo,
-                                            descTextStyle: TextStyle(
+                                            descTextStyle: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.white,
                                               fontSize: 16,

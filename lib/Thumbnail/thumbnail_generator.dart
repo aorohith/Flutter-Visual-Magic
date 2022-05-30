@@ -33,7 +33,6 @@ class _ThumbGeneratorState extends State<ThumbGenerator> {
   @override
   void initState() {
     thumbnail();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -41,7 +40,7 @@ class _ThumbGeneratorState extends State<ThumbGenerator> {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: Container(
+      child: SizedBox(
         height: 50,
         width: 80,
         child: _thumbnail != null

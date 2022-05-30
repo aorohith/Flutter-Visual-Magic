@@ -19,7 +19,7 @@ class _PopupOptionState extends State<PopupOption> {
   Widget build(BuildContext context) {
      _checkWatchlater();
     return PopupMenuButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.more_vert,
           color: Colors.white,
         ),
@@ -28,7 +28,7 @@ class _PopupOptionState extends State<PopupOption> {
                   onTap: () {
                     favDB.deleteAt(widget.favIndex);
                   },
-                  child: Text('Remove from favourites'),
+                  child: const Text('Remove from favourites'),
                   value: 'Doge'),
 
               PopupMenuItem<String>(
@@ -44,12 +44,11 @@ class _PopupOptionState extends State<PopupOption> {
                     }
                   },
                   child: isWatchlater
-                      ? Text('Add to Watch Later')
-                      : Text('Remove from Watch Later'),
+                      ? const Text('Add to Watch Later')
+                      : const Text('Remove from Watch Later'),
                   value: 'Lion'),
             ],
         onSelected: (_selected) {
-          print(_selected);
         });
   }
 

@@ -11,40 +11,42 @@ import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 
 class FavouritesScreen extends StatelessWidget {
+  const FavouritesScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
-      drawer: MenuDrawer(),
-      floatingActionButton: PlayButton(context),
-      backgroundColor: Color(0xff060625),
+      drawer: const MenuDrawer(),
+      floatingActionButton: playButton(context),
+      backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: Text("Favourites"),
+        title: const Text("Favourites"),
         actions: [
           IconButton(
               onPressed: () {
-                showSearch(context: context, delegate: searchVideos());
+                showSearch(context: context, delegate: SearchVideos());
               },
-              icon: Icon(Icons.search)),
+              icon: const Icon(Icons.search)),
           favDB.isEmpty
-              ? SizedBox()
+              ? const SizedBox()
               : IconButton(
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Delete Favourite Videos"),
-                          content: Text("Do you wants to clear Favourites?"),
+                          title: const Text("Delete Favourite Videos"),
+                          content: const Text("Do you wants to clear Favourites?"),
                           actions: [
                             ElevatedButton(
-                              child: Text("Cancel"),
+                              child: const Text("Cancel"),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                             ),
                             ElevatedButton(
-                              child: Text("Clear"),
+                              child: const Text("Clear"),
                               onPressed: () {
                                 favDB.clear();
                                 Navigator.pop(context);
@@ -55,10 +57,10 @@ class FavouritesScreen extends StatelessWidget {
                       },
                     );
                   },
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                 ),
         ],
-        backgroundColor: Color(0xff2C2C6D),
+        backgroundColor: const Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
@@ -68,27 +70,27 @@ class FavouritesScreen extends StatelessWidget {
                   ? emptyDisplay("Favourite Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
-                      physics: BouncingScrollPhysics(
+                      physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       itemCount: newFav.length,
                       itemBuilder: (BuildContext context, int index) {
                         Favourites favourite = favDB.getAt(index)!;
                         return AnimationConfiguration.staggeredList(
                           position: index,
-                          delay: Duration(milliseconds: 100),
+                          delay: const Duration(milliseconds: 100),
                           child: SlideAnimation(
-                            duration: Duration(milliseconds: 2500),
+                            duration: const Duration(milliseconds: 2500),
                             curve: Curves.fastLinearToSlowEaseIn,
                             verticalOffset: -250,
                             child: ScaleAnimation(
-                              duration: Duration(milliseconds: 1500),
+                              duration: const Duration(milliseconds: 1500),
                               curve: Curves.fastLinearToSlowEaseIn,
                               child: Container(
                                 margin: EdgeInsets.only(bottom: _w / 20),
                                 height: _w / 4,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff1f1f55),
-                                  borderRadius: BorderRadius.all(
+                                  color: const Color(0xff1f1f55),
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),
                                   boxShadow: [
@@ -103,18 +105,19 @@ class FavouritesScreen extends StatelessWidget {
                                   child: ListTile(
                                     onTap: () {
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => VideoPlay(
-                                                    videoLink:
-                                                        favourite.favVideo,
-                                                  )));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => VideoPlay(
+                                            videoLink: favourite.favVideo,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     leading: Image.asset(
                                         "assets/images/download.jpeg"),
                                     title: Text(
                                       favourite.favVideo.split('/').last,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -122,7 +125,6 @@ class FavouritesScreen extends StatelessWidget {
                                       videoPath: favourite.favVideo,
                                       favIndex: index,
                                     ),
-
                                   ),
                                 ),
                               ),

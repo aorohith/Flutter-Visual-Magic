@@ -3,14 +3,14 @@ import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/functions.dart';
 
-class searchVideos extends SearchDelegate<VideoData> {
+class SearchVideos extends SearchDelegate<VideoData> {
   @override
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-      textTheme: TextTheme(displayMedium: TextStyle(color: Colors.white)),
+      textTheme: const TextTheme(displayMedium: TextStyle(color: Colors.white)),
       hintColor: Colors.white,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         color: Colors.blue,
       ),
       inputDecorationTheme: searchFieldDecorationTheme ??
@@ -27,7 +27,7 @@ class searchVideos extends SearchDelegate<VideoData> {
           onPressed: () {
             query = "";
           },
-          icon: Icon(Icons.clear))
+          icon: const Icon(Icons.clear))
     ];
   }
 
@@ -37,12 +37,11 @@ class searchVideos extends SearchDelegate<VideoData> {
         onPressed: () {
           Navigator.pop(context);
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     throw UnimplementedError();
   }
 
@@ -57,10 +56,10 @@ class searchVideos extends SearchDelegate<VideoData> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: myList.isEmpty
-          ? Text("No matching found")
+          ? const Text("No matching found")
           : ListView.separated(
-            padding: EdgeInsets.only(top: 10),
-            separatorBuilder: (BuildContext context, int index) => Divider(),
+            padding: const EdgeInsets.only(top: 10),
+            separatorBuilder: (BuildContext context, int index) => const Divider(),
               itemCount: myList.length,
               itemBuilder: (context, index) {
                 final VideoData video = myList[index];
@@ -74,12 +73,12 @@ class searchVideos extends SearchDelegate<VideoData> {
                   leading: Image.asset("assets/images/download.jpeg"),
                   title: Text(
                     video.title!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   trailing: IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.more_vert,
                       color: Colors.white,
                     ),

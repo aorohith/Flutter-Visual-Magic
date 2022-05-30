@@ -6,10 +6,8 @@ import 'package:wakelock/wakelock.dart';
 
 class VideoPlay extends StatefulWidget {
   final videoLink;
-  final videoWithInfo;
   const VideoPlay({
     required this.videoLink,
-    this.videoWithInfo,
   });
 
   @override
@@ -26,7 +24,7 @@ class _VideoPlayState extends State<VideoPlay> {
         RecentModel(recentPath: widget.videoLink, recentDate: DateTime.now());
     addToRecent(recent);
     BetterPlayerConfiguration betterPlayerConfiguration =
-        BetterPlayerConfiguration(
+        const BetterPlayerConfiguration(
       autoPlay: true,
       looping: true,
       aspectRatio: 16 / 9,
@@ -47,12 +45,6 @@ class _VideoPlayState extends State<VideoPlay> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   // _betterPlayerController.dispose();
-  //   // TODO: implement dispose
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +57,7 @@ class _VideoPlayState extends State<VideoPlay> {
             children: [
               Text(
                 getVideoName(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
               ),
@@ -88,9 +80,3 @@ class _VideoPlayState extends State<VideoPlay> {
   }
 }
 
-Widget fullScreen(BuildContext context, Animation<double> animation,
-    Animation<double> animation2, BetterPlayerControllerProvider) {
-  return Scaffold(
-    backgroundColor: Colors.redAccent,
-  );
-}

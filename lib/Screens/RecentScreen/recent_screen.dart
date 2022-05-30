@@ -22,47 +22,43 @@ class _RecentScreenState extends State<RecentScreen> {
   @override
   void initState() {
     getRecentList();
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
-    bool isPressed = true;
-    bool isPressed2 = true;
-    bool isHighlighted = true;
     return Scaffold(
-      drawer: MenuDrawer(),
-      floatingActionButton: PlayButton(context),
-      backgroundColor: Color(0xff060625),
+      drawer: const MenuDrawer(),
+      floatingActionButton: playButton(context),
+      backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: Text("Recently Played"),
+        title: const Text("Recently Played"),
         actions: [
           IconButton(
               onPressed: () {
-                showSearch(context: context, delegate: searchVideos());
+                showSearch(context: context, delegate: SearchVideos());
               },
-              icon: Icon(Icons.search)),
+              icon: const Icon(Icons.search)),
           recentDB.isEmpty
-              ? SizedBox()
+              ? const SizedBox()
               : IconButton(
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Delete RecentVideos"),
-                          content: Text("Do you wants to clear Recent Videos?"),
+                          title: const Text("Delete RecentVideos"),
+                          content: const Text("Do you wants to clear Recent Videos?"),
                           actions: [
                             ElevatedButton(
-                              child: Text("Cancel"),
+                              child: const Text("Cancel"),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                             ),
                             ElevatedButton(
-                              child: Text("Delete"),
+                              child: const Text("Delete"),
                               onPressed: () {
                                 recentDB.clear();
                                 recentVideos.value.clear();
@@ -75,7 +71,7 @@ class _RecentScreenState extends State<RecentScreen> {
                       },
                     );
                   },
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                 ),
         ],
       ),
@@ -88,26 +84,26 @@ class _RecentScreenState extends State<RecentScreen> {
                   ? emptyDisplay("Recent Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
-                      physics: BouncingScrollPhysics(
+                      physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       itemCount: recentList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return AnimationConfiguration.staggeredList(
                           position: index,
-                          delay: Duration(milliseconds: 100),
+                          delay: const Duration(milliseconds: 100),
                           child: SlideAnimation(
-                            duration: Duration(milliseconds: 2500),
+                            duration: const Duration(milliseconds: 2500),
                             curve: Curves.fastLinearToSlowEaseIn,
                             verticalOffset: -250,
                             child: ScaleAnimation(
-                              duration: Duration(milliseconds: 1500),
+                              duration: const Duration(milliseconds: 1500),
                               curve: Curves.fastLinearToSlowEaseIn,
                               child: Container(
                                 margin: EdgeInsets.only(bottom: _w / 20),
                                 height: _w / 4,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff1f1f55),
-                                  borderRadius: BorderRadius.all(
+                                  color: const Color(0xff1f1f55),
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),
                                   boxShadow: [
@@ -136,7 +132,7 @@ class _RecentScreenState extends State<RecentScreen> {
                                           context: context,
                                           builder: (ctx) {
                                             return AlertDialog(
-                                              backgroundColor: Color(0xf060625),
+                                              backgroundColor: const Color(0xff060625),
                                               content: optionPopup(
                                                   context: context,
                                                   recentVideoPath:
@@ -153,7 +149,7 @@ class _RecentScreenState extends State<RecentScreen> {
                                           .recentPath
                                           .split('/')
                                           .last,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),

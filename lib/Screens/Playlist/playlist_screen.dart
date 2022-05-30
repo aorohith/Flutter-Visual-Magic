@@ -24,42 +24,38 @@ class Playlist extends StatefulWidget {
 class _PlaylistState extends State<Playlist> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
-    bool isPressed = true;
-    bool isPressed2 = true;
-    bool isHighlighted = true;
     return Scaffold(
-      drawer: MenuDrawer(),
+      drawer: const MenuDrawer(),
       floatingActionButton: playlistAdd(context),
-      backgroundColor: Color(0xff060625),
+      backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: Text("PlayList"),
+        title: const Text("PlayList"),
         actions: [
           playListNameDB.isEmpty
-              ? SizedBox()
+              ? const SizedBox()
               : IconButton(
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Delete Playlist"),
-                          content: Text("Do you wants to clear Playlist?"),
+                          title: const Text("Delete Playlist"),
+                          content: const Text("Do you wants to clear Playlist?"),
                           actions: [
                             ElevatedButton(
-                              child: Text("Cancel"),
+                              child: const Text("Cancel"),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                             ),
                             ElevatedButton(
-                              child: Text("Delete"),
+                              child: const Text("Delete"),
                               onPressed: () {
                                 playListNameDB.clear();
                                 Navigator.pop(context);
@@ -70,7 +66,7 @@ class _PlaylistState extends State<Playlist> {
                       },
                     );
                   },
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                 ),
         ],
       ),
@@ -83,7 +79,7 @@ class _PlaylistState extends State<Playlist> {
                   ? emptyDisplay("Playlist")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
-                      physics: BouncingScrollPhysics(
+                      physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics(),
                       ),
                       itemCount: playListName.length,
@@ -92,20 +88,20 @@ class _PlaylistState extends State<Playlist> {
 
                         return AnimationConfiguration.staggeredList(
                           position: index,
-                          delay: Duration(milliseconds: 100),
+                          delay: const Duration(milliseconds: 100),
                           child: SlideAnimation(
-                            duration: Duration(milliseconds: 2500),
+                            duration: const Duration(milliseconds: 2500),
                             curve: Curves.fastLinearToSlowEaseIn,
                             verticalOffset: -250,
                             child: ScaleAnimation(
-                              duration: Duration(milliseconds: 1500),
+                              duration: const Duration(milliseconds: 1500),
                               curve: Curves.fastLinearToSlowEaseIn,
                               child: Container(
                                 margin: EdgeInsets.only(bottom: _w / 20),
                                 height: _w / 4,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff1f1f55),
-                                  borderRadius: BorderRadius.all(
+                                  color: const Color(0xff1f1f55),
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),
                                   boxShadow: [
@@ -129,14 +125,14 @@ class _PlaylistState extends State<Playlist> {
                                           ),
                                         );
                                       },
-                                      leading: Icon(
+                                      leading: const Icon(
                                         Icons.playlist_add_check,
                                         color: Colors.white,
                                         size: 30,
                                       ),
                                       title: Text(
                                         playName!.playListName,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),

@@ -10,8 +10,11 @@ UserModel _userData = userDB.values.toList()[0];
 class EditUserScreen extends StatefulWidget {
   final name;
   String assetImage;
-  EditUserScreen({Key? key, required this.assetImage, required this.name})
-      : super(key: key);
+  EditUserScreen({
+    Key? key,
+    required this.assetImage,
+    required this.name,
+  }) : super(key: key);
 
   @override
   State<EditUserScreen> createState() => _EditUserScreenState();
@@ -33,7 +36,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
       child: ListView(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(25.0),
               bottomRight: Radius.circular(25.0),
             ),
@@ -56,46 +59,46 @@ class _EditUserScreenState extends State<EditUserScreen> {
                   children: [
                     TextFormField(
                       controller: _nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Name",
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     TextFormField(
                       controller: _emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "db email",
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "About",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       keyboardType: TextInputType.multiline,
                       maxLines: 5,
                       controller: _descriptionController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "db description",
                         border: OutlineInputBorder(),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     TextButton(
-                      child: Text(
+                      child: const Text(
                         "SELECT IMAGE",
                         style: TextStyle(
                           fontSize: 25,
@@ -116,12 +119,12 @@ class _EditUserScreenState extends State<EditUserScreen> {
                                           final XFile? photo =
                                               await _picker.pickImage(
                                                   source: ImageSource.camera);
-                                          
+
                                           setState(() {
                                             widget.assetImage = photo!.path;
                                           });
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           "Open Camera",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -130,7 +133,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     SizedBox(
@@ -147,7 +150,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                                             widget.assetImage = photo!.path;
                                           });
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           "Open Gallery",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -160,17 +163,17 @@ class _EditUserScreenState extends State<EditUserScreen> {
                                 ));
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
                         onPressed: () {
                           updateUser();
                         },
-                        child: Text("Update"))
+                        child: const Text("Update"))
                   ],
                 ),
               ),

@@ -22,36 +22,33 @@ class _WatchLaterState extends State<WatchLater> {
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
-    bool isPressed = true;
-    bool isPressed2 = true;
-    bool isHighlighted = true;
     return Scaffold(
-      drawer: MenuDrawer(),
-      floatingActionButton: PlayButton(context),
-      backgroundColor: Color(0xff060625),
+      drawer: const MenuDrawer(),
+      floatingActionButton: playButton(context),
+      backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: Text("WatchLater"),
-        backgroundColor: Color(0xff2C2C6D),
+        title: const Text("WatchLater"),
+        backgroundColor: const Color(0xff2C2C6D),
         actions: [
           watchlaterDB.isEmpty
-              ? SizedBox()
+              ? const SizedBox()
               : IconButton(
                   onPressed: () {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text("Delete Watchlater Videos"),
-                          content: Text("Do you wants to clear Watchlater Videos?"),
+                          title: const Text("Delete Watchlater Videos"),
+                          content: const Text("Do you wants to clear Watchlater Videos?"),
                           actions: [
                             ElevatedButton(
-                              child: Text("Cancel"),
+                              child: const Text("Cancel"),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
                             ),
                             ElevatedButton(
-                              child: Text("Delete"),
+                              child: const Text("Delete"),
                               onPressed: () {
                                 watchlaterDB.clear();
                                 Navigator.pop(context);
@@ -62,7 +59,7 @@ class _WatchLaterState extends State<WatchLater> {
                       },
                     );
                   },
-                  icon: Icon(Icons.delete)),
+                  icon: const Icon(Icons.delete)),
         ],
       ),
       body: AnimationLimiter(
@@ -74,27 +71,27 @@ class _WatchLaterState extends State<WatchLater> {
                   ? emptyDisplay("Watchlater Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
-                      physics: BouncingScrollPhysics(
+                      physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       itemCount: watchlaters.length,
                       itemBuilder: (BuildContext context, int index) {
                         WatchlaterModel? watchlater = watchlaters.getAt(index);
                         return AnimationConfiguration.staggeredList(
                           position: index,
-                          delay: Duration(milliseconds: 100),
+                          delay: const Duration(milliseconds: 100),
                           child: SlideAnimation(
-                            duration: Duration(milliseconds: 2500),
+                            duration: const Duration(milliseconds: 2500),
                             curve: Curves.fastLinearToSlowEaseIn,
                             verticalOffset: -250,
                             child: ScaleAnimation(
-                              duration: Duration(milliseconds: 1500),
+                              duration: const Duration(milliseconds: 1500),
                               curve: Curves.fastLinearToSlowEaseIn,
                               child: Container(
                                 margin: EdgeInsets.only(bottom: _w / 20),
                                 height: _w / 4,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff1f1f55),
-                                  borderRadius: BorderRadius.all(
+                                  color: const Color(0xff1f1f55),
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(20),
                                   ),
                                   boxShadow: [
@@ -122,7 +119,7 @@ class _WatchLaterState extends State<WatchLater> {
                                           context: context,
                                           builder: (ctx) {
                                             return AlertDialog(
-                                              backgroundColor: Color(0xf060625),
+                                              backgroundColor: const Color(0xff060625),
                                               content: optionPopup(
                                                   context: context,
                                                   recentVideoPath:
@@ -135,7 +132,7 @@ class _WatchLaterState extends State<WatchLater> {
                                         "assets/images/download.jpeg"),
                                     title: Text(
                                       watchlater!.laterPath.split('/').last,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),

@@ -16,13 +16,13 @@ class _FolderPopupMenuButtonState extends State<FolderPopupMenuButton> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.more_vert,
           color: Colors.white,
         ),
         itemBuilder: (_) => <PopupMenuItem<String>>[
               PopupMenuItem<String>(
-                  onTap: () {}, child: Text('Folder info'), value: 'info'),
+                  onTap: () {}, child: const Text('Folder info'), value: 'info'),
 
               // PopupMenuItem<String>(
               //     onTap: () {
@@ -48,20 +48,20 @@ folderInfoPoup({context, folderPath}) {
         var sizeInGB = getFolderSize(folderPath);
         return Form(
           child: AlertDialog(
-            title: Text(
+            title: const Text(
               "More info",
               style: TextStyle(fontSize: 25),
             ),
             content: Text(
               'Folder Name : $folderName \n\nFolder size : $sizeInGB GB \n',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(
+                child: const Text(
                   "OK",
                 ),
               ),

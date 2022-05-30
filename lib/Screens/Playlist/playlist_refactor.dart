@@ -5,7 +5,6 @@ import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 
-
 bool notifyPlaylistVideo = false;
 
 Widget playlistAdd(context) {
@@ -31,10 +30,10 @@ playlistPopup(context) {
       builder: (context) => Form(
             key: _formKey,
             child: AlertDialog(
-              title: Text("Add Playlist"),
+              title: const Text("Add Playlist"),
               content: TextFormField(
                 controller: _textController,
-                decoration: InputDecoration(labelText: "Playlist"),
+                decoration: const InputDecoration(labelText: "Playlist"),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Enter Playlist Name";
@@ -48,11 +47,9 @@ playlistPopup(context) {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       addNewPlaylist(_textController.text.trim(), context);
-                      final snackBar =
-                          SnackBar(content: Text("Playlist Added"));
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "Add",
                   ),
                 ),
@@ -82,25 +79,24 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
   final GlobalKey<FormState> _formKey =
       GlobalKey(); //currentstate.validate not work without <FormState>
   TextEditingController _textController = TextEditingController();
-  bool notifyText = false;
   showDialog(
       context: context,
       builder: (context) => Form(
             key: _formKey,
             child: AlertDialog(
-              title: Text("Playlists"),
+              title: const Text("Playlists"),
               content: ValueListenableBuilder(
                 valueListenable: playListNameDB.listenable(),
                 builder: (BuildContext ctx, Box<PlayListName> playListName,
                     Widget? child) {
-                  return Container(
+                  return SizedBox(
                     height: 300,
                     child: Column(
                       children: [
                         TextFormField(
                           controller: _textController,
                           decoration:
-                              InputDecoration(labelText: "New Playlist"),
+                              const InputDecoration(labelText: "New Playlist"),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter Playlist Name";
@@ -116,11 +112,11 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                                   _textController.text.trim(), context);
                             }
                           },
-                          child: Text(
+                          child: const Text(
                             "Add New",
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 190.0, // Change as per your requirement
                           width: 300.0,
                           child: ListView.builder(
@@ -130,11 +126,10 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                               PlayListName? playName =
                                   playListName.getAt(index);
                               return ListTile(
-                                visualDensity:
-                                    VisualDensity(horizontal: 0, vertical: 0),
+                                visualDensity: const VisualDensity(
+                                    horizontal: 0, vertical: 0),
                                 onTap: () {
                                   notifyPlaylistVideo = !notifyPlaylistVideo;
-                                  ;
                                   final playListVideoToAdd = PlayListVideos(
                                     playListName: playName!.playListName,
                                     playListVideo: playlistVideoPath,
@@ -143,18 +138,15 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                                       addPlayListVideos(playListVideoToAdd);
                                   if (contains) {
                                     Navigator.pop(context);
-                                    print("The video added successfully");
                                   } else {
                                     // Navigator.pop(context);
                                     Navigator.pop(context);
                                     Navigator.pop(context);
 
                                     notifyPlaylistVideo = true;
-
-                                    print("The video already exists");
                                   }
                                 },
-                                title: Text("${playName!.playListName}"),
+                                title: Text(playName!.playListName),
                               );
                             },
                           ),
@@ -185,31 +177,29 @@ class _PlaylistPopupState extends State<PlaylistPopup> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.more_vert,
           color: Colors.white,
         ),
         itemBuilder: (_) => <PopupMenuItem<String>>[
               PopupMenuItem<String>(
                   onTap: () {
-                    playlistEdit(
-                        context: context,
-                        playName: widget.playName); //edit playlist popup call
+                    //edit playlist popup call
                   },
-                  child: Text('Rename Playlist'),
+                  child: const Text('Rename Playlist'),
                   value: 'Doge'),
               PopupMenuItem<String>(
-                  onTap: () {
-                    _deletePlaylist(
-                        playlistVideoName: widget.playName,
-                        index: widget.playIndex);
-                    playListNameDB.deleteAt(widget.playIndex); //54345345345345
-                  },
-                  child: Text('Delete Playlist'),
+                  onTap: () {},
+                  child: const Text('Delete Playlist'),
                   value: 'Lion'),
             ],
         onSelected: (_selected) {
-          print(_selected);
+          if (_selected == 'Lion') {
+            _deletePlaylist(
+                playlistVideoName: widget.playName, index: widget.playIndex);
+          } else if (_selected == 'Doge') {
+            playlistEdit(context: context, playName: widget.playName);
+          }
         });
   }
 
@@ -237,10 +227,10 @@ playlistEdit(
       builder: (context) => Form(
             key: _formKey,
             child: AlertDialog(
-              title: Text("Edit Playlist"),
+              title: const Text("Edit Playlist"),
               content: TextFormField(
                 controller: _textController,
-                decoration: InputDecoration(labelText: "Playlist Name"),
+                decoration: const InputDecoration(labelText: "Playlist Name"),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Enter Playlist Name";
@@ -258,11 +248,11 @@ playlistEdit(
                         newValue: _textController.text.trim(),
                       );
                       Navigator.pop(context);
-                      final snackBar =
+                      const snackBar =
                           SnackBar(content: Text("Playlist Name Updated"));
                     }
                   },
-                  child: Text(
+                  child: const Text(
                     "Update",
                   ),
                 ),

@@ -108,7 +108,6 @@ Future getVideoWithInfo() async {
     var info = await videoInfo.getVideoInfo(fetchedVideosPath[i]);
     fetchedVideosWithInfo.value.add(info!);
   }
-  fetchedVideosWithInfo.notifyListeners();
 }
 
 sortAlphabetical() {
@@ -117,28 +116,24 @@ sortAlphabetical() {
           b.title!.toLowerCase(),
         );
   });
-  fetchedVideosWithInfo.notifyListeners();
 }
 
 sortByDuration() {
   fetchedVideosWithInfo.value.sort((a, b) {
     return a.duration!.compareTo(b.duration!);
   });
-  fetchedVideosWithInfo.notifyListeners();
 }
 
 sortBySize() {
   fetchedVideosWithInfo.value.sort((a, b) {
     return a.filesize!.compareTo(b.filesize!);
   });
-  fetchedVideosWithInfo.notifyListeners();
 }
 
 sortByDate() {
   fetchedVideosWithInfo.value.sort((a, b) {
     return a.date!.compareTo(b.date!);
   });
-  fetchedVideosWithInfo.notifyListeners();
 }
 
 //###################...recent section...####################
@@ -164,10 +159,6 @@ addToRecent(RecentModel value) async {
   }
   recentDB.add(value);
   getRecentList();
-}
-
-length() {
-  print(recentDB.length);
 }
 
 // ####################....PLAYLIST SECTION....######################

@@ -5,7 +5,7 @@ import 'package:visual_magic/Screens/splash_screen.dart';
 import 'package:visual_magic/db/functions.dart';
 
 class OnBoardingScreen extends StatefulWidget {
-  OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({Key? key}) : super(key: key);
 
 
   @override
@@ -13,7 +13,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
         inactiveBulletColor: Colors.blue,
         finishCallback: () async {
           await splashFetch();
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>SplashScreen())) ;
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const SplashScreen())) ;
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('showHome', true);
         },

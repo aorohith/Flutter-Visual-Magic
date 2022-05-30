@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Screens/bottom_nav.dart';
 import 'package:visual_magic/db/functions.dart';
-import 'package:visual_magic/main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,7 +15,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -25,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: SafeArea(
-          child: Container(
+          child: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Stack(children: [
@@ -36,10 +34,10 @@ class _SplashScreenState extends State<SplashScreen> {
             splash: Lottie.asset("assets/json/video-loader3.json"),
             screenFunction: () async {
               splashFetch();
-              // fetchFav();
+
               return ShowCaseWidget(
                 builder: Builder(
-                  builder: (context) => BottomNavbar(),
+                  builder: (context) => const BottomNavbar(),
                 ),
               );
             },
