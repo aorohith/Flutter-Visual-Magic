@@ -1,11 +1,13 @@
+//List tile for video listview builder
+
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:visual_magic/Main/main_refactor.dart';
-import 'package:visual_magic/Main/showcase_inheritted.dart';
-import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/db/functions.dart';
 
-//List tile for video listview builder
+import '../../../Main/showcase_inheritted.dart';
+import '../../../VideoPlayer/video_player.dart';
+import '../../../db/functions.dart';
+import '../../widgets/favourite.dart';
+import '../../widgets/option_popup.dart';
 
 Widget getListView(
     {required index, required context, required videosWithIndex}) {
@@ -75,57 +77,4 @@ Widget getListView(
             videoPath: videosWithIndex[index].path,
           ),
   );
-}
-
-//Listtile ends here
-
-class SortDropdown extends StatefulWidget {
-  const SortDropdown({Key? key}) : super(key: key);
-
-  @override
-  State<SortDropdown> createState() => _SortDropdownState();
-}
-
-class _SortDropdownState extends State<SortDropdown> {
-  String dropdownValue = 'Duration';
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton(
-        // iconEnabledColor: Colors.white,
-        // focusColor: Colors.red,
-        borderRadius: BorderRadius.circular(10),
-        dropdownColor: Colors.black,
-        value: dropdownValue,
-        icon: const Icon(Icons.sort),
-        elevation: 16,
-        style: const TextStyle(color: Colors.white),
-        onChanged: (String? newValue) {
-          switch (newValue) {
-            case "A to Z":
-              sortAlphabetical();
-              break;
-            case "Duration":
-              sortByDuration();
-              break;
-            case "Date":
-              sortByDate();
-              break;
-            case "FileSize":
-              sortBySize();
-          }
-          setState(() {
-            dropdownValue = newValue!;
-          });
-        },
-        items: ['A to Z', 'Duration', 'Date', 'FileSize'].map((String value) {
-          return DropdownMenuItem(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
-  }
 }

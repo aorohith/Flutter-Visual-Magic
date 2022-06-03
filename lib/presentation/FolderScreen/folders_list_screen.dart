@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
-import 'package:visual_magic/Screens/FolderScreen/folder_videos.dart';
-import 'package:visual_magic/Screens/FolderScreen/folder_popupmenubutton.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/db/functions.dart';
+import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
+import 'package:visual_magic/presentation/FolderScreen/widgets/folder_popupmenubutton.dart';
+import 'package:visual_magic/presentation/FolderScreen/folder_videos.dart';
+import 'package:visual_magic/presentation/widgets/popup_button.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreen extends StatefulWidget {

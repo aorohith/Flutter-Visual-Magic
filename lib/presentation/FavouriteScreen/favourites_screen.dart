@@ -2,42 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
-import 'package:visual_magic/Screens/Playlist/playlist_refactor.dart';
-import 'package:visual_magic/Screens/Playlist/playlist_videos.dart';
+import 'package:visual_magic/Search/search_deligate.dart';
+import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
+import 'package:visual_magic/presentation/FavouriteScreen/widgets/fav_popup_menu_button.dart';
+import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
+import 'package:visual_magic/presentation/widgets/popup_button.dart';
 
-List<String>? fetchedVideos;
 
-class Playlist extends StatefulWidget {
-  final path;
-  const Playlist({
-    Key? key,
-    required this.path,
-  }) : super(key: key);
-
-  @override
-  State<Playlist> createState() => _PlaylistState();
-}
-
-class _PlaylistState extends State<Playlist> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class FavouritesScreen extends StatelessWidget {
+  const FavouritesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: const MenuDrawer(),
-      floatingActionButton: playlistAdd(context),
+      floatingActionButton: playButton(context),
       backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: const Text("PlayList"),
+        title: const Text("Favourites"),
         actions: [
-          playListNameDB.isEmpty
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: SearchVideos());
+              },
+              icon: const Icon(Icons.search)),
+          favDB.isEmpty
               ? const SizedBox()
               : IconButton(
                   onPressed: () {
@@ -45,8 +37,8 @@ class _PlaylistState extends State<Playlist> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Delete Playlist"),
-                          content: const Text("Do you wants to clear Playlist?"),
+                          title: const Text("Delete Favourite Videos"),
+                          content: const Text("Do you wants to clear Favourites?"),
                           actions: [
                             ElevatedButton(
                               child: const Text("Cancel"),
@@ -55,9 +47,9 @@ class _PlaylistState extends State<Playlist> {
                               },
                             ),
                             ElevatedButton(
-                              child: const Text("Delete"),
+                              child: const Text("Clear"),
                               onPressed: () {
-                                playListNameDB.clear();
+                                favDB.clear();
                                 Navigator.pop(context);
                               },
                             ),
@@ -69,23 +61,21 @@ class _PlaylistState extends State<Playlist> {
                   icon: const Icon(Icons.delete),
                 ),
         ],
+        backgroundColor: const Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
-            valueListenable: playListNameDB.listenable(),
-            builder: (BuildContext ctx, Box<PlayListName> playListName,
-                Widget? child) {
-              return playListName.isEmpty
-                  ? emptyDisplay("Playlist")
+            valueListenable: favDB.listenable(),
+            builder: (BuildContext ctx, Box<Favourites> newFav, Widget? child) {
+              return newFav.isEmpty
+                  ? emptyDisplay("Favourite Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
                       physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics(),
-                      ),
-                      itemCount: playListName.length,
+                          parent: AlwaysScrollableScrollPhysics()),
+                      itemCount: newFav.length,
                       itemBuilder: (BuildContext context, int index) {
-                        PlayListName? playName = playListName.getAt(index);
-
+                        Favourites favourite = favDB.getAt(index)!;
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           delay: const Duration(milliseconds: 100),
@@ -114,32 +104,29 @@ class _PlaylistState extends State<Playlist> {
                                 ),
                                 child: Center(
                                   child: ListTile(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PlaylistVideos(
-                                              namePlay: playName!.playListName,
-                                            ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => VideoPlay(
+                                            videoLink: favourite.favVideo,
                                           ),
-                                        );
-                                      },
-                                      leading: const Icon(
-                                        Icons.playlist_add_check,
-                                        color: Colors.white,
-                                        size: 30,
-                                      ),
-                                      title: Text(
-                                        playName!.playListName,
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      trailing: PlaylistPopup(
-                                        playName: playName.playListName,
-                                        playIndex: index,
-                                      )),
+                                        ),
+                                      );
+                                    },
+                                    leading: Image.asset(
+                                        "assets/images/download.jpeg"),
+                                    title: Text(
+                                      favourite.favVideo.split('/').last,
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    trailing: FavoritesPopupOption(
+                                      videoPath: favourite.favVideo,
+                                      favIndex: index,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),

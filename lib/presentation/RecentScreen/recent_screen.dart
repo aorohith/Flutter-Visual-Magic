@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:visual_magic/Main/main_refactor.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/Screens/Emptydisplay/empty_text.dart';
+import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
+import 'package:visual_magic/presentation/widgets/favourite.dart';
+import 'package:visual_magic/presentation/widgets/option_popup.dart';
+
+import '../widgets/empty_display_text.dart';
+import '../widgets/popup_button.dart';
 
 List<String>? fetchedVideos;
 
-class WatchLater extends StatefulWidget {
-  const WatchLater({Key? key}) : super(key: key);
+class RecentScreen extends StatefulWidget {
+  const RecentScreen({Key? key}) : super(key: key);
 
   @override
-  State<WatchLater> createState() => _WatchLaterState();
+  State<RecentScreen> createState() => _RecentScreenState();
 }
 
-class _WatchLaterState extends State<WatchLater> {
+class _RecentScreenState extends State<RecentScreen> {
+  @override
+  void initState() {
+    getRecentList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -27,10 +36,14 @@ class _WatchLaterState extends State<WatchLater> {
       floatingActionButton: playButton(context),
       backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: const Text("WatchLater"),
-        backgroundColor: const Color(0xff2C2C6D),
+        title: const Text("Recently Played"),
         actions: [
-          watchlaterDB.isEmpty
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: SearchVideos());
+              },
+              icon: const Icon(Icons.search)),
+          recentDB.isEmpty
               ? const SizedBox()
               : IconButton(
                   onPressed: () {
@@ -38,8 +51,8 @@ class _WatchLaterState extends State<WatchLater> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Delete Watchlater Videos"),
-                          content: const Text("Do you wants to clear Watchlater Videos?"),
+                          title: const Text("Delete RecentVideos"),
+                          content: const Text("Do you wants to clear Recent Videos?"),
                           actions: [
                             ElevatedButton(
                               child: const Text("Cancel"),
@@ -50,7 +63,9 @@ class _WatchLaterState extends State<WatchLater> {
                             ElevatedButton(
                               child: const Text("Delete"),
                               onPressed: () {
-                                watchlaterDB.clear();
+                                recentDB.clear();
+                                recentVideos.value.clear();
+                                recentVideos.notifyListeners();
                                 Navigator.pop(context);
                               },
                             ),
@@ -59,23 +74,23 @@ class _WatchLaterState extends State<WatchLater> {
                       },
                     );
                   },
-                  icon: const Icon(Icons.delete)),
+                  icon: const Icon(Icons.delete),
+                ),
         ],
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
-            valueListenable: watchlaterDB.listenable(),
-            builder: (BuildContext ctx, Box<WatchlaterModel> watchlaters,
+            valueListenable: recentVideos,
+            builder: (BuildContext ctx, List<RecentModel> recentList,
                 Widget? child) {
-              return watchlaters.isEmpty
-                  ? emptyDisplay("Watchlater Videos")
+              return recentList.isEmpty
+                  ? emptyDisplay("Recent Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
-                      itemCount: watchlaters.length,
+                      itemCount: recentList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        WatchlaterModel? watchlater = watchlaters.getAt(index);
                         return AnimationConfiguration.staggeredList(
                           position: index,
                           delay: const Duration(milliseconds: 100),
@@ -109,7 +124,8 @@ class _WatchLaterState extends State<WatchLater> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => VideoPlay(
-                                            videoLink: watchlater!.laterPath,
+                                            videoLink:
+                                                recentList[index].recentPath,
                                           ),
                                         ),
                                       );
@@ -123,7 +139,8 @@ class _WatchLaterState extends State<WatchLater> {
                                               content: optionPopup(
                                                   context: context,
                                                   recentVideoPath:
-                                                      watchlater!.laterPath,
+                                                      recentList[index]
+                                                          .recentPath,
                                                   index: index),
                                             );
                                           });
@@ -131,16 +148,19 @@ class _WatchLaterState extends State<WatchLater> {
                                     leading: Image.asset(
                                         "assets/images/download.jpeg"),
                                     title: Text(
-                                      watchlater!.laterPath.split('/').last,
+                                      recentList[index]
+                                          .recentPath
+                                          .split('/')
+                                          .last,
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     trailing: Favourite(
                                         favIndex: index,
-                                        videoPath: watchlater.laterPath,
+                                        videoPath: recentList[index].recentPath,
                                         isPressed2: favVideos.value
-                                                .contains(watchlater.laterPath)
+                                                .contains(recentList[index])
                                             ? false
                                             : true),
                                   ),

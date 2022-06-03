@@ -207,3 +207,63 @@ deleteWatchlater(WatchlaterModel watchlater) {
   watchlaterDB.delete(desiredKey);
 }
 
+
+
+addWatchLater(WatchlaterModel value) {
+  watchlaterDB.add(value);
+}
+
+checkWatchlater(String watchlaterVideoPath) {
+  if (watchlaterDB.isNotEmpty) {
+    List<WatchlaterModel> watchlaterPaths = watchlaterDB.values.toList();
+    final isExists = watchlaterPaths
+        .where((itemToCheck) => itemToCheck.laterPath == watchlaterVideoPath);
+    if (isExists.isEmpty) {
+      return true; //no matching element found
+    } else {
+      return false; //matching element found in db
+    }
+  }
+  return true;
+}
+
+editPlayDB({
+  required String oldValue,
+  required String newValue,
+}) {
+  final Map<dynamic, PlayListName> playlistNameMap = playListNameDB.toMap();
+  dynamic desiredKey;
+  playlistNameMap.forEach((key, value) {
+    if (value.playListName == oldValue) desiredKey = key;
+  });
+  final playlistObj = PlayListName(playListName: newValue);
+  playListNameDB.put(desiredKey, playlistObj); //playlist name changed successfully
+
+
+
+  final Map<dynamic, PlayListVideos> playlistVideoMap =
+      playListVideosDB.toMap();
+  playlistVideoMap.forEach((key, value) {
+    if (value.playListName == oldValue) {
+      PlayListVideos playVideos = PlayListVideos(playListName: newValue, playListVideo: value.playListVideo);
+      playListVideosDB.put(key, playVideos);
+    }
+  });
+}
+
+bool notifyPlaylistVideo = false;
+
+//check playlist exists or not
+checkPlaylistExists(value) {
+  List<PlayListName> currentList = playListNameDB.values.toList();
+  var contains = currentList.where((element) => element.playListName == value);
+  //no duplicaate items in the list of objects
+  return contains;
+}
+
+//Add new palylist to the list of playlists
+addNewPlaylist(String value, BuildContext context) {
+  final playlist = PlayListName(playListName: value);
+  playListNameDB.add(playlist);
+  Navigator.pop(context);
+}

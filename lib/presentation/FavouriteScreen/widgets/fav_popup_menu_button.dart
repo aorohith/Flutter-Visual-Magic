@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 
-class PopupOption extends StatefulWidget {
+class FavoritesPopupOption extends StatefulWidget {
   String videoPath;
   int favIndex;
-  PopupOption({Key? key, required this.videoPath, required this.favIndex})
+  FavoritesPopupOption({Key? key, required this.videoPath, required this.favIndex})
       : super(key: key);
 
   @override
-  State<PopupOption> createState() => _PopupOptionState();
+  State<FavoritesPopupOption> createState() => _FavoritesPopupOptionState();
 }
 
-class _PopupOptionState extends State<PopupOption> {
+class _FavoritesPopupOptionState extends State<FavoritesPopupOption> {
   var isWatchlater;
 
   @override
