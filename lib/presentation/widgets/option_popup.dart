@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../../db/Models/models.dart';
-import '../../db/functions.dart';
+import '../../infrastructure/watchlater_functions.dart';
 import '../../main.dart';
 import '../Playlist/widgets/playlist_video_popup.dart';
 

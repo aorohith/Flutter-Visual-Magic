@@ -8,6 +8,9 @@ import 'package:visual_magic/presentation/widgets/favourite.dart';
 import 'package:visual_magic/presentation/widgets/option_popup.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
 
+import '../../infrastructure/functions/fetch_video_data.dart';
+import '../../infrastructure/load_folder_videos.dart';
+
 List<String>? fetchedVideos;
 
 class FolderVideos extends StatefulWidget {

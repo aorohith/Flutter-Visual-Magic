@@ -1,8 +1,9 @@
 import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:visual_magic/db/Models/models.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:wakelock/wakelock.dart';
+
+import '../infrastructure/functions/recent_videos.dart';
 
 class VideoPlay extends StatefulWidget {
   final videoLink;

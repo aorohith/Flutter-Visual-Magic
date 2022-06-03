@@ -9,6 +9,8 @@ import 'package:visual_magic/main.dart';
 import 'package:visual_magic/presentation/widgets/favourite.dart';
 import 'package:visual_magic/presentation/widgets/option_popup.dart';
 
+import '../../infrastructure/functions/fetch_video_data.dart';
+import '../../infrastructure/functions/recent_videos.dart';
 import '../widgets/empty_display_text.dart';
 import '../widgets/popup_button.dart';
 

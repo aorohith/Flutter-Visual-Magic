@@ -1,9 +1,8 @@
 //#################...Floating Video play Button..#############
 
 import 'package:flutter/material.dart';
-
 import '../../VideoPlayer/video_player.dart';
-import '../../db/functions.dart';
+import '../../infrastructure/videos_with_info.dart';
 import '../../main.dart';
 
 Widget playButton(context) {

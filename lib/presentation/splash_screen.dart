@@ -2,8 +2,9 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/presentation/bottom_nav.dart';
+
+import '../infrastructure/functions/fetch_video_data.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

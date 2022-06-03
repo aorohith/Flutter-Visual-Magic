@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'dart:math';
 import 'dart:core';
+
+import '../../../infrastructure/load_folder_videos.dart';
+import '../../../infrastructure/videos_with_info.dart';
 
 class FolderPopupMenuButton extends StatefulWidget {
   String folderPath;

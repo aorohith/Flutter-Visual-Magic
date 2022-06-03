@@ -6,6 +6,7 @@ import 'package:showcaseview/showcaseview.dart';
 import '../../../Main/showcase_inheritted.dart';
 import '../../../VideoPlayer/video_player.dart';
 import '../../../db/functions.dart';
+import '../../../infrastructure/functions/fetch_video_data.dart';
 import '../../widgets/favourite.dart';
 import '../../widgets/option_popup.dart';
 
@@ -77,4 +78,11 @@ Widget getListView(
             videoPath: videosWithIndex[index].path,
           ),
   );
+}
+
+String formatTime(double time) {
+  Duration duration = Duration(milliseconds: time.round());
+  return [duration.inHours, duration.inMinutes, duration.inSeconds]
+      .map((seg) => seg.remainder(60).toString().padLeft(2, '0'))
+      .join(':');
 }

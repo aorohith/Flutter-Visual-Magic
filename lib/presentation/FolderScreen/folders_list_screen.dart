@@ -4,11 +4,13 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
 import 'package:visual_magic/presentation/FolderScreen/widgets/folder_popupmenubutton.dart';
 import 'package:visual_magic/presentation/FolderScreen/folder_videos.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
+
+import '../../infrastructure/load_folder_list.dart';
+import '../../infrastructure/load_folder_videos.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreen extends StatefulWidget {
