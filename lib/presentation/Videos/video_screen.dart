@@ -6,7 +6,7 @@ import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/presentation/Videos/widgets/all_videos_sort_dropdown.dart';
 import 'package:visual_magic/presentation/Videos/widgets/all_videos_listview.dart';
-import '../../infrastructure/videos_with_info.dart';
+import '../../infrastructure/functions/videos_with_info.dart';
 import '../widgets/empty_display_text.dart';
 import '../widgets/popup_button.dart';
 

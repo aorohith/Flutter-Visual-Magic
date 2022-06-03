@@ -1,5 +1,5 @@
 
-import '../videos_with_info.dart';
+import 'videos_with_info.dart';
 
 sortAlphabetical() {
   fetchedVideosWithInfo.value.sort((a, b) {

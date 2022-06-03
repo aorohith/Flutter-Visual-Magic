@@ -1,7 +1,7 @@
 //#################...Watch later...#####################
 
-import '../db/Models/models.dart';
-import '../main.dart';
+import '../../db/Models/models.dart';
+import '../../main.dart';
 
 deleteWatchlater(WatchlaterModel watchlater) {
   // final tempDB = watchlaterDB.values.toList();

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../../VideoPlayer/video_player.dart';
-import '../../infrastructure/videos_with_info.dart';
+import '../../infrastructure/functions/videos_with_info.dart';
 import '../../main.dart';
 
 Widget playButton(context) {

@@ -9,8 +9,8 @@ import 'package:visual_magic/presentation/FolderScreen/widgets/folder_popupmenub
 import 'package:visual_magic/presentation/FolderScreen/folder_videos.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
 
-import '../../infrastructure/load_folder_list.dart';
-import '../../infrastructure/load_folder_videos.dart';
+import '../../infrastructure/functions/load_folder_list.dart';
+import '../../infrastructure/functions/load_folder_videos.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreen extends StatefulWidget {
