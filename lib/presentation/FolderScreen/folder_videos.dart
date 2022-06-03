@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/Thumbnail/thumbnail_generator.dart';
 import 'package:visual_magic/presentation/widgets/favourite.dart';
 import 'package:visual_magic/presentation/widgets/option_popup.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
-
 import '../../infrastructure/functions/fetch_video_data.dart';
 import '../../infrastructure/load_folder_videos.dart';
 

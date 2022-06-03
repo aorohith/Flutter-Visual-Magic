@@ -1,8 +1,6 @@
 //playlist edit popup
 
 import 'package:flutter/material.dart';
-
-import '../../../db/functions.dart';
 import '../../../infrastructure/functions/playlist_section.dart';
 
 playlistEdit(

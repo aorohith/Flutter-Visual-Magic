@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:visual_magic/db/functions.dart';
-
 import '../../../infrastructure/functions/sort_videos.dart';
 
 

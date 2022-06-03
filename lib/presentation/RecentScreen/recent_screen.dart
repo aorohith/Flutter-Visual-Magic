@@ -4,11 +4,9 @@ import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/Search/search_deligate.dart';
 import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/models.dart';
-import 'package:visual_magic/db/functions.dart';
 import 'package:visual_magic/main.dart';
 import 'package:visual_magic/presentation/widgets/favourite.dart';
 import 'package:visual_magic/presentation/widgets/option_popup.dart';
-
 import '../../infrastructure/functions/fetch_video_data.dart';
 import '../../infrastructure/functions/recent_videos.dart';
 import '../widgets/empty_display_text.dart';

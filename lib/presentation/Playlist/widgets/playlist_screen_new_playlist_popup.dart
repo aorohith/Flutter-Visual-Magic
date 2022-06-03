@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../db/functions.dart';
 import '../../../infrastructure/functions/playlist_section.dart';
 
 playlistScreenPopup(context) {

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../db/Models/models.dart';
-import '../../../db/functions.dart';
 import '../../../infrastructure/functions/playlist_section.dart';
 import '../../../main.dart';
 

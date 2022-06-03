@@ -1,5 +1,4 @@
 
-import '../../db/functions.dart';
 import '../videos_with_info.dart';
 
 sortAlphabetical() {

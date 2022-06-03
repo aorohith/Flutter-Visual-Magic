@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
-
 import '../../../Main/showcase_inheritted.dart';
 import '../../../VideoPlayer/video_player.dart';
-import '../../../db/functions.dart';
 import '../../../infrastructure/functions/fetch_video_data.dart';
 import '../../widgets/favourite.dart';
 import '../../widgets/option_popup.dart';
