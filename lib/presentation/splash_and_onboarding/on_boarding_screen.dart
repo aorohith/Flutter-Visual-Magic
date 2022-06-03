@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_overboard/flutter_overboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:visual_magic/presentation/splash_screen.dart';
+import 'package:visual_magic/presentation/splash_and_onboarding/splash_screen.dart';
 
-import '../infrastructure/functions/fetch_video_data.dart';
+import '../../infrastructure/functions/fetch_video_data.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);

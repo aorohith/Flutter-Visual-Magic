@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:visual_magic/Main/showcase_inheritted.dart';
-import '../infrastructure/functions/videos_with_info.dart';
-import 'FavouriteScreen/favourites_screen.dart';
-import 'FolderScreen/folders_list_screen.dart';
-import 'RecentScreen/recent_screen.dart';
-import 'Videos/video_screen.dart';
+import '../../infrastructure/functions/videos_with_info.dart';
+import '../FavouriteScreen/favourites_screen.dart';
+import '../FolderScreen/folders_list_screen.dart';
+import '../RecentScreen/recent_screen.dart';
+import '../Videos/video_screen.dart';
 
 var globalData;
 
