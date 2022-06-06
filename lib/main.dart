@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/presentation/splash_and_onboarding/on_boarding_screen.dart';
 import 'package:visual_magic/presentation/splash_and_onboarding/splash_screen.dart';
+
+import 'application/videos/videos_bloc.dart';
 
 // late var box;
 late var userDB;
@@ -27,7 +30,6 @@ void main() async {
     Hive.registerAdapter(PlayListNameAdapter());
     Hive.registerAdapter(PlayListVideosAdapter());
     Hive.registerAdapter(WatchlaterModelAdapter());
-
   }
   userDB = await Hive.openBox('student_db');
   favDB = await Hive.openBox('fav_db');
@@ -55,20 +57,23 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            useInheritedMediaQuery: true,
-            theme: ThemeData(
-                appBarTheme: const AppBarTheme(
-              color: Color(0xff1f1f55),
-            )),
-            initialRoute: initScreen == 0 || initScreen == null
-                ? 'onBoardingScreen'
-                : 'splashScreen',
-            routes: {
-              'onBoardingScreen': (context) => const OnBoardingScreen(),
-              "splashScreen": (context) => const SplashScreen(),
-            },
+          return BlocProvider(
+            create: (context) => VideosBloc(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              useInheritedMediaQuery: true,
+              theme: ThemeData(
+                  appBarTheme: const AppBarTheme(
+                color: Color(0xff1f1f55),
+              )),
+              initialRoute: initScreen == 0 || initScreen == null
+                  ? 'onBoardingScreen'
+                  : 'splashScreen',
+              routes: {
+                'onBoardingScreen': (context) => const OnBoardingScreen(),
+                "splashScreen": (context) => const SplashScreen(),
+              },
+            ),
           );
         });
   }
