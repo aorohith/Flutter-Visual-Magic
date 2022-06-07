@@ -40,3 +40,14 @@ class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
     });
   }
 }
+
+//#######################################
+
+class SortBloc extends Bloc<SortEvent, SortState> {
+  SortBloc() : super(SortInitial()) {
+   
+    on<ChangeSortTypeEvent>((event, emit){
+      return emit(SortState(sortType: event.type));
+    });
+  }
+}

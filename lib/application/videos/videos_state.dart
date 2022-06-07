@@ -14,7 +14,6 @@ class VideosInitial extends VideosState {
 
 
 //######################################
-
 class BottomNavState {
   int index;
 
@@ -23,4 +22,15 @@ class BottomNavState {
 
 class BottomNavInitial extends BottomNavState {
   BottomNavInitial() : super(index:0);
+}
+
+//######################################
+class SortState {
+  String sortType;
+
+  SortState({required this.sortType});
+}
+
+class SortInitial extends SortState {
+  SortInitial() : super(sortType:'Duration');
 }

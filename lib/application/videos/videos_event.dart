@@ -1,7 +1,6 @@
 part of 'videos_bloc.dart';
 
-@immutable
-abstract class VideosEvent {}
+class VideosEvent {}
 
 class FetchFolders extends VideosEvent {
   List<String> fetched;
@@ -14,14 +13,19 @@ class FavEvent extends VideosEvent {
 }
 
 //###################################
-
-@immutable
-abstract class BottomNavEvent {}
+class BottomNavEvent {}
 
 class ChangePageEvent extends BottomNavEvent {
   int pageNo;
   ChangePageEvent({required this.pageNo});
 }
 
+//###################################
+class SortEvent {}
+
+class ChangeSortTypeEvent extends SortEvent {
+  String type;
+  ChangeSortTypeEvent({required this.type});
+}
 
 

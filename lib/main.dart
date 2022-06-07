@@ -53,40 +53,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(2246, 1080),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_) {
-          return MultiBlocProvider(
+      designSize: const Size(2246, 1080),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_) {
+        return MultiBlocProvider(
             providers: [
-             BlocProvider(
-            create: (context) => VideosBloc(),
-            
+              BlocProvider(
+                create: (context) => VideosBloc(),
               ),
               BlocProvider(
-            create: (context) => BottomNavBloc(),
-            
+                create: (context) => BottomNavBloc(),
+              ),
+              BlocProvider(
+                create: (context) => SortBloc(),
               ),
             ],
-          
-       
-             child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                useInheritedMediaQuery: true,
-                theme: ThemeData(
-                    appBarTheme: const AppBarTheme(
-                  color: Color(0xff1f1f55),
-                )),
-                initialRoute: initScreen == 0 || initScreen == null
-                    ? 'onBoardingScreen'
-                    : 'splashScreen',
-                routes: {
-                  'onBoardingScreen': (context) => const OnBoardingScreen(),
-                  "splashScreen": (context) => const SplashScreen(),
-                },
-              ));
-            },
-          );
-        }
-  
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              useInheritedMediaQuery: true,
+              theme: ThemeData(
+                  appBarTheme: const AppBarTheme(
+                color: Color(0xff1f1f55),
+              )),
+              initialRoute: initScreen == 0 || initScreen == null
+                  ? 'onBoardingScreen'
+                  : 'splashScreen',
+              routes: {
+                'onBoardingScreen': (context) => const OnBoardingScreen(),
+                "splashScreen": (context) => const SplashScreen(),
+              },
+            ));
+      },
+    );
+  }
 }
