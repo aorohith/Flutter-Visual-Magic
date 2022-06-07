@@ -1,7 +1,9 @@
 //###################...Favourites button Refactoring...########################
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../application/videos/videos_bloc.dart';
 import '../../db/Models/models.dart';
 import '../../main.dart';
 
@@ -45,7 +47,7 @@ class _FavouriteState extends State<Favourite> {
         });
       },
       onTap: () {
-        setState(() {
+        context.read<VideosBloc>().add(FavEvent(fetched: !widget.isPressed2));
           widget.isPressed2 = !widget.isPressed2;
           if (!widget.isPressed2) {
             Favourites favObj = Favourites(favVideo: widget.videoPath);
@@ -61,7 +63,6 @@ class _FavouriteState extends State<Favourite> {
             });
             favDB.delete(desiredKey);
           }
-        });
       },
       child: AnimatedContainer(
         margin: EdgeInsets.all(widget.isHighlighted ? 0 : 2.5),
@@ -80,15 +81,20 @@ class _FavouriteState extends State<Favourite> {
           color: Colors.transparent,
           shape: BoxShape.circle,
         ),
-        child: widget.isPressed2
-            ? Icon(
+        child: BlocBuilder<VideosBloc, VideosState>(
+          builder: (context, state) {
+            return widget.isPressed2
+             ? Icon(
                 Icons.favorite_border,
                 color: Colors.black.withOpacity(0.6),
               )
             : const Icon(
                 Icons.favorite,
                 color: Color(0xffED3030),
-              ),
+              )
+            ;
+          },
+        ),
       ),
     );
   }

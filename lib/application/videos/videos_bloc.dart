@@ -23,5 +23,9 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
       temp = temp.toSet().toList();
       return emit(VideosState(folderVideos:temp));
     });
+
+    on<FavEvent>((event, emit){
+      return emit(VideosState(isFav: event.fetched));
+    });
   }
 }

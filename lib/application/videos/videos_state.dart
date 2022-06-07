@@ -3,7 +3,8 @@ part of 'videos_bloc.dart';
 class VideosState {
   List<String> fetchedPath;
   List<String> folderVideos;
-  VideosState({this.fetchedPath=const [], this.folderVideos=const []});
+  bool isFav;
+  VideosState({this.fetchedPath=const [], this.folderVideos=const [], this.isFav=true});
 }
 
 class VideosInitial extends VideosState {
