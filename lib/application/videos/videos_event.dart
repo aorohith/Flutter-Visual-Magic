@@ -8,12 +8,20 @@ class FetchFolders extends VideosEvent {
   FetchFolders({required this.fetched});
 }
 
-class BottomNavEvent extends VideosEvent {
-  int pageNo;
-  BottomNavEvent({required this.pageNo});
-}
-
 class FavEvent extends VideosEvent {
   bool fetched;
   FavEvent({required this.fetched});
 }
+
+//###################################
+
+@immutable
+abstract class BottomNavEvent {}
+
+class ChangePageEvent extends BottomNavEvent {
+  int pageNo;
+  ChangePageEvent({required this.pageNo});
+}
+
+
+

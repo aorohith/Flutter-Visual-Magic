@@ -9,5 +9,18 @@ class VideosState {
 }
 
 class VideosInitial extends VideosState {
-  VideosInitial() : super(fetchedPath:[],folderVideos:[], index:0);
+  VideosInitial() : super(fetchedPath:[],folderVideos:[]);
+}
+
+
+//######################################
+
+class BottomNavState {
+  int index;
+
+  BottomNavState({this.index=0});
+}
+
+class BottomNavInitial extends BottomNavState {
+  BottomNavInitial() : super(index:0);
 }

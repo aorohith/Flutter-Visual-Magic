@@ -57,24 +57,36 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_) {
-          return BlocProvider(
+          return MultiBlocProvider(
+            providers: [
+             BlocProvider(
             create: (context) => VideosBloc(),
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              useInheritedMediaQuery: true,
-              theme: ThemeData(
-                  appBarTheme: const AppBarTheme(
-                color: Color(0xff1f1f55),
-              )),
-              initialRoute: initScreen == 0 || initScreen == null
-                  ? 'onBoardingScreen'
-                  : 'splashScreen',
-              routes: {
-                'onBoardingScreen': (context) => const OnBoardingScreen(),
-                "splashScreen": (context) => const SplashScreen(),
-              },
-            ),
+            
+              ),
+              BlocProvider(
+            create: (context) => BottomNavBloc(),
+            
+              ),
+            ],
+          
+       
+             child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                useInheritedMediaQuery: true,
+                theme: ThemeData(
+                    appBarTheme: const AppBarTheme(
+                  color: Color(0xff1f1f55),
+                )),
+                initialRoute: initScreen == 0 || initScreen == null
+                    ? 'onBoardingScreen'
+                    : 'splashScreen',
+                routes: {
+                  'onBoardingScreen': (context) => const OnBoardingScreen(),
+                  "splashScreen": (context) => const SplashScreen(),
+                },
+              ));
+            },
           );
-        });
-  }
+        }
+  
 }

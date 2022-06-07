@@ -83,11 +83,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
             animationCurve: Curves.easeInOut,
             animationDuration: const Duration(milliseconds: 600),
             onTap: (index) {
-              context.read<VideosBloc>().add(BottomNavEvent(pageNo: index));
+              context.read<BottomNavBloc>().add(ChangePageEvent(pageNo: index));
             },
             letIndexChange: (index) => true,
           ),
-          body: BlocBuilder<VideosBloc, VideosState>(
+          body: BlocBuilder<BottomNavBloc, BottomNavState>(
             builder: (context, state) {
               return _pages[state.index];
             },
