@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../FetchFiles/search_files.dart';
+import 'package:visual_magic/infrastructure/functions/search_files.dart';
 
 List<String> fetchedVideosPath = []; //all videos path loaded first time
 ValueNotifier<List<String>> favVideos = ValueNotifier([]);

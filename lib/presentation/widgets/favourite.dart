@@ -7,7 +7,7 @@ import '../../application/videos/videos_bloc.dart';
 import '../../db/Models/models.dart';
 import '../../main.dart';
 
-class Favourite extends StatefulWidget {
+class Favourite extends StatelessWidget {
   String videoPath;
   int favIndex;
   Favourite({
@@ -22,42 +22,34 @@ class Favourite extends StatefulWidget {
   bool isPressed2 = true;
 
   @override
-  State<Favourite> createState() => _FavouriteState();
-}
-
-class _FavouriteState extends State<Favourite> {
-  @override
   Widget build(BuildContext context) {
     if (favDB.values.isNotEmpty) {
       List<Favourites> favList = favDB.values.toList();
       var existingItem = favList
-          .where((itemToCheck) => itemToCheck.favVideo == widget.videoPath);
+          .where((itemToCheck) => itemToCheck.favVideo == videoPath);
       if (existingItem.isEmpty) {
-        widget.isPressed2 = true;
+        isPressed2 = true;
       } else {
-        widget.isPressed2 = false;
+        isPressed2 = false;
       }
     }
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
       onHighlightChanged: (value) {
-        setState(() {
-          widget.isHighlighted = !widget.isHighlighted;
-        });
       },
       onTap: () {
-        context.read<VideosBloc>().add(FavEvent(fetched: !widget.isPressed2));
-          widget.isPressed2 = !widget.isPressed2;
-          if (!widget.isPressed2) {
-            Favourites favObj = Favourites(favVideo: widget.videoPath);
+        context.read<VideosBloc>().add(FavEvent(fetched: !isPressed2));
+          isPressed2 = !isPressed2;
+          if (!isPressed2) {
+            Favourites favObj = Favourites(favVideo: videoPath);
             favDB.add(favObj);
           } else {
             //delete the fav from db
             final Map<dynamic, Favourites> favMap = favDB.toMap();
             dynamic desiredKey;
             favMap.forEach((key, value) {
-              if (value.favVideo == widget.videoPath) {
+              if (value.favVideo == videoPath) {
                 desiredKey = key;
               }
             });
@@ -65,9 +57,9 @@ class _FavouriteState extends State<Favourite> {
           }
       },
       child: AnimatedContainer(
-        margin: EdgeInsets.all(widget.isHighlighted ? 0 : 2.5),
-        height: widget.isHighlighted ? 50 : 45,
-        width: widget.isHighlighted ? 50 : 45,
+        margin: EdgeInsets.all(isHighlighted ? 0 : 2.5),
+        height: isHighlighted ? 50 : 45,
+        width: isHighlighted ? 50 : 45,
         curve: Curves.fastLinearToSlowEaseIn,
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(
@@ -83,7 +75,7 @@ class _FavouriteState extends State<Favourite> {
         ),
         child: BlocBuilder<VideosBloc, VideosState>(
           builder: (context, state) {
-            return widget.isPressed2
+            return isPressed2
              ? Icon(
                 Icons.favorite_border,
                 color: Colors.black.withOpacity(0.6),

@@ -24,6 +24,10 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
       return emit(VideosState(folderVideos:temp));
     });
 
+    on<BottomNavEvent>((event, emit){
+      return emit(VideosState(index: event.pageNo));
+    });
+
     on<FavEvent>((event, emit){
       return emit(VideosState(isFav: event.fetched));
     });
