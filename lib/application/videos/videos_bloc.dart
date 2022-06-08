@@ -62,3 +62,14 @@ class FavPopupBloc extends Bloc<FavPopupEvent, FavPopupState> {
     });
   }
 }
+
+//#######################################
+
+class ThumbnailBloc extends Bloc<ThumbnailEvent, ThumbnailState> {
+  ThumbnailBloc() : super(ThumbnailInitial()) {
+   
+    on<ChangeThumbnailEvent>((event, emit){
+      return emit(ThumbnailState(thumbnailPath: event.thumbnail));
+    });
+  }
+}

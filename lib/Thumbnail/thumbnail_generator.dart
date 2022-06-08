@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+
+import '../application/videos/videos_bloc.dart';
 
 class ThumbGenerator extends StatefulWidget {
   ThumbGenerator({
@@ -25,9 +28,10 @@ class _ThumbGeneratorState extends State<ThumbGenerator> {
         thumbnailPath: (await getTemporaryDirectory()).path,
         imageFormat: ImageFormat.PNG);
 
-    setState(() {
-      _thumbnail = _thumbnailFile;
-    });
+    _thumbnail = _thumbnailFile;
+    context
+        .read<ThumbnailBloc>()
+        .add(ChangeThumbnailEvent(thumbnail: _thumbnailFile!));
   }
 
   @override
@@ -43,12 +47,18 @@ class _ThumbGeneratorState extends State<ThumbGenerator> {
       child: SizedBox(
         height: 50,
         width: 80,
-        child: _thumbnail != null
+        child: BlocBuilder<ThumbnailBloc, ThumbnailState>(
+          builder: (context, state) {
+            return _thumbnail != null
             ? Image.file(
                 File(_thumbnail),
                 fit: BoxFit.cover,
               )
-            : Image.asset("assets/images/download.jpeg"),
+            : Image.asset("assets/images/download.jpeg")
+            ;
+          },
+        )
+            ,
       ),
     );
   }

@@ -37,3 +37,12 @@ class ChangeFavPopupEvent extends FavPopupEvent {
   ChangeFavPopupEvent({required this.status});
 }
 
+//###################################
+
+class ThumbnailEvent {}
+
+class ChangeThumbnailEvent extends ThumbnailEvent {
+  String thumbnail;
+  ChangeThumbnailEvent({required this.thumbnail});
+}
+

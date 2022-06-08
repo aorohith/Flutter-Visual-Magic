@@ -71,6 +71,9 @@ class MyApp extends StatelessWidget {
                BlocProvider(
                 create: (context) => FavPopupBloc(),
               ),
+               BlocProvider(
+                create: (context) => ThumbnailBloc(),
+              ),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,

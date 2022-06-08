@@ -45,3 +45,14 @@ class FavPopupState {
 class FavPopupInitial extends FavPopupState {
   FavPopupInitial() : super(favSatatus:false);
 }
+
+//######################################
+class ThumbnailState {
+  String thumbnailPath;
+
+  ThumbnailState({required this.thumbnailPath});
+}
+
+class ThumbnailInitial extends ThumbnailState {
+  ThumbnailInitial() : super(thumbnailPath:'assets/images/download.jpeg');
+}
