@@ -51,3 +51,14 @@ class SortBloc extends Bloc<SortEvent, SortState> {
     });
   }
 }
+
+//#######################################
+
+class FavPopupBloc extends Bloc<FavPopupEvent, FavPopupState> {
+  FavPopupBloc() : super(FavPopupInitial()) {
+   
+    on<ChangeFavPopupEvent>((event, emit){
+      return emit(FavPopupState(favSatatus: event.status));
+    });
+  }
+}

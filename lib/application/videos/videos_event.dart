@@ -28,4 +28,12 @@ class ChangeSortTypeEvent extends SortEvent {
   ChangeSortTypeEvent({required this.type});
 }
 
+//###################################
+
+class FavPopupEvent {}
+
+class ChangeFavPopupEvent extends FavPopupEvent {
+  bool status;
+  ChangeFavPopupEvent({required this.status});
+}
 

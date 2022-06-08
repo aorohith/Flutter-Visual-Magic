@@ -34,3 +34,14 @@ class SortState {
 class SortInitial extends SortState {
   SortInitial() : super(sortType:'Duration');
 }
+
+//######################################
+class FavPopupState {
+  bool favSatatus;
+
+  FavPopupState({required this.favSatatus});
+}
+
+class FavPopupInitial extends FavPopupState {
+  FavPopupInitial() : super(favSatatus:false);
+}

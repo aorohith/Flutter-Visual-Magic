@@ -68,6 +68,9 @@ class MyApp extends StatelessWidget {
               BlocProvider(
                 create: (context) => SortBloc(),
               ),
+               BlocProvider(
+                create: (context) => FavPopupBloc(),
+              ),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
