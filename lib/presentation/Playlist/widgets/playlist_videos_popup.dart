@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
+
+import '../../../application/videos/videos_bloc.dart';
 
 class PlayVideosPopup extends StatefulWidget {
   String videoPath;
@@ -33,14 +36,24 @@ class _PlayVideosPopupState extends State<PlayVideosPopup> {
                     if (isInPlaylist) {
                       playListVideosDB.add(playlistVideo);
                       isInPlaylist = !isInPlaylist;
+                      context
+                          .read<FavPopupBloc>()
+                          .add(ChangeFavPopupEvent(status: isInPlaylist));
                     } else {
                       _deletePlaylistVideo(playlistVideo);
                       isInPlaylist = !isInPlaylist;
+                      context
+                          .read<FavPopupBloc>()
+                          .add(ChangeFavPopupEvent(status: isInPlaylist));
                     }
                   },
-                  child: isInPlaylist
-                      ? const Text('Add to Watch Later')
-                      : const Text('Remove from Watch Later'),
+                  child: BlocBuilder<FavPopupBloc, FavPopupState>(
+                    builder: (context, state) {
+                      return isInPlaylist
+                          ? const Text('Add to Watch Later')
+                          : const Text('Remove from Watch Later');
+                    },
+                  ),
                   value: 'Lion'),
             ],
         onSelected: (_selected) {});
@@ -49,22 +62,22 @@ class _PlayVideosPopupState extends State<PlayVideosPopup> {
   _checkPlaylistVideos() {
     if (playListVideosDB.values.isNotEmpty) {
       final playlistVideos = playListVideosDB.values.toList();
-      final isFound =
-          playlistVideos.where((element) => element.playListVideo == widget.videoPath && element.playListName == widget.playlistName);
-      setState(() {
+      final isFound = playlistVideos.where((element) =>
+          element.playListVideo == widget.videoPath &&
+          element.playListName == widget.playlistName);
         if (isFound.isEmpty) {
           isInPlaylist = true; //video not exist playlist
         } else {
           isInPlaylist = false; //video exists in playlist
         }
-      });
     } else {
       isInPlaylist = true;
     }
   }
 
   _deletePlaylistVideo(PlayListVideos playListVideo) {
-    final Map<dynamic, PlayListVideos> playlistVideosMap = playListVideosDB.toMap();
+    final Map<dynamic, PlayListVideos> playlistVideosMap =
+        playListVideosDB.toMap();
     dynamic desiredKey;
     playlistVideosMap.forEach((key, value) {
       if (value.playListName == playListVideo.playListName &&
