@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
 import '../../main.dart';
-import '../VideoPlayer/video_player.dart';
+import '../video_player/video_player.dart';
 
 Widget playButton(context) {
   return FloatingActionButton(

@@ -3,18 +3,24 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
-import 'package:visual_magic/presentation/FavouriteScreen/widgets/fav_popup_menu_button.dart';
-import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
-import 'package:visual_magic/presentation/widgets/popup_button.dart';
+import '../../infrastructure/functions/fetch_video_data.dart';
+import '../menu_drawer/menu_drawer.dart';
+import '../video_player/video_player.dart';
+import '../widgets/empty_display_text.dart';
+import '../widgets/favourite.dart';
+import '../widgets/option_popup.dart';
+import '../widgets/popup_button.dart';
 
-import '../MenuDrawer/menu_drawer.dart';
-import '../Search/search_deligate.dart';
-import '../VideoPlayer/video_player.dart';
+List<String>? fetchedVideos;
 
+class WatchLater extends StatefulWidget {
+  const WatchLater({Key? key}) : super(key: key);
 
-class FavouritesScreen extends StatelessWidget {
-  const FavouritesScreen({Key? key}) : super(key: key);
+  @override
+  State<WatchLater> createState() => _WatchLaterState();
+}
 
+class _WatchLaterState extends State<WatchLater> {
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -23,14 +29,10 @@ class FavouritesScreen extends StatelessWidget {
       floatingActionButton: playButton(context),
       backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: const Text("Favourites"),
+        title: const Text("WatchLater"),
+        backgroundColor: const Color(0xff2C2C6D),
         actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: SearchVideos());
-              },
-              icon: const Icon(Icons.search)),
-          favDB.isEmpty
+          watchlaterDB.isEmpty
               ? const SizedBox()
               : IconButton(
                   onPressed: () {
@@ -38,8 +40,8 @@ class FavouritesScreen extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Delete Favourite Videos"),
-                          content: const Text("Do you wants to clear Favourites?"),
+                          title: const Text("Delete Watchlater Videos"),
+                          content: const Text("Do you wants to clear Watchlater Videos?"),
                           actions: [
                             ElevatedButton(
                               child: const Text("Cancel"),
@@ -48,9 +50,9 @@ class FavouritesScreen extends StatelessWidget {
                               },
                             ),
                             ElevatedButton(
-                              child: const Text("Clear"),
+                              child: const Text("Delete"),
                               onPressed: () {
-                                favDB.clear();
+                                watchlaterDB.clear();
                                 Navigator.pop(context);
                               },
                             ),
@@ -59,24 +61,23 @@ class FavouritesScreen extends StatelessWidget {
                       },
                     );
                   },
-                  icon: const Icon(Icons.delete),
-                ),
+                  icon: const Icon(Icons.delete)),
         ],
-        backgroundColor: const Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
-            valueListenable: favDB.listenable(),
-            builder: (BuildContext ctx, Box<Favourites> newFav, Widget? child) {
-              return newFav.isEmpty
-                  ? emptyDisplay("Favourite Videos")
+            valueListenable: watchlaterDB.listenable(),
+            builder: (BuildContext ctx, Box<WatchlaterModel> watchlaters,
+                Widget? child) {
+              return watchlaters.isEmpty
+                  ? emptyDisplay("Watchlater Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
-                      itemCount: newFav.length,
+                      itemCount: watchlaters.length,
                       itemBuilder: (BuildContext context, int index) {
-                        Favourites favourite = favDB.getAt(index)!;
+                        WatchlaterModel? watchlater = watchlaters.getAt(index);
                         return Container(
                           margin: EdgeInsets.only(bottom: _w / 20),
                           height: _w / 5,
@@ -100,23 +101,40 @@ class FavouritesScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => VideoPlay(
-                                      videoLink: favourite.favVideo,
+                                      videoLink: watchlater!.laterPath,
                                     ),
                                   ),
                                 );
                               },
+                              onLongPress: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) {
+                                      return AlertDialog(
+                                        backgroundColor: const Color(0xff060625),
+                                        content: optionPopup(
+                                            context: context,
+                                            recentVideoPath:
+                                                watchlater!.laterPath,
+                                            index: index),
+                                      );
+                                    });
+                              },
                               leading: Image.asset(
                                   "assets/images/download.jpeg"),
                               title: Text(
-                                favourite.favVideo.split('/').last,
+                                watchlater!.laterPath.split('/').last,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
-                              trailing: FavoritesPopupOption(
-                                videoPath: favourite.favVideo,
-                                favIndex: index,
-                              ),
+                              trailing: Favourite(
+                                  favIndex: index,
+                                  videoPath: watchlater.laterPath,
+                                  isPressed2: favVideos.value
+                                          .contains(watchlater.laterPath)
+                                      ? false
+                                      : true),
                             ),
                           ),
                         );

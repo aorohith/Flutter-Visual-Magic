@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
-import '../VideoPlayer/video_player.dart';
+import '../video_player/video_player.dart';
 
 class SearchVideos extends SearchDelegate<VideoData> {
   @override

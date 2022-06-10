@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
-import 'package:visual_magic/presentation/MenuDrawer/terms_and_conditions.dart';
-import 'package:visual_magic/presentation/MenuDrawer/user.dart';
-import '../Playlist/playlist_screen.dart';
-import '../WatchLater/watch_later.dart';
+import 'package:visual_magic/presentation/menu_drawer/terms_and_conditions.dart';
+import 'package:visual_magic/presentation/menu_drawer/user.dart';
+
+import '../playlist_screen/playlist_screen.dart';
+import '../watch_later_screen/watch_later.dart';
 
 class MenuDrawer extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 20);

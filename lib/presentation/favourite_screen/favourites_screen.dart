@@ -1,32 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
-import 'package:visual_magic/presentation/widgets/favourite.dart';
-import 'package:visual_magic/presentation/widgets/option_popup.dart';
-import '../../infrastructure/functions/fetch_video_data.dart';
-import '../../infrastructure/functions/recent_videos.dart';
-import '../MenuDrawer/menu_drawer.dart';
-import '../Search/search_deligate.dart';
-import '../VideoPlayer/video_player.dart';
-import '../widgets/empty_display_text.dart';
-import '../widgets/popup_button.dart';
+import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
+import 'package:visual_magic/presentation/widgets/popup_button.dart';
 
-List<String>? fetchedVideos;
+import '../menu_drawer/menu_drawer.dart';
+import '../search/search_deligate.dart';
+import '../video_player/video_player.dart';
+import 'widgets/fav_popup_menu_button.dart';
 
-class RecentScreen extends StatefulWidget {
-  const RecentScreen({Key? key}) : super(key: key);
-
-  @override
-  State<RecentScreen> createState() => _RecentScreenState();
-}
-
-class _RecentScreenState extends State<RecentScreen> {
-  @override
-  void initState() {
-    getRecentList();
-    super.initState();
-  }
+class FavouritesScreen extends StatelessWidget {
+  const FavouritesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +22,9 @@ class _RecentScreenState extends State<RecentScreen> {
       floatingActionButton: playButton(context),
       backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: const Text("Recently Played"),
+        title: const Text("Favourites"),
         actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: SearchVideos());
-              },
-              icon: const Icon(Icons.search)),
-          recentDB.isEmpty
+          favDB.isEmpty
               ? const SizedBox()
               : IconButton(
                   onPressed: () {
@@ -51,9 +32,9 @@ class _RecentScreenState extends State<RecentScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Delete RecentVideos"),
-                          content: const Text(
-                              "Do you wants to clear Recent Videos?"),
+                          title: const Text("Delete Favourite Videos"),
+                          content:
+                              const Text("Do you wants to clear Favourites?"),
                           actions: [
                             ElevatedButton(
                               child: const Text("Cancel"),
@@ -62,11 +43,9 @@ class _RecentScreenState extends State<RecentScreen> {
                               },
                             ),
                             ElevatedButton(
-                              child: const Text("Delete"),
+                              child: const Text("Clear"),
                               onPressed: () {
-                                recentDB.clear();
-                                recentVideos.value.clear();
-                                recentVideos.notifyListeners();
+                                favDB.clear();
                                 Navigator.pop(context);
                               },
                             ),
@@ -78,20 +57,21 @@ class _RecentScreenState extends State<RecentScreen> {
                   icon: const Icon(Icons.delete),
                 ),
         ],
+        backgroundColor: const Color(0xff2C2C6D),
       ),
       body: AnimationLimiter(
         child: ValueListenableBuilder(
-            valueListenable: recentVideos,
-            builder: (BuildContext ctx, List<RecentModel> recentList,
-                Widget? child) {
-              return recentList.isEmpty
-                  ? emptyDisplay("Recent Videos")
+            valueListenable: favDB.listenable(),
+            builder: (BuildContext ctx, Box<Favourites> newFav, Widget? child) {
+              return newFav.isEmpty
+                  ? emptyDisplay("Favourite Videos")
                   : ListView.builder(
                       padding: EdgeInsets.all(_w / 30),
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
-                      itemCount: recentList.length,
+                      itemCount: newFav.length,
                       itemBuilder: (BuildContext context, int index) {
+                        Favourites favourite = favDB.getAt(index)!;
                         return Container(
                           margin: EdgeInsets.only(bottom: _w / 20),
                           height: _w / 5,
@@ -115,41 +95,23 @@ class _RecentScreenState extends State<RecentScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => VideoPlay(
-                                      videoLink: recentList[index].recentPath,
+                                      videoLink: favourite.favVideo,
                                     ),
                                   ),
                                 );
                               },
-                              onLongPress: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (ctx) {
-                                      return AlertDialog(
-                                        backgroundColor:
-                                            const Color(0xff060625),
-                                        content: optionPopup(
-                                            context: context,
-                                            recentVideoPath:
-                                                recentList[index].recentPath,
-                                            index: index),
-                                      );
-                                    });
-                              },
                               leading:
                                   Image.asset("assets/images/download.jpeg"),
                               title: Text(
-                                recentList[index].recentPath.split('/').last,
+                                favourite.favVideo.split('/').last,
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
-                              trailing: Favourite(
-                                  favIndex: index,
-                                  videoPath: recentList[index].recentPath,
-                                  isPressed2: favVideos.value
-                                          .contains(recentList[index])
-                                      ? false
-                                      : true),
+                              trailing: FavoritesPopupOption(
+                                videoPath: favourite.favVideo,
+                                favIndex: index,
+                              ),
                             ),
                           ),
                         );

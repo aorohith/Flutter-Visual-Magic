@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../db/Models/models.dart';
 import '../../infrastructure/functions/watchlater_functions.dart';
 import '../../main.dart';
-import '../Playlist/widgets/playlist_video_popup.dart';
+import '../playlist_screen/widgets/playlist_video_popup.dart';
 
 Widget optionPopup(
     {required context, required recentVideoPath, required index}) {

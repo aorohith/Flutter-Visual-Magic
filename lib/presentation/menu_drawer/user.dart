@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:visual_magic/main.dart';
-import 'package:visual_magic/presentation/MenuDrawer/edit_user.dart';
+
+import 'edit_user.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({

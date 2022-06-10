@@ -5,9 +5,9 @@ import 'package:visual_magic/presentation/widgets/option_popup.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
 import '../../infrastructure/functions/fetch_video_data.dart';
 import '../../infrastructure/functions/load_folder_videos.dart';
-import '../MenuDrawer/menu_drawer.dart';
-import '../Thumbnail/thumbnail_generator.dart';
-import '../VideoPlayer/video_player.dart';
+import '../menu_drawer/menu_drawer.dart';
+import '../thumbnail_screen/thumbnail_generator.dart';
+import '../video_player/video_player.dart';
 
 List<String>? fetchedVideos;
 

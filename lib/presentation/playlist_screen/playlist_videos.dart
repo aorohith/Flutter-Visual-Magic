@@ -4,11 +4,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
-import 'package:visual_magic/presentation/Playlist/widgets/playlist_videos_popup.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
 
-import '../MenuDrawer/menu_drawer.dart';
-import '../VideoPlayer/video_player.dart';
+import '../menu_drawer/menu_drawer.dart';
+import '../video_player/video_player.dart';
+import 'widgets/playlist_videos_popup.dart';
 
 List<String>? fetchedVideos;
 

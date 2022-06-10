@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../application/videos/videos_bloc.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
-import '../FavouriteScreen/favourites_screen.dart';
-import '../FolderScreen/folders_list_screen.dart';
-import '../Main/showcase_inheritted.dart';
-import '../RecentScreen/recent_screen.dart';
-import '../Videos/video_screen.dart';
+import '../all_videos_screen/video_screen.dart';
+import '../favourite_screen/favourites_screen.dart';
+import '../folder_screen/folders_list_screen.dart';
+import '../recent_screen/recent_screen.dart';
+import '../showcase_widget/showcase_inheritted.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
