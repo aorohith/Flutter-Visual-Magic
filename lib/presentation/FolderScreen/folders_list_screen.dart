@@ -68,7 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ? emptyDisplay("Folders")
                 : ListView.builder(
                     padding: EdgeInsets.all(_w / 30),
-                    physics: const BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
                     itemCount: updatedFolders.length,
                     itemBuilder: (BuildContext context, int index) {
                       getFolderVideos(updatedFolders[index]); //for video count
@@ -96,8 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () => Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (ctx) => FolderVideos(
-                                      path: updatedFolders[index]),
+                                  builder: (ctx) =>
+                                      FolderVideos(path: updatedFolders[index]),
                                 ),
                               ),
                               leading: const Icon(
@@ -110,19 +111,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       0 //turnery operator for showcase to select first element of folder
                                   ? Showcase(
                                       shapeBorder: const CircleBorder(),
-                                      showcaseBackgroundColor:
-                                          Colors.indigo,
+                                      showcaseBackgroundColor: Colors.indigo,
                                       descTextStyle: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.white,
                                         fontSize: 16,
                                       ),
-                                      key: KeysToBeInherited.of(context)
-                                          .key2,
+                                      key: KeysToBeInherited.of(context).key2,
                                       child: Text(
-                                        updatedFolders[index]
-                                            .split('/')
-                                            .last,
+                                        updatedFolders[index].split('/').last,
                                         style: const TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
@@ -144,18 +141,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               trailing: index == 0
                                   ? Showcase(
                                       shapeBorder: const CircleBorder(),
-                                      showcaseBackgroundColor:
-                                          Colors.indigo,
+                                      showcaseBackgroundColor: Colors.indigo,
                                       descTextStyle: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.white,
                                         fontSize: 16,
                                       ),
-                                      key: KeysToBeInherited.of(context)
-                                          .key3,
+                                      key: KeysToBeInherited.of(context).key3,
                                       child: FolderPopupMenuButton(
-                                          folderPath:
-                                              updatedFolders[index]),
+                                          folderPath: updatedFolders[index]),
                                       description: "More info ")
                                   : FolderPopupMenuButton(
                                       folderPath: updatedFolders[index]),

@@ -52,7 +52,8 @@ class _RecentScreenState extends State<RecentScreen> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: const Text("Delete RecentVideos"),
-                          content: const Text("Do you wants to clear Recent Videos?"),
+                          content: const Text(
+                              "Do you wants to clear Recent Videos?"),
                           actions: [
                             ElevatedButton(
                               child: const Text("Cancel"),
@@ -91,81 +92,64 @@ class _RecentScreenState extends State<RecentScreen> {
                           parent: AlwaysScrollableScrollPhysics()),
                       itemCount: recentList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          delay: const Duration(milliseconds: 100),
-                          child: SlideAnimation(
-                            duration: const Duration(milliseconds: 2500),
-                            curve: Curves.fastLinearToSlowEaseIn,
-                            verticalOffset: -250,
-                            child: ScaleAnimation(
-                              duration: const Duration(milliseconds: 1500),
-                              curve: Curves.fastLinearToSlowEaseIn,
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: _w / 20),
-                                height: _w / 4,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff1f1f55),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(20),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 40,
-                                      spreadRadius: 10,
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => VideoPlay(
-                                            videoLink:
-                                                recentList[index].recentPath,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    onLongPress: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (ctx) {
-                                            return AlertDialog(
-                                              backgroundColor: const Color(0xff060625),
-                                              content: optionPopup(
-                                                  context: context,
-                                                  recentVideoPath:
-                                                      recentList[index]
-                                                          .recentPath,
-                                                  index: index),
-                                            );
-                                          });
-                                    },
-                                    leading: Image.asset(
-                                        "assets/images/download.jpeg"),
-                                    title: Text(
-                                      recentList[index]
-                                          .recentPath
-                                          .split('/')
-                                          .last,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    trailing: Favourite(
-                                        favIndex: index,
-                                        videoPath: recentList[index].recentPath,
-                                        isPressed2: favVideos.value
-                                                .contains(recentList[index])
-                                            ? false
-                                            : true),
-                                  ),
-                                ),
+                        return Container(
+                          margin: EdgeInsets.only(bottom: _w / 20),
+                          height: _w / 5,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff1f1f55),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 40,
+                                spreadRadius: 10,
                               ),
+                            ],
+                          ),
+                          child: Center(
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VideoPlay(
+                                      videoLink: recentList[index].recentPath,
+                                    ),
+                                  ),
+                                );
+                              },
+                              onLongPress: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) {
+                                      return AlertDialog(
+                                        backgroundColor:
+                                            const Color(0xff060625),
+                                        content: optionPopup(
+                                            context: context,
+                                            recentVideoPath:
+                                                recentList[index].recentPath,
+                                            index: index),
+                                      );
+                                    });
+                              },
+                              leading:
+                                  Image.asset("assets/images/download.jpeg"),
+                              title: Text(
+                                recentList[index].recentPath.split('/').last,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              trailing: Favourite(
+                                  favIndex: index,
+                                  videoPath: recentList[index].recentPath,
+                                  isPressed2: favVideos.value
+                                          .contains(recentList[index])
+                                      ? false
+                                      : true),
                             ),
                           ),
                         );

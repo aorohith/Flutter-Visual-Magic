@@ -81,67 +81,54 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
                           playListVideos.getAt(index);
 
                       return playlistVideo!.playListName == widget.namePlay
-                          ? AnimationConfiguration.staggeredList(
-                              position: index,
-                              delay: const Duration(milliseconds: 100),
-                              child: SlideAnimation(
-                                duration: const Duration(milliseconds: 2500),
-                                curve: Curves.fastLinearToSlowEaseIn,
-                                verticalOffset: -250,
-                                child: ScaleAnimation(
-                                  duration: const Duration(milliseconds: 1500),
-                                  curve: Curves.fastLinearToSlowEaseIn,
-                                  child: Container(
-                                    margin: EdgeInsets.only(bottom: _w / 20),
-                                    height: _w / 4,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xff1f1f55),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
-                                          blurRadius: 40,
-                                          spreadRadius: 10,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: ListTile(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => VideoPlay(
-                                                videoLink:
-                                                    playlistVideo.playListVideo,
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        leading: Image.asset(
-                                            "assets/images/download.jpeg"),
-                                        title: Text(
-                                          playlistVideo.playListVideo
-                                              .split("/")
-                                              .last,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        trailing: PlayVideosPopup(
-                                          videoPath:
-                                              playlistVideo.playListVideo,
-                                          playlistName:
-                                              playlistVideo.playListName,
-                                        ),
+                          ? Container(
+                            margin: EdgeInsets.only(bottom: _w / 20),
+                            height: _w / 5,
+                            decoration: BoxDecoration(
+                              color: const Color(0xff1f1f55),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 40,
+                                  spreadRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Center(
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => VideoPlay(
+                                        videoLink:
+                                            playlistVideo.playListVideo,
                                       ),
                                     ),
-                                  ),
+                                  );
+                                },
+                                leading: Image.asset(
+                                    "assets/images/download.jpeg"),
+                                title: Text(
+                                  playlistVideo.playListVideo
+                                      .split("/")
+                                      .last,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                trailing: PlayVideosPopup(
+                                  videoPath:
+                                      playlistVideo.playListVideo,
+                                  playlistName:
+                                      playlistVideo.playListName,
                                 ),
                               ),
-                            )
+                            ),
+                          )
                           : const SizedBox();
                     },
                   );

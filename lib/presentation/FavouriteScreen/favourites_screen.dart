@@ -77,58 +77,45 @@ class FavouritesScreen extends StatelessWidget {
                       itemCount: newFav.length,
                       itemBuilder: (BuildContext context, int index) {
                         Favourites favourite = favDB.getAt(index)!;
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          delay: const Duration(milliseconds: 100),
-                          child: SlideAnimation(
-                            duration: const Duration(milliseconds: 2500),
-                            curve: Curves.fastLinearToSlowEaseIn,
-                            verticalOffset: -250,
-                            child: ScaleAnimation(
-                              duration: const Duration(milliseconds: 1500),
-                              curve: Curves.fastLinearToSlowEaseIn,
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: _w / 20),
-                                height: _w / 4,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff1f1f55),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(20),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 40,
-                                      spreadRadius: 10,
-                                    ),
-                                  ],
-                                ),
-                                child: Center(
-                                  child: ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => VideoPlay(
-                                            videoLink: favourite.favVideo,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    leading: Image.asset(
-                                        "assets/images/download.jpeg"),
-                                    title: Text(
-                                      favourite.favVideo.split('/').last,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    trailing: FavoritesPopupOption(
-                                      videoPath: favourite.favVideo,
-                                      favIndex: index,
+                        return Container(
+                          margin: EdgeInsets.only(bottom: _w / 20),
+                          height: _w / 5,
+                          decoration: BoxDecoration(
+                            color: const Color(0xff1f1f55),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 40,
+                                spreadRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VideoPlay(
+                                      videoLink: favourite.favVideo,
                                     ),
                                   ),
-                                ),
+                                );
+                              },
+                              leading: Image.asset(
+                                  "assets/images/download.jpeg"),
+                              title: Text(
+                                favourite.favVideo.split('/').last,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              trailing: FavoritesPopupOption(
+                                videoPath: favourite.favVideo,
+                                favIndex: index,
                               ),
                             ),
                           ),

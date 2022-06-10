@@ -88,61 +88,48 @@ class _PlaylistState extends State<Playlist> {
                     itemBuilder: (BuildContext context, int index) {
                       PlayListName? playName = playListName.getAt(index);
 
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        delay: const Duration(milliseconds: 100),
-                        child: SlideAnimation(
-                          duration: const Duration(milliseconds: 2500),
-                          curve: Curves.fastLinearToSlowEaseIn,
-                          verticalOffset: -250,
-                          child: ScaleAnimation(
-                            duration: const Duration(milliseconds: 1500),
-                            curve: Curves.fastLinearToSlowEaseIn,
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: _w / 20),
-                              height: _w / 4,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff1f1f55),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 40,
-                                    spreadRadius: 10,
-                                  ),
-                                ],
-                              ),
-                              child: Center(
-                                child: ListTile(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PlaylistVideos(
-                                          namePlay: playName!.playListName,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  leading: const Icon(
-                                    Icons.playlist_add_check,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                  title: Text(
-                                    playName!.playListName,
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  trailing: PlaylistPopup(
-                                    playName: playName.playListName,
-                                    playIndex: index,
+                      return Container(
+                        margin: EdgeInsets.only(bottom: _w / 20),
+                        height: _w / 5,
+                        decoration: BoxDecoration(
+                          color: const Color(0xff1f1f55),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 40,
+                              spreadRadius: 10,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PlaylistVideos(
+                                    namePlay: playName!.playListName,
                                   ),
                                 ),
-                              ),
+                              );
+                            },
+                            leading: const Icon(
+                              Icons.playlist_add_check,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            title: Text(
+                              playName!.playListName,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            trailing: PlaylistPopup(
+                              playName: playName.playListName,
+                              playIndex: index,
                             ),
                           ),
                         ),
