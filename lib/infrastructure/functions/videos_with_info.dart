@@ -12,4 +12,5 @@ Future getVideoWithInfo() async {
     var info = await videoInfo.getVideoInfo(fetchedVideosPath[i]);
     fetchedVideosWithInfo.value.add(info!);
   }
+  fetchedVideosWithInfo.notifyListeners();
 }

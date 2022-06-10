@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/presentation/widgets/favourite.dart';
@@ -12,7 +14,7 @@ import '../video_player/video_player.dart';
 List<String>? fetchedVideos;
 
 class FolderVideos extends StatefulWidget {
-  final path;
+  final path; //folder path
   const FolderVideos({Key? key, required this.path}) : super(key: key);
 
   @override
@@ -40,7 +42,7 @@ class _FolderVideosState extends State<FolderVideos> {
       body: AnimationLimiter(
         child: ValueListenableBuilder(
             valueListenable: filteredFolderVideos,
-            builder: (BuildContext ctx, List<dynamic> folderVideosList,
+            builder: (BuildContext ctx, List<String> folderVideosList,
                 Widget? child) {
               return ListView.builder(
                 padding: EdgeInsets.all(_w / 30),
@@ -64,7 +66,7 @@ class _FolderVideosState extends State<FolderVideos> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => VideoPlay(
+                              builder: (ctx) => VideoPlay(
                                 videoLink: folderVideosList[index],
                               ),
                             ),

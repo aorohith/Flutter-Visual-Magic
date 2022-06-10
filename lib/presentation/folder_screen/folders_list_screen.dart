@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         parent: AlwaysScrollableScrollPhysics()),
                     itemCount: updatedFolders.length,
                     itemBuilder: (BuildContext context, int index) {
-                      getFolderVideos(updatedFolders[index]); //for video count
+                      getFolderVideosCount(updatedFolders[index]); //for video count
 
                       return AnimationConfiguration.staggeredList(
                         position: index,
@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ), //Turnery end here
 
                               subtitle: Text(
-                                "${filteredFolderVideos.value.length} Videos",
+                                "${tempCount.value.length} Videos",
                                 style: const TextStyle(color: Colors.white),
                               ),
 
