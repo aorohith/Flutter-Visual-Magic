@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:visual_magic/Main/showcase_inheritted.dart';
-import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/presentation/Videos/widgets/all_videos_sort_dropdown.dart';
 import 'package:visual_magic/presentation/Videos/widgets/all_videos_listview.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
+import '../Main/showcase_inheritted.dart';
+import '../MenuDrawer/menu_drawer.dart';
 import '../Search/search_deligate.dart';
 import '../widgets/empty_display_text.dart';
 import '../widgets/popup_button.dart';

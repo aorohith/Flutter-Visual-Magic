@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/VideoPlayer/video_player.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 import '../../infrastructure/functions/fetch_video_data.dart';
+import '../MenuDrawer/menu_drawer.dart';
+import '../VideoPlayer/video_player.dart';
 import '../widgets/empty_display_text.dart';
 import '../widgets/favourite.dart';
 import '../widgets/option_popup.dart';

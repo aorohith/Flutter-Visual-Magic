@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:visual_magic/Main/showcase_inheritted.dart';
-import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
 import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
 import 'package:visual_magic/presentation/FolderScreen/widgets/folder_popupmenubutton.dart';
 import 'package:visual_magic/presentation/FolderScreen/folder_videos.dart';
@@ -11,7 +9,8 @@ import 'package:visual_magic/presentation/widgets/popup_button.dart';
 import '../../application/videos/videos_bloc.dart';
 import '../../infrastructure/functions/fetch_video_data.dart';
 import '../../infrastructure/functions/load_folder_videos.dart';
-import '../Search/search_deligate.dart';
+import '../Main/showcase_inheritted.dart';
+import '../MenuDrawer/menu_drawer.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreen extends StatefulWidget {
@@ -36,18 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xff060625),
       appBar: AppBar(
         title: const Text("Folders"),
-        actions: [
+        actions: const [
           // ElevatedButton(
           //   onPressed: () {
           //     print("Button Clicked"); //a test button for all purpouse
           //   },
           //   child: const Text("Click"),
           // ),
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: SearchVideos());
-              },
-              icon: const Icon(Icons.search)), //Search Refactor
           // IconButton(
           //   onPressed: () {
           //     ShowCaseWidget.of(context)!.startShowCase([

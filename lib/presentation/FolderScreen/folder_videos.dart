@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:visual_magic/MenuDrawer/menu_drawer.dart';
-import 'package:visual_magic/VideoPlayer/video_player.dart';
-import 'package:visual_magic/Thumbnail/thumbnail_generator.dart';
 import 'package:visual_magic/presentation/widgets/favourite.dart';
 import 'package:visual_magic/presentation/widgets/option_popup.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
 import '../../infrastructure/functions/fetch_video_data.dart';
 import '../../infrastructure/functions/load_folder_videos.dart';
+import '../MenuDrawer/menu_drawer.dart';
+import '../Thumbnail/thumbnail_generator.dart';
+import '../VideoPlayer/video_player.dart';
 
 List<String>? fetchedVideos;
 
