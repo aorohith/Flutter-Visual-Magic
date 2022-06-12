@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:showcaseview/showcaseview.dart';
+import 'package:visual_magic/core/colors/colors.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
 import '../menu_drawer/menu_drawer.dart';
 import '../search/search_deligate.dart';
@@ -27,11 +28,11 @@ class _VideosScreenState extends State<VideosScreen> {
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color(0xff060625),
+      extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
       floatingActionButton: playButton(context),
       appBar: AppBar(
-        title: const Text("All Videos"),
+        title: const Text("All Videos",style: TextStyle(color: appBarTitleColor),),
         actions: [
           Showcase(
             shapeBorder: const CircleBorder(),
@@ -72,69 +73,66 @@ class _VideosScreenState extends State<VideosScreen> {
           ),
         ],
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: AnimationLimiter(
-          child: ValueListenableBuilder(
-            valueListenable: fetchedVideosWithInfo,
-            builder: (BuildContext ctx, List<dynamic> videosWithIndex,
-                Widget? child) {
-              return videosWithIndex.isEmpty
-                  ? emptyDisplay("Videos")
-                  : ListView.builder(
-                      padding: EdgeInsets.all(_w / 30),
-                      physics: const BouncingScrollPhysics(
-                          parent: AlwaysScrollableScrollPhysics()),
-                      itemCount: videosWithIndex.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: EdgeInsets.only(bottom: _w / 20),
-                          height: _w / 5,
-                          decoration: BoxDecoration(
-                            color:
-                                const Color.fromARGB(255, 114, 102, 224)
-                                    .withOpacity(.5),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black,
-                                blurRadius: 50,
-                                spreadRadius: 0,
+      body: Container(
+        decoration: bgColor,
+        child: Padding(
+          padding: const EdgeInsets.only(top:90),
+          child: SizedBox(
+            width: double.infinity,
+            child: AnimationLimiter(
+              child: ValueListenableBuilder(
+                valueListenable: fetchedVideosWithInfo,
+                builder: (BuildContext ctx, List<dynamic> videosWithIndex,
+                    Widget? child) {
+                  return videosWithIndex.isEmpty
+                      ? emptyDisplay("Videos")
+                      : ListView.builder(
+                          padding: EdgeInsets.all(_w / 30),
+                          physics: const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics()),
+                          itemCount: videosWithIndex.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              margin: EdgeInsets.only(bottom: _w / 20),
+                              height: _w / 5,
+                              decoration: const BoxDecoration(
+                                color:listColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
                               ),
-                            ],
-                          ),
-                          child: Center(
-                            child: index == 0
-                                ? Showcase(
-                                    shapeBorder: const CircleBorder(),
-                                    showcaseBackgroundColor:
-                                        Colors.indigo,
-                                    descTextStyle: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                    key: KeysToBeInherited.of(context)
-                                        .key3,
-                                    child: getListView(
-                                      index: index,
-                                      context: context,
-                                      videosWithIndex: videosWithIndex,
-                                    ),
-                                    description:
-                                        "Long Press to view the more info")
-                                : getListView(
-                                    index: index,
-                                    context: context,
-                                    videosWithIndex: videosWithIndex,
-                                  ),
-                          ),
+                              child: Center(
+                                child: index == 0
+                                    ? Showcase(
+                                        shapeBorder: const CircleBorder(),
+                                        showcaseBackgroundColor:
+                                            Colors.indigo,
+                                        descTextStyle: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                        key: KeysToBeInherited.of(context)
+                                            .key3,
+                                        child: getListView(
+                                          index: index,
+                                          context: context,
+                                          videosWithIndex: videosWithIndex,
+                                        ),
+                                        description:
+                                            "Long Press to view the more info")
+                                    : getListView(
+                                        index: index,
+                                        context: context,
+                                        videosWithIndex: videosWithIndex,
+                                      ),
+                              ),
+                            );
+                          },
                         );
-                      },
-                    );
-            },
+                },
+              ),
+            ),
           ),
         ),
       ),

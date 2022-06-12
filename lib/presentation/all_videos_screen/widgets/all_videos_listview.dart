@@ -45,6 +45,7 @@ Widget getListView(
     title: Text(
       videosWithIndex[index].title,
       style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      maxLines: 1,
     ),
     subtitle: Text(
       formatTime(videosWithIndex[index].duration),

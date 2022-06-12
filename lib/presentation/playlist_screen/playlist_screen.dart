@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
 import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
+import '../../core/colors/colors.dart';
 import '../menu_drawer/menu_drawer.dart';
 import 'playlist_videos.dart';
 import 'widgets/new_playlsit_button.dart';
@@ -32,11 +33,11 @@ class _PlaylistState extends State<Playlist> {
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
       floatingActionButton: playlistAddButton(context),
-      backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: const Text("PlayList"),
+        title: const Text("PlayList",style: TextStyle(color: appBarTitleColor),),
         actions: [
           playListNameDB.isEmpty
               ? const SizedBox()
@@ -72,71 +73,70 @@ class _PlaylistState extends State<Playlist> {
                 ),
         ],
       ),
-      body: AnimationLimiter(
-        child: ValueListenableBuilder(
-          valueListenable: playListNameDB.listenable(),
-          builder: (BuildContext ctx, Box<PlayListName> playListName,
-              Widget? child) {
-            return playListName.isEmpty
-                ? emptyDisplay("Playlist")
-                : ListView.builder(
-                    padding: EdgeInsets.all(_w / 30),
-                    physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
-                    ),
-                    itemCount: playListName.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      PlayListName? playName = playListName.getAt(index);
+      body: Container(
+        decoration: bgColor,
+        child: Padding(
+          padding: const EdgeInsets.only(top:90.0),
+          child: AnimationLimiter(
+            child: ValueListenableBuilder(
+              valueListenable: playListNameDB.listenable(),
+              builder: (BuildContext ctx, Box<PlayListName> playListName,
+                  Widget? child) {
+                return playListName.isEmpty
+                    ? emptyDisplay("Playlist")
+                    : ListView.builder(
+                        padding: EdgeInsets.all(_w / 30),
+                        physics: const BouncingScrollPhysics(
+                          parent: AlwaysScrollableScrollPhysics(),
+                        ),
+                        itemCount: playListName.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          PlayListName? playName = playListName.getAt(index);
 
-                      return Container(
-                        margin: EdgeInsets.only(bottom: _w / 20),
-                        height: _w / 5,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff1f1f55),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 40,
-                              spreadRadius: 10,
+                          return Container(
+                            margin: EdgeInsets.only(bottom: _w / 20),
+                            height: _w / 5,
+                            decoration: const BoxDecoration(
+                              color: listColor,
+                              borderRadius:  BorderRadius.all(
+                                Radius.circular(10),
+                              ),
                             ),
-                          ],
-                        ),
-                        child: Center(
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PlaylistVideos(
-                                    namePlay: playName!.playListName,
-                                  ),
-                                ),
-                              );
-                            },
-                            leading: const Icon(
-                              Icons.playlist_add_check,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            title: Text(
-                              playName!.playListName,
-                              style: const TextStyle(
+                            child: Center(
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlaylistVideos(
+                                        namePlay: playName!.playListName,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                leading: const Icon(
+                                  Icons.playlist_add_check,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+                                  size: 30,
+                                ),
+                                title: Text(
+                                  playName!.playListName,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                trailing: PlaylistPopup(
+                                  playName: playName.playListName,
+                                  playIndex: index,
+                                ),
+                              ),
                             ),
-                            trailing: PlaylistPopup(
-                              playName: playName.playListName,
-                              playIndex: index,
-                            ),
-                          ),
-                        ),
+                          );
+                        },
                       );
-                    },
-                  );
-          },
+              },
+            ),
+          ),
         ),
       ),
     );

@@ -62,14 +62,7 @@ class Favourite extends StatelessWidget {
         width: isHighlighted ? 50 : 45,
         curve: Curves.fastLinearToSlowEaseIn,
         duration: const Duration(milliseconds: 300),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 20,
-              offset: const Offset(5, 10),
-            ),
-          ],
+        decoration: const BoxDecoration(
           color: Colors.transparent,
           shape: BoxShape.circle,
         ),
