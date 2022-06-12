@@ -45,6 +45,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         final difference = DateTime.now().difference(timeBackPressed);
@@ -66,34 +67,67 @@ class _BottomNavbarState extends State<BottomNavbar> {
         key2: _key2,
         key3: _key3,
         key4: _key4,
-        child: Scaffold(
-          bottomNavigationBar: CurvedNavigationBar(
-            key: _bottomNavigationKey,
-            index: 0,
-            height: 60.0,
-            items: const [
-              Icon(Icons.folder, size: 30),
-              Icon(Icons.history, size: 30),
-              Icon(Icons.play_circle, size: 30),
-              Icon(Icons.favorite, size: 30),
-            ],
-            color: Color(0xFF6D46BF),
-            buttonBackgroundColor: Colors.white,
-            backgroundColor: const Color(0xff060625),
-            animationCurve: Curves.easeInOut,
-            animationDuration: const Duration(milliseconds: 600),
-            onTap: (index) {
-              context.read<BottomNavBloc>().add(ChangePageEvent(pageNo: index));
-            },
-            letIndexChange: (index) => true,
-          ),
-          body: BlocBuilder<BottomNavBloc, BottomNavState>(
-            builder: (context, state) {
-              return _pages[state.index];
-            },
-          ),
+        child: BlocBuilder<BottomNavBloc, BottomNavState>(
+          builder: (context, state) {
+            return Scaffold(
+              bottomNavigationBar: Container(
+                color: Color(0xff29215D),
+                // color: Colors.deepPurpleAccent,
+                height: size.width * .155,
+                child: ListView.builder(
+                  itemCount: 4,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .024),
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      context
+                          .read<BottomNavBloc>()
+                          .add(ChangePageEvent(pageNo: index));
+                      _page = index;
+                      // print(index);
+                    },
+                    splashColor: Colors.transparent,
+                    highlightColor: Color(0xff191B27),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(height: size.width * .014),
+                        Icon(listOfIcons[index],
+                            size: size.width * .076, color: Colors.blue),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 1500),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                          margin: EdgeInsets.only(
+                            top: index == _page ? 0 : size.width * .029,
+                            right: size.width * .0422,
+                            left: size.width * .0422,
+                          ),
+                          width: size.width * .153,
+                          height: index == _page ? size.width * .014 : 0,
+                          decoration: const BoxDecoration(
+                            color: Color(0xff29215D),
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              body: _pages[state.index],
+            );
+          },
         ),
       ),
     );
   }
+
+  List<IconData> listOfIcons = [
+    Icons.home_rounded,
+    Icons.favorite_rounded,
+    Icons.settings_rounded,
+    Icons.person_rounded,
+  ];
 }
