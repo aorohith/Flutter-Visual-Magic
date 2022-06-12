@@ -10,7 +10,6 @@ import '../menu_drawer/menu_drawer.dart';
 import '../video_player/video_player.dart';
 import 'widgets/playlist_videos_popup.dart';
 
-
 class PlaylistVideos extends StatefulWidget {
   final namePlay;
   const PlaylistVideos({Key? key, required this.namePlay}) : super(key: key);
@@ -29,7 +28,10 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
       drawer: const MenuDrawer(),
       floatingActionButton: playButton(context),
       appBar: AppBar(
-        title: Text(widget.namePlay),
+        title: Text(
+          widget.namePlay,
+          style: const TextStyle(color: appBarTitleColor),
+        ),
         actions: [
           playListVideosDB.isEmpty
               ? const SizedBox()
@@ -67,7 +69,7 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
       body: Container(
         decoration: bgColor,
         child: Padding(
-          padding: const EdgeInsets.only(top:90.0),
+          padding: const EdgeInsets.only(top: 90.0),
           child: AnimationLimiter(
             child: ValueListenableBuilder(
               valueListenable: playListVideosDB.listenable(),
@@ -86,46 +88,45 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
 
                           return playlistVideo!.playListName == widget.namePlay
                               ? Container(
-                                margin: EdgeInsets.only(bottom: _w / 20),
-                                height: _w / 5,
-                                decoration: const BoxDecoration(
-                                  color: listColor,
-                                  borderRadius:  BorderRadius.all(
-                                    Radius.circular(10),
+                                  margin: EdgeInsets.only(bottom: _w / 20),
+                                  height: _w / 5,
+                                  decoration: const BoxDecoration(
+                                    color: listColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
                                   ),
-                                ),
-                                child: Center(
-                                  child: ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => VideoPlay(
-                                            videoLink:
-                                                playlistVideo.playListVideo,
+                                  child: Center(
+                                    child: ListTile(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => VideoPlay(
+                                              videoLink:
+                                                  playlistVideo.playListVideo,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    leading: Image.asset(
-                                        "assets/images/download.jpeg"),
-                                    title: Text(
-                                      playlistVideo.playListVideo
-                                          .split("/")
-                                          .last,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    trailing: PlayVideosPopup(
-                                      videoPath:
-                                          playlistVideo.playListVideo,
-                                      playlistName:
-                                          playlistVideo.playListName,
+                                        );
+                                      },
+                                      leading: Image.asset(
+                                          "assets/images/download.jpeg"),
+                                      title: Text(
+                                        playlistVideo.playListVideo
+                                            .split("/")
+                                            .last,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      trailing: PlayVideosPopup(
+                                        videoPath: playlistVideo.playListVideo,
+                                        playlistName:
+                                            playlistVideo.playListName,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              )
+                                )
                               : const SizedBox();
                         },
                       );
