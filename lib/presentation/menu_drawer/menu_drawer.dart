@@ -250,11 +250,11 @@ class MenuDrawer extends StatelessWidget {
 
   Future<void> share() async {
     await FlutterShare.share(
-        title: 'V!sual Magic',
+        title: 'Visual Magic',
         text:
-            'I found a super useful music player app! You can try this out! Download it here:',
+            'I found a super useful Video Player app! You can try this out! Download it here:',
         linkUrl:
-            'https://play.google.com/store/apps/details?id=mymusic.offlinemusicplayer.mp3player.playmusic&referrer=utm_source%3Duser_share',
+            'https://play.google.com/store/apps/details?id=apps.brototype.visual_magic',
         chooserTitle: 'Selecet Your App Here');
   }
 }
