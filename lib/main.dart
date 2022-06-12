@@ -8,6 +8,7 @@ import 'package:visual_magic/presentation/splash_and_onboarding/on_boarding_scre
 import 'package:visual_magic/presentation/splash_and_onboarding/splash_screen.dart';
 
 import 'application/videos/videos_bloc.dart';
+import 'core/colors/colors.dart';
 
 // late var box;
 late var userDB;
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                   appBarTheme: const AppBarTheme(
                     elevation: 0,
-                color: Colors.transparent,
+                color: appBarColor,
               )),
               initialRoute: initScreen == 0 || initScreen == null
                   ? 'onBoardingScreen'

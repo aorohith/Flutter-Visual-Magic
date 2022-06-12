@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../application/videos/videos_bloc.dart';
+import '../../core/colors/colors.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
 import '../all_videos_screen/video_screen.dart';
 import '../favourite_screen/favourites_screen.dart';
@@ -71,8 +72,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           builder: (context, state) {
             return Scaffold(
               bottomNavigationBar: Container(
-                color: Color(0xff29215D),
-                // color: Colors.deepPurpleAccent,
+                color: bottomNavBgColor,
                 height: size.width * .155,
                 child: ListView.builder(
                   itemCount: 4,
@@ -87,13 +87,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       // print(index);
                     },
                     splashColor: Colors.transparent,
-                    highlightColor: Color(0xff191B27),
+                    highlightColor: const Color(0xff29215D),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(height: size.width * .014),
                         Icon(listOfIcons[index],
-                            size: size.width * .076, color: Colors.blue),
+                            size: size.width * .076, color: bottomIconColor),
                         AnimatedContainer(
                           duration: const Duration(milliseconds: 1500),
                           curve: Curves.fastLinearToSlowEaseIn,
@@ -105,7 +105,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                           width: size.width * .153,
                           height: index == _page ? size.width * .014 : 0,
                           decoration: const BoxDecoration(
-                            color: Color(0xff29215D),
+                            color: bottmSelectedIconColor,
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(20),
                             ),
@@ -125,9 +125,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
   }
 
   List<IconData> listOfIcons = [
-    Icons.home_rounded,
-    Icons.favorite_rounded,
-    Icons.settings_rounded,
-    Icons.person_rounded,
+    Icons.folder,
+    Icons.history,
+    Icons.play_circle,
+    Icons.favorite,
   ];
 }
