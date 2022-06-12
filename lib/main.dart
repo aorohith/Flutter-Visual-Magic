@@ -80,7 +80,8 @@ class MyApp extends StatelessWidget {
               useInheritedMediaQuery: true,
               theme: ThemeData(
                   appBarTheme: const AppBarTheme(
-                color: Color(0xff1f1f55),
+                    elevation: 0,
+                color: Colors.transparent,
               )),
               initialRoute: initScreen == 0 || initScreen == null
                   ? 'onBoardingScreen'

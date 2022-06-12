@@ -77,7 +77,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
               Icon(Icons.play_circle, size: 30),
               Icon(Icons.favorite, size: 30),
             ],
-            color: const Color.fromARGB(255, 81, 73, 150),
+            color: Color(0xFF6D46BF),
             buttonBackgroundColor: Colors.white,
             backgroundColor: const Color(0xff060625),
             animationCurve: Curves.easeInOut,

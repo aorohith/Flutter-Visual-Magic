@@ -4,7 +4,7 @@ import 'videos_with_info.dart';
 sortAlphabetical() {
   fetchedVideosWithInfo.value.sort((a, b) {
     return a.title!.toLowerCase().compareTo(
-          b.title!.toLowerCase(),
+          b.title!.toLowerCase()
         );
   });
   fetchedVideosWithInfo.notifyListeners();
