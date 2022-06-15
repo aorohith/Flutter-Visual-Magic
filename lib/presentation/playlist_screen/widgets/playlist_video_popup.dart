@@ -47,39 +47,41 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                             "Add New",
                           ),
                         ),
-                        SizedBox(
-                          height: 190.0, // Change as per your requirement
-                          width: 300.0,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: playListName.length,
-                            itemBuilder: (context, index) {
-                              PlayListName? playName =
-                                  playListName.getAt(index);
-                              return ListTile(
-                                visualDensity: const VisualDensity(
-                                    horizontal: 0, vertical: 0),
-                                onTap: () {
-                                  notifyPlaylistVideo = !notifyPlaylistVideo;
-                                  final playListVideoToAdd = PlayListVideos(
-                                    playListName: playName!.playListName,
-                                    playListVideo: playlistVideoPath,
-                                  );
-                                  final contains =
-                                      addPlayListVideos(playListVideoToAdd);
-                                  if (contains) {
-                                    Navigator.pop(context);
-                                  } else {
-                                    // Navigator.pop(context);
-                                    Navigator.pop(context);
-                                    Navigator.pop(context);
-
-                                    notifyPlaylistVideo = true;
-                                  }
-                                },
-                                title: Text(playName!.playListName),
-                              );
-                            },
+                        Expanded(
+                          child: SizedBox(
+                            height: 200.0, // Change as per your requirement
+                            width: 300.0,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: playListName.length,
+                              itemBuilder: (context, index) {
+                                PlayListName? playName =
+                                    playListName.getAt(index);
+                                return ListTile(
+                                  visualDensity: const VisualDensity(
+                                      horizontal: 0, vertical: 0),
+                                  onTap: () {
+                                    notifyPlaylistVideo = !notifyPlaylistVideo;
+                                    final playListVideoToAdd = PlayListVideos(
+                                      playListName: playName!.playListName,
+                                      playListVideo: playlistVideoPath,
+                                    );
+                                    final contains =
+                                        addPlayListVideos(playListVideoToAdd);
+                                    if (contains) {
+                                      Navigator.pop(context);
+                                    } else {
+                                      // Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                        
+                                      notifyPlaylistVideo = true;
+                                    }
+                                  },
+                                  title: Text(playName!.playListName),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ],

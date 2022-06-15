@@ -33,6 +33,7 @@ class _PlaylistState extends State<Playlist> {
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
       floatingActionButton: playlistAddButton(context),
