@@ -32,7 +32,10 @@ class _VideosScreenState extends State<VideosScreen> {
       drawer: const MenuDrawer(),
       floatingActionButton: playButton(context),
       appBar: AppBar(
-        title: const Text("All Videos",style: TextStyle(color: appBarTitleColor),),
+        title: const Text(
+          "All Videos",
+          style: TextStyle(color: appBarTitleColor),
+        ),
         actions: [
           Showcase(
             // shapeBorder: const CircleBorder(),
@@ -58,11 +61,11 @@ class _VideosScreenState extends State<VideosScreen> {
                 fontSize: 16,
               ),
               key: KeysToBeInherited.of(context).key2,
-              child: const SortDropdown(),
-              description: "Sort your videos here"),
+              description: "Sort your videos here",
+              child: const SortDropdown()),
           IconButton(
             onPressed: () {
-              ShowCaseWidget.of(context)!.startShowCase([
+              ShowCaseWidget.of(context).startShowCase([
                 KeysToBeInherited.of(context).key1,
                 KeysToBeInherited.of(context).key2,
                 KeysToBeInherited.of(context).key3,
@@ -76,7 +79,7 @@ class _VideosScreenState extends State<VideosScreen> {
       body: Container(
         decoration: bgColor,
         child: Padding(
-          padding: const EdgeInsets.only(top:90),
+          padding: const EdgeInsets.only(top: 90),
           child: SizedBox(
             width: double.infinity,
             child: AnimationLimiter(
@@ -96,7 +99,7 @@ class _VideosScreenState extends State<VideosScreen> {
                               margin: EdgeInsets.only(bottom: _w / 20),
                               height: _w / 5,
                               decoration: const BoxDecoration(
-                                color:listColor,
+                                color: listColor,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(10),
                                 ),
@@ -112,15 +115,14 @@ class _VideosScreenState extends State<VideosScreen> {
                                           color: Colors.white,
                                           fontSize: 16,
                                         ),
-                                        key: KeysToBeInherited.of(context)
-                                            .key3,
+                                        key: KeysToBeInherited.of(context).key3,
+                                        description:
+                                            "Long Press to view the more info",
                                         child: getListView(
                                           index: index,
                                           context: context,
                                           videosWithIndex: videosWithIndex,
-                                        ),
-                                        description:
-                                            "Long Press to view the more info")
+                                        ))
                                     : getListView(
                                         index: index,
                                         context: context,

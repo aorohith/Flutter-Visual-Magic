@@ -37,13 +37,13 @@ class SortInitial extends SortState {
 
 //######################################
 class FavPopupState {
-  bool favSatatus;
+  bool favStatus;
 
-  FavPopupState({required this.favSatatus});
+  FavPopupState({required this.favStatus});
 }
 
 class FavPopupInitial extends FavPopupState {
-  FavPopupInitial() : super(favSatatus:false);
+  FavPopupInitial() : super(favStatus:false);
 }
 
 //######################################

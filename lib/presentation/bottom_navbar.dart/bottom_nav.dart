@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:visual_magic/presentation/favourite_screen/favorites_screen.dart';
 import '../../application/videos/videos_bloc.dart';
 import '../../core/colors/colors.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
 import '../all_videos_screen/video_screen.dart';
-import '../favourite_screen/favourites_screen.dart';
 import '../folder_screen/folders_list_screen.dart';
 import '../recent_screen/recent_screen.dart';
 import '../showcase_widget/showcase_inheritted.dart';
@@ -25,7 +24,6 @@ class _BottomNavbarState extends State<BottomNavbar> {
   final _key4 = GlobalKey();
 
   int _page = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   final _pages = [
     HomeScreen(),
@@ -105,7 +103,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                           width: size.width * .153,
                           height: index == _page ? size.width * .014 : 0,
                           decoration: const BoxDecoration(
-                            color: bottmSelectedIconColor,
+                            color: bottomSelectedIconColor,
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(20),
                             ),

@@ -5,17 +5,17 @@ import '../../../infrastructure/functions/playlist_section.dart';
 
 playlistEdit(
     {required BuildContext context, required String playName, required}) {
-  final GlobalKey<FormState> _formKey =
+  final GlobalKey<FormState> formKey =
       GlobalKey(); //currentstate.validate not work without <FormState>
-  TextEditingController _textController = TextEditingController(text: playName);
+  TextEditingController textController = TextEditingController(text: playName);
   showDialog(
     context: context,
     builder: (context) => Form(
-      key: _formKey,
+      key: formKey,
       child: AlertDialog(
         title: const Text("Edit Playlist"),
         content: TextFormField(
-          controller: _textController,
+          controller: textController,
           decoration: const InputDecoration(labelText: "Playlist Name"),
           validator: (value) {
             if (value!.isEmpty) {
@@ -23,19 +23,18 @@ playlistEdit(
             } else if (checkPlaylistExists(value).isNotEmpty) {
               return "Playlist already exists";
             }
+            return null;
           },
         ),
         actions: [
           TextButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
+              if (formKey.currentState!.validate()) {
                 editPlayDB(
                   oldValue: playName,
-                  newValue: _textController.text.trim(),
+                  newValue: textController.text.trim(),
                 );
                 Navigator.pop(context);
-                const snackBar =
-                    SnackBar(content: Text("Playlist Name Updated"));
               }
             },
             child: const Text(

@@ -5,6 +5,7 @@ import 'dart:core';
 import '../../../infrastructure/functions/load_folder_videos.dart';
 import '../../../infrastructure/functions/videos_with_info.dart';
 
+// ignore: must_be_immutable
 class FolderPopupMenuButton extends StatefulWidget {
   String folderPath;
   FolderPopupMenuButton({Key? key, required this.folderPath}) : super(key: key);
@@ -23,7 +24,7 @@ class _FolderPopupMenuButtonState extends State<FolderPopupMenuButton> {
         ),
         itemBuilder: (_) => <PopupMenuItem<String>>[
               PopupMenuItem<String>(
-                  onTap: () {}, child: const Text('Folder info'), value: 'info'),
+                  onTap: () {}, value: 'info', child: const Text('Folder info')),
 
               // PopupMenuItem<String>(
               //     onTap: () {
@@ -32,16 +33,16 @@ class _FolderPopupMenuButtonState extends State<FolderPopupMenuButton> {
               //     child: Text('sample'),
               //     value: 'Lion'),
             ],
-        onSelected: (_selected) {
-          if (_selected == "info") {
-            folderInfoPoup(context: context, folderPath: widget.folderPath);
+        onSelected: (selected) {
+          if (selected == "info") {
+            folderInfoPopup(context: context, folderPath: widget.folderPath);
           }
         });
   }
 }
 //##########....popup for folder info...############
 
-folderInfoPoup({context, folderPath}) {
+folderInfoPopup({context, folderPath}) {
   showDialog(
       context: context,
       builder: (context) {
@@ -78,11 +79,11 @@ getFolderSize(String path) {
   filteredFolderVideos.value.clear();
   List<VideoData> matchedVideoPath = [];
 
-  List<String> splittedMatchedVideoPath = [];
+  List<String> spitedMatchedVideoPath = [];
 
   dynamic folderSize = 0.0;
 
-  var splitted = path.split('/');
+  var splitter = path.split('/');
 
   for (VideoData singlePath in fetchedVideosWithInfo.value) {
     if (singlePath.path!.startsWith(path)) {
@@ -91,9 +92,9 @@ getFolderSize(String path) {
   }
 
   for (VideoData newPathObj in matchedVideoPath) {
-    splittedMatchedVideoPath = newPathObj.path!.split('/');
-    if (splittedMatchedVideoPath[splitted.length].endsWith('.mp4') ||
-        splittedMatchedVideoPath[splitted.length].endsWith('.mkv')) {
+    spitedMatchedVideoPath = newPathObj.path!.split('/');
+    if (spitedMatchedVideoPath[splitter.length].endsWith('.mp4') ||
+        spitedMatchedVideoPath[splitter.length].endsWith('.mkv')) {
       folderSize = folderSize + newPathObj.filesize!;
     }
   }

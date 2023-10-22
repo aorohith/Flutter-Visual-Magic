@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/videos/videos_bloc.dart';
 import '../all_videos_screen/video_screen.dart';
-import '../favourite_screen/favourites_screen.dart';
+import '../favourite_screen/favorites_screen.dart';
 import '../recent_screen/recent_screen.dart';
 import 'folders_list_screen.dart';
 

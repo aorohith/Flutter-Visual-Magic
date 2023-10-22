@@ -7,6 +7,7 @@ import 'package:video_thumbnail/video_thumbnail.dart';
 
 import '../../application/videos/videos_bloc.dart';
 
+// ignore: must_be_immutable
 class ThumbGenerator extends StatefulWidget {
   ThumbGenerator({
     Key? key,

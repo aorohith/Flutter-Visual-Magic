@@ -3,18 +3,18 @@ import '../../../infrastructure/functions/playlist_section.dart';
 
 playlistScreenPopup(context) {
   //popup items
-  final GlobalKey<FormState> _formKey =
+  final GlobalKey<FormState> formKey =
       GlobalKey(); //currentstate.validate not work without <FormState>
-  TextEditingController _textController = TextEditingController();
+  TextEditingController textController = TextEditingController();
   showDialog(
     context: context,
     builder: (context) => SizedBox(
       child: Form(
-        key: _formKey,
+        key: formKey,
         child: AlertDialog(
-          title: const Text("Addtt Playlist"),
+          title: const Text("Add Playlist"),
           content: TextFormField(
-            controller: _textController,
+            controller: textController,
             decoration: const InputDecoration(labelText: "Playlist"),
             validator: (value) {
               if (value!.isEmpty) {
@@ -22,13 +22,14 @@ playlistScreenPopup(context) {
               } else if (checkPlaylistExists(value).isNotEmpty) {
                 return "Playlist already exists";
               }
+              return null;
             },
           ),
           actions: [
             TextButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  addNewPlaylist(_textController.text.trim(), context);
+                if (formKey.currentState!.validate()) {
+                  addNewPlaylist(textController.text.trim(), context);
                 }
               },
               child: const Text(

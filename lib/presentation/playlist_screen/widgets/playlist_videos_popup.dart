@@ -5,6 +5,7 @@ import 'package:visual_magic/main.dart';
 
 import '../../../application/videos/videos_bloc.dart';
 
+// ignore: must_be_immutable
 class PlayVideosPopup extends StatefulWidget {
   String videoPath;
   String playlistName;
@@ -47,16 +48,16 @@ class _PlayVideosPopupState extends State<PlayVideosPopup> {
                           .add(ChangeFavPopupEvent(status: isInPlaylist));
                     }
                   },
+                  value: 'Lion',
                   child: BlocBuilder<FavPopupBloc, FavPopupState>(
                     builder: (context, state) {
                       return isInPlaylist
                           ? const Text('Add to Watch Later')
                           : const Text('Remove from Watch Later');
                     },
-                  ),
-                  value: 'Lion'),
+                  )),
             ],
-        onSelected: (_selected) {});
+        onSelected: (selected) {});
   }
 
   _checkPlaylistVideos() {

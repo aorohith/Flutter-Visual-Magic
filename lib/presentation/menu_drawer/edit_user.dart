@@ -6,6 +6,7 @@ import 'package:visual_magic/main.dart';
 
 UserModel _userData = userDB.values.toList()[0];
 
+// ignore: must_be_immutable
 class EditUserScreen extends StatefulWidget {
   final name;
   String assetImage;
@@ -193,8 +194,9 @@ class _EditUserScreenState extends State<EditUserScreen> {
         imgPath: widget.assetImage,
         description: description);
     await userDB.put('user', user);
-    Navigator.pop(context);
-    Navigator.pop(context);
-    Navigator.pop(context);
+    Navigator.of(context)
+      ..pop()
+      ..pop()
+      ..pop();
   }
 }

@@ -5,6 +5,7 @@ import 'package:visual_magic/main.dart';
 
 import '../../../application/videos/videos_bloc.dart';
 
+// ignore: must_be_immutable
 class FavoritesPopupOption extends StatefulWidget {
   String videoPath;
   int favIndex;
@@ -32,8 +33,8 @@ class _FavoritesPopupOptionState extends State<FavoritesPopupOption> {
                   onTap: () {
                     favDB.deleteAt(widget.favIndex);
                   },
-                  child: const Text('Remove from favourites'),
-                  value: 'Doge'),
+                  value: 'Doge',
+                  child: const Text('Remove from favorites')),
               PopupMenuItem<String>(
                   onTap: () {
                     final watchlater =
@@ -41,23 +42,27 @@ class _FavoritesPopupOptionState extends State<FavoritesPopupOption> {
                     if (isWatchlater) {
                       watchlaterDB.add(watchlater);
                       isWatchlater = !isWatchlater;
-                      context.read<FavPopupBloc>().add(ChangeFavPopupEvent(status: isWatchlater));
+                      context
+                          .read<FavPopupBloc>()
+                          .add(ChangeFavPopupEvent(status: isWatchlater));
                     } else {
                       _deleteWatchlater(watchlater);
                       isWatchlater = !isWatchlater;
-                      context.read<FavPopupBloc>().add(ChangeFavPopupEvent(status: isWatchlater));
+                      context
+                          .read<FavPopupBloc>()
+                          .add(ChangeFavPopupEvent(status: isWatchlater));
                     }
                   },
+                  value: 'Lion',
                   child: BlocBuilder<FavPopupBloc, FavPopupState>(
                     builder: (context, state) {
-                      return state.favSatatus
+                      return state.favStatus
                           ? const Text('Add to Watch Later')
                           : const Text('Remove from Watch Later');
                     },
-                  ),
-                  value: 'Lion'),
+                  )),
             ],
-        onSelected: (_selected) {});
+        onSelected: (selected) {});
   }
 
   _checkWatchlater() {
@@ -65,11 +70,11 @@ class _FavoritesPopupOptionState extends State<FavoritesPopupOption> {
       final watchlater = watchlaterDB.values.toList();
       final isFound =
           watchlater.where((element) => element.laterPath == widget.videoPath);
-        if (isFound.isEmpty) {
-          isWatchlater = true; //video not exist watchlater
-        } else {
-          isWatchlater = false; //video exists in watchlater
-        }
+      if (isFound.isEmpty) {
+        isWatchlater = true; //video not exist watchlater
+      } else {
+        isWatchlater = false; //video exists in watchlater
+      }
     } else {
       isWatchlater = true;
     }

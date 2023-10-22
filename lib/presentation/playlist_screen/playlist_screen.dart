@@ -7,7 +7,7 @@ import 'package:visual_magic/presentation/widgets/empty_display_text.dart';
 import '../../core/colors/colors.dart';
 import '../menu_drawer/menu_drawer.dart';
 import 'playlist_videos.dart';
-import 'widgets/new_playlsit_button.dart';
+import 'widgets/new_playlist_button.dart';
 import 'widgets/playlist_popup.dart';
 
 List<String>? fetchedVideos;
@@ -110,7 +110,7 @@ class _PlaylistState extends State<Playlist> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => PlaylistVideos(
-                                        namePlay: playName!.playListName,
+                                        namePlay: playName.playListName,
                                       ),
                                     ),
                                   );

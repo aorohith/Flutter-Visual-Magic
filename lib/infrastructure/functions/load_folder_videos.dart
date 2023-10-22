@@ -12,9 +12,9 @@ getFolderVideos(String path) {
   filteredFolderVideos.value.clear();
   List<String> matchedVideoPath = [];
 
-  List<String> splittedMatchedVideoPath = [];
+  List<String> spitedMatchedVideoPath = [];
 
-  var splitted = path.split('/');
+  var spitted = path.split('/');
 
   for (String singlePath in fetchedVideosPath) {
     if (singlePath.startsWith(path)) {
@@ -23,9 +23,9 @@ getFolderVideos(String path) {
   }
 
   for (String newPath in matchedVideoPath) {
-    splittedMatchedVideoPath = newPath.split('/');
-    if (splittedMatchedVideoPath[splitted.length].endsWith('.mp4') ||
-        splittedMatchedVideoPath[splitted.length].endsWith('.mkv')) {
+    spitedMatchedVideoPath = newPath.split('/');
+    if (spitedMatchedVideoPath[spitted.length].endsWith('.mp4') ||
+        spitedMatchedVideoPath[spitted.length].endsWith('.mkv')) {
       filteredFolderVideos.value.add(newPath);
     }
   }

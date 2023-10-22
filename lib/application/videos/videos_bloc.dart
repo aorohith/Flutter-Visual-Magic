@@ -1,7 +1,5 @@
-import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'videos_event.dart';
 part 'videos_state.dart';
@@ -58,7 +56,7 @@ class FavPopupBloc extends Bloc<FavPopupEvent, FavPopupState> {
   FavPopupBloc() : super(FavPopupInitial()) {
    
     on<ChangeFavPopupEvent>((event, emit){
-      return emit(FavPopupState(favSatatus: event.status));
+      return emit(FavPopupState(favStatus: event.status));
     });
   }
 }

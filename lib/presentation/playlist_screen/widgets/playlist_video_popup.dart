@@ -7,13 +7,13 @@ import '../../../infrastructure/functions/playlist_section.dart';
 import '../../../main.dart';
 
 playlistVideoPopup({required context, required playlistVideoPath}) {
-  final GlobalKey<FormState> _formKey =
+  final GlobalKey<FormState> formKey =
       GlobalKey(); //currentstate.validate not work without <FormState>
-  TextEditingController _textController = TextEditingController();
+  TextEditingController textController = TextEditingController();
   showDialog(
       context: context,
       builder: (context) => Form(
-            key: _formKey,
+            key: formKey,
             child: AlertDialog(
               title: const Text("Playlists"),
               content: ValueListenableBuilder(
@@ -25,7 +25,7 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: _textController,
+                          controller: textController,
                           decoration:
                               const InputDecoration(labelText: "New Playlist"),
                           validator: (value) {
@@ -34,13 +34,14 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                             } else if (checkPlaylistExists(value).isNotEmpty) {
                               return "Playlist already exists";
                             }
+                            return null;
                           },
                         ),
                         TextButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate()) {
                               addNewPlaylist(
-                                  _textController.text.trim(), context);
+                                  textController.text.trim(), context);
                             }
                           },
                           child: const Text(
@@ -63,7 +64,7 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                                   onTap: () {
                                     notifyPlaylistVideo = !notifyPlaylistVideo;
                                     final playListVideoToAdd = PlayListVideos(
-                                      playListName: playName!.playListName,
+                                      playListName: playName.playListName,
                                       playListVideo: playlistVideoPath,
                                     );
                                     final contains =

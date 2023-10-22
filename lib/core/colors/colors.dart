@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //########...bottom nav bar...##########
 Color bottomNavBgColor = const Color(0xff29215D);
 const bottomIconColor = Colors.blue;
-const bottmSelectedIconColor = Colors.blue;
+const bottomSelectedIconColor = Colors.blue;
 
 //#########...screens...##########
 

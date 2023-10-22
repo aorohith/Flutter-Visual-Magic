@@ -1,10 +1,9 @@
-//rename playlist delete playlist
 import 'package:flutter/material.dart';
-
 import '../../../db/Models/models.dart';
 import '../../../main.dart';
 import 'edit_playlist.dart';
 
+// ignore: must_be_immutable
 class PlaylistPopup extends StatefulWidget {
   int playIndex;
   String playName;
@@ -30,18 +29,18 @@ class _PlaylistPopupState extends State<PlaylistPopup> {
                   onTap: () {
                     //edit playlist popup call
                   },
-                  child: const Text('Rename Playlist'),
-                  value: 'Doge'),
+                  value: 'Doge',
+                  child: const Text('Rename Playlist')),
               PopupMenuItem<String>(
                   onTap: () {},
-                  child: const Text('Delete Playlist'),
-                  value: 'Lion'),
+                  value: 'Lion',
+                  child: const Text('Delete Playlist')),
             ],
-        onSelected: (_selected) {
-          if (_selected == 'Lion') {
+        onSelected: (selected) {
+          if (selected == 'Lion') {
             _deletePlaylist(
                 playlistVideoName: widget.playName, index: widget.playIndex);
-          } else if (_selected == 'Doge') {
+          } else if (selected == 'Doge') {
             playlistEdit(context: context, playName: widget.playName);
           }
         });
