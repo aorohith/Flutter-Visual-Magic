@@ -1,8 +1,4 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
 part 'videos_event.dart';
 part 'videos_state.dart';
 
@@ -18,13 +14,12 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
             path.lastIndexOf('/'),
           ),
         ); //removed video name and add to temp
-
       }
       temp = temp.toSet().toList();
-      return emit(VideosState(folderVideos:temp));
+      return emit(VideosState(folderVideos: temp));
     });
 
-    on<FavEvent>((event, emit){
+    on<FavEvent>((event, emit) {
       return emit(VideosState(isFav: event.fetched));
     });
   }
@@ -34,8 +29,7 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
 
 class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
   BottomNavBloc() : super(BottomNavInitial()) {
-   
-    on<ChangePageEvent>((event, emit){
+    on<ChangePageEvent>((event, emit) {
       return emit(BottomNavState(index: event.pageNo));
     });
   }
@@ -45,8 +39,7 @@ class BottomNavBloc extends Bloc<BottomNavEvent, BottomNavState> {
 
 class SortBloc extends Bloc<SortEvent, SortState> {
   SortBloc() : super(SortInitial()) {
-   
-    on<ChangeSortTypeEvent>((event, emit){
+    on<ChangeSortTypeEvent>((event, emit) {
       return emit(SortState(sortType: event.type));
     });
   }
@@ -56,8 +49,7 @@ class SortBloc extends Bloc<SortEvent, SortState> {
 
 class FavPopupBloc extends Bloc<FavPopupEvent, FavPopupState> {
   FavPopupBloc() : super(FavPopupInitial()) {
-   
-    on<ChangeFavPopupEvent>((event, emit){
+    on<ChangeFavPopupEvent>((event, emit) {
       return emit(FavPopupState(favSatatus: event.status));
     });
   }
@@ -67,8 +59,7 @@ class FavPopupBloc extends Bloc<FavPopupEvent, FavPopupState> {
 
 class ThumbnailBloc extends Bloc<ThumbnailEvent, ThumbnailState> {
   ThumbnailBloc() : super(ThumbnailInitial()) {
-   
-    on<ChangeThumbnailEvent>((event, emit){
+    on<ChangeThumbnailEvent>((event, emit) {
       return emit(ThumbnailState(thumbnailPath: event.thumbnail));
     });
   }
