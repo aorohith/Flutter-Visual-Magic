@@ -106,9 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   title: index ==
                                           0 //turnery operator for showcase to select first element of folder
                                       ? Showcase(
-                                          shapeBorder: const CircleBorder(),
-                                          showcaseBackgroundColor:
-                                              Colors.indigo,
+                                          // shapeBorder: const CircleBorder(),
+                                          // showcaseBackgroundColor:
+                                              // Colors.indigo,
                                           descTextStyle: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.white,
@@ -147,9 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   // more option for future usage
                                   trailing: index == 0
                                       ? Showcase(
-                                          shapeBorder: const CircleBorder(),
-                                          showcaseBackgroundColor:
-                                              Colors.indigo,
+                                          // shapeBorder: const CircleBorder(),
+                                          // showcaseBackgroundColor:
+                                          //     Colors.indigo,
                                           descTextStyle: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.white,

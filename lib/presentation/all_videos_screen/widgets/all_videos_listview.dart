@@ -53,8 +53,8 @@ Widget getListView(
     ),
     trailing: index == 0
         ? Showcase(
-            shapeBorder: const CircleBorder(),
-            showcaseBackgroundColor: Colors.indigo,
+            // shapeBorder: const CircleBorder(),
+            // showcaseBackgroundColor: Colors.indigo,
             descTextStyle: const TextStyle(
               fontWeight: FontWeight.w500,
               color: Colors.white,

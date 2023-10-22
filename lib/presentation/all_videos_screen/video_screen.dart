@@ -35,8 +35,8 @@ class _VideosScreenState extends State<VideosScreen> {
         title: const Text("All Videos",style: TextStyle(color: appBarTitleColor),),
         actions: [
           Showcase(
-            shapeBorder: const CircleBorder(),
-            showcaseBackgroundColor: Colors.indigo,
+            // shapeBorder: const CircleBorder(),
+            // showcaseBackgroundColor: Colors.indigo,
             descTextStyle: const TextStyle(
               fontWeight: FontWeight.w500,
               color: Colors.white,
@@ -51,7 +51,7 @@ class _VideosScreenState extends State<VideosScreen> {
                 icon: const Icon(Icons.search)),
           ),
           Showcase(
-              showcaseBackgroundColor: const Color.fromARGB(255, 63, 81, 181),
+              // showcaseBackgroundColor: const Color.fromARGB(255, 63, 81, 181),
               descTextStyle: const TextStyle(
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
@@ -104,9 +104,9 @@ class _VideosScreenState extends State<VideosScreen> {
                               child: Center(
                                 child: index == 0
                                     ? Showcase(
-                                        shapeBorder: const CircleBorder(),
-                                        showcaseBackgroundColor:
-                                            Colors.indigo,
+                                        // shapeBorder: const CircleBorder(),
+                                        // showcaseBackgroundColor:
+                                        //     Colors.indigo,
                                         descTextStyle: const TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Colors.white,

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +59,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(2246, 1080),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_) {
+      builder: (context, child) {
         return MultiBlocProvider(
             providers: [
               BlocProvider(
@@ -69,10 +71,10 @@ class MyApp extends StatelessWidget {
               BlocProvider(
                 create: (context) => SortBloc(),
               ),
-               BlocProvider(
+              BlocProvider(
                 create: (context) => FavPopupBloc(),
               ),
-               BlocProvider(
+              BlocProvider(
                 create: (context) => ThumbnailBloc(),
               ),
             ],
@@ -81,7 +83,7 @@ class MyApp extends StatelessWidget {
               useInheritedMediaQuery: true,
               theme: ThemeData(
                   appBarTheme: const AppBarTheme(
-                    elevation: 0,
+                elevation: 0,
                 color: appBarColor,
               )),
               initialRoute: initScreen == 0 || initScreen == null
