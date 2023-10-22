@@ -10,18 +10,18 @@ import '../menu_drawer/menu_drawer.dart';
 import '../video_player/video_player.dart';
 import 'widgets/fav_popup_menu_button.dart';
 
-class FavouritesScreen extends StatelessWidget {
-  const FavouritesScreen({Key? key}) : super(key: key);
+class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double _w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       drawer: const MenuDrawer(),
       floatingActionButton: playButton(context),
       backgroundColor: const Color(0xff060625),
       appBar: AppBar(
-        title: const Text("Favourites",style: TextStyle(color: appBarTitleColor),),
+        title: const Text("Favorites",style: TextStyle(color: appBarTitleColor),),
         actions: [
           favDB.isEmpty
               ? const SizedBox()
@@ -31,9 +31,9 @@ class FavouritesScreen extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Delete Favourite Videos"),
+                          title: const Text("Delete Favorite Videos"),
                           content:
-                              const Text("Do you wants to clear Favourites?"),
+                              const Text("Do you wants to clear Favorites?"),
                           actions: [
                             ElevatedButton(
                               child: const Text("Cancel"),
@@ -65,19 +65,19 @@ class FavouritesScreen extends StatelessWidget {
           child: AnimationLimiter(
             child: ValueListenableBuilder(
                 valueListenable: favDB.listenable(),
-                builder: (BuildContext ctx, Box<Favourites> newFav, Widget? child) {
+                builder: (BuildContext ctx, Box<Favorites> newFav, Widget? child) {
                   return newFav.isEmpty
-                      ? emptyDisplay("Favourite Videos")
+                      ? emptyDisplay("Favorite Videos")
                       : ListView.builder(
-                          padding: EdgeInsets.all(_w / 30),
+                          padding: EdgeInsets.all(w / 30),
                           physics: const BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics()),
                           itemCount: newFav.length,
                           itemBuilder: (BuildContext context, int index) {
-                            Favourites favourite = favDB.getAt(index)!;
+                            Favorites favorite = favDB.getAt(index)!;
                             return Container(
-                              margin: EdgeInsets.only(bottom: _w / 20),
-                              height: _w / 5,
+                              margin: EdgeInsets.only(bottom: w / 20),
+                              height: w / 5,
                               decoration: const BoxDecoration(
                                 color:  listColor,
                                 borderRadius:  BorderRadius.all(
@@ -91,7 +91,7 @@ class FavouritesScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => VideoPlay(
-                                          videoLink: favourite.favVideo,
+                                          videoLink: favorite.favVideo,
                                         ),
                                       ),
                                     );
@@ -99,13 +99,13 @@ class FavouritesScreen extends StatelessWidget {
                                   leading:
                                       Image.asset("assets/images/download.jpeg"),
                                   title: Text(
-                                    favourite.favVideo.split('/').last,
+                                    favorite.favVideo.split('/').last,
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   trailing: FavoritesPopupOption(
-                                    videoPath: favourite.favVideo,
+                                    videoPath: favorite.favVideo,
                                     favIndex: index,
                                   ),
                                 ),

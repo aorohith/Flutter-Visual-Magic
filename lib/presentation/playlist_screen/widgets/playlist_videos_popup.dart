@@ -18,7 +18,7 @@ class PlayVideosPopup extends StatefulWidget {
 }
 
 class _PlayVideosPopupState extends State<PlayVideosPopup> {
-  var isInPlaylist;
+  bool isInPlaylist = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +66,11 @@ class _PlayVideosPopupState extends State<PlayVideosPopup> {
       final isFound = playlistVideos.where((element) =>
           element.playListVideo == widget.videoPath &&
           element.playListName == widget.playlistName);
-        if (isFound.isEmpty) {
-          isInPlaylist = true; //video not exist playlist
-        } else {
-          isInPlaylist = false; //video exists in playlist
-        }
+      if (isFound.isEmpty) {
+        isInPlaylist = true; //video not exist playlist
+      } else {
+        isInPlaylist = false; //video exists in playlist
+      }
     } else {
       isInPlaylist = true;
     }

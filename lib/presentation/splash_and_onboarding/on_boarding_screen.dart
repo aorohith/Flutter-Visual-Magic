@@ -10,6 +10,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 
   @override
+  // ignore: library_private_types_in_public_api
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
 }
 
@@ -34,6 +35,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
         inactiveBulletColor: Colors.blue,
         finishCallback: () async {
           await splashFetch();
+          // ignore: use_build_context_synchronously
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const SplashScreen())) ;
           final prefs = await SharedPreferences.getInstance();
           prefs.setBool('showHome', true);

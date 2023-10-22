@@ -4,7 +4,7 @@ import '../../../infrastructure/functions/playlist_section.dart';
 playlistScreenPopup(context) {
   //popup items
   final GlobalKey<FormState> formKey =
-      GlobalKey(); //currentstate.validate not work without <FormState>
+      GlobalKey(); //current state.validate not work without <FormState>
   TextEditingController textController = TextEditingController();
   showDialog(
     context: context,

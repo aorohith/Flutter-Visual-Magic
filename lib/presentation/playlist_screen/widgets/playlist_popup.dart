@@ -15,7 +15,7 @@ class PlaylistPopup extends StatefulWidget {
 }
 
 class _PlaylistPopupState extends State<PlaylistPopup> {
-  var isWatchlater;
+  bool isWatchlater = false;
 
   @override
   Widget build(BuildContext context) {

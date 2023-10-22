@@ -11,7 +11,7 @@ import '../video_player/video_player.dart';
 import 'widgets/playlist_videos_popup.dart';
 
 class PlaylistVideos extends StatefulWidget {
-  final namePlay;
+  final String namePlay;
   const PlaylistVideos({Key? key, required this.namePlay}) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class PlaylistVideos extends StatefulWidget {
 class _PlaylistVideosState extends State<PlaylistVideos> {
   @override
   Widget build(BuildContext context) {
-    double _w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -78,7 +78,7 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
                 return playListVideos.isEmpty
                     ? emptyDisplay("${widget.namePlay} Videos")
                     : ListView.builder(
-                        padding: EdgeInsets.all(_w / 30),
+                        padding: EdgeInsets.all(w / 30),
                         physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
                         itemCount: playListVideos.length,
@@ -88,8 +88,8 @@ class _PlaylistVideosState extends State<PlaylistVideos> {
 
                           return playlistVideo!.playListName == widget.namePlay
                               ? Container(
-                                  margin: EdgeInsets.only(bottom: _w / 20),
-                                  height: _w / 5,
+                                  margin: EdgeInsets.only(bottom: w / 20),
+                                  height: w / 5,
                                   decoration: const BoxDecoration(
                                     color: listColor,
                                     borderRadius: BorderRadius.all(

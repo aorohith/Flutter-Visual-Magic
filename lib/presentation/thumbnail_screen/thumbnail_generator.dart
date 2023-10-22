@@ -21,18 +21,19 @@ class ThumbGenerator extends StatefulWidget {
 }
 
 class _ThumbGeneratorState extends State<ThumbGenerator> {
-  var _thumbnail;
+  String? _thumbnail;
 
   thumbnail() async {
-    var _thumbnailFile = await VideoThumbnail.thumbnailFile(
+    var thumbnailFile = await VideoThumbnail.thumbnailFile(
         video: widget.videoPath,
         thumbnailPath: (await getTemporaryDirectory()).path,
         imageFormat: ImageFormat.PNG);
 
-    _thumbnail = _thumbnailFile;
+    _thumbnail = thumbnailFile;
+    // ignore: use_build_context_synchronously
     context
         .read<ThumbnailBloc>()
-        .add(ChangeThumbnailEvent(thumbnail: _thumbnailFile!));
+        .add(ChangeThumbnailEvent(thumbnail: thumbnailFile!));
   }
 
   @override
@@ -51,19 +52,16 @@ class _ThumbGeneratorState extends State<ThumbGenerator> {
         child: BlocBuilder<ThumbnailBloc, ThumbnailState>(
           builder: (context, state) {
             return _thumbnail != null
-            ? Image.file(
-                File(_thumbnail),
-                fit: BoxFit.cover,
-              )
-            : Image.asset("assets/images/download.jpeg")
-            ;
+                ? Image.file(
+                    File(_thumbnail ?? ""),
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset("assets/images/download.jpeg");
           },
-        )
-            ,
+        ),
       ),
     );
   }
 
   //#########...thumbnail...#########
-
 }

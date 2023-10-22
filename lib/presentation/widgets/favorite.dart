@@ -1,4 +1,4 @@
-//###################...Favourites button Refactoring...########################
+//###################...Favorites button Refactoring...########################
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,10 +7,11 @@ import '../../application/videos/videos_bloc.dart';
 import '../../db/Models/models.dart';
 import '../../main.dart';
 
-class Favourite extends StatelessWidget {
+// ignore: must_be_immutable
+class Favorite extends StatelessWidget {
   String videoPath;
   int favIndex;
-  Favourite({
+  Favorite({
     Key? key,
     required this.isPressed2,
     required this.videoPath,
@@ -24,7 +25,7 @@ class Favourite extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (favDB.values.isNotEmpty) {
-      List<Favourites> favList = favDB.values.toList();
+      List<Favorites> favList = favDB.values.toList();
       var existingItem = favList
           .where((itemToCheck) => itemToCheck.favVideo == videoPath);
       if (existingItem.isEmpty) {
@@ -42,11 +43,11 @@ class Favourite extends StatelessWidget {
         context.read<VideosBloc>().add(FavEvent(fetched: !isPressed2));
           isPressed2 = !isPressed2;
           if (!isPressed2) {
-            Favourites favObj = Favourites(favVideo: videoPath);
+            Favorites favObj = Favorites(favVideo: videoPath);
             favDB.add(favObj);
           } else {
             //delete the fav from db
-            final Map<dynamic, Favourites> favMap = favDB.toMap();
+            final Map<dynamic, Favorites> favMap = favDB.toMap();
             dynamic desiredKey;
             favMap.forEach((key, value) {
               if (value.favVideo == videoPath) {

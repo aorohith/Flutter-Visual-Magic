@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:visual_magic/core/colors/colors.dart';
 import 'package:visual_magic/db/Models/models.dart';
 import 'package:visual_magic/main.dart';
-import 'package:visual_magic/presentation/widgets/favourite.dart';
+import 'package:visual_magic/presentation/widgets/favorite.dart';
 import 'package:visual_magic/presentation/widgets/option_popup.dart';
 import '../../infrastructure/functions/fetch_video_data.dart';
 import '../../infrastructure/functions/recent_videos.dart';
@@ -22,13 +22,13 @@ class RecentScreen extends StatefulWidget {
 class _RecentScreenState extends State<RecentScreen> {
   @override
   void initState() {
-    getRecentList();
+    RecentVideos.getRecentList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    double _w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
@@ -61,8 +61,7 @@ class _RecentScreenState extends State<RecentScreen> {
                               child: const Text("Delete"),
                               onPressed: () {
                                 recentDB.clear();
-                                recentVideos.value.clear();
-                                recentVideos.notifyListeners();
+                                RecentVideos.clearVideos();
                                 Navigator.pop(context);
                               },
                             ),
@@ -81,7 +80,7 @@ class _RecentScreenState extends State<RecentScreen> {
           padding: const EdgeInsets.only(top: 90.0),
           child: AnimationLimiter(
             child: ValueListenableBuilder(
-                valueListenable: recentVideos,
+                valueListenable: RecentVideos.recentVideos,
                 builder: (BuildContext ctx, List<RecentModel> recentList,
                     Widget? child) {
                   return recentList.isEmpty
@@ -89,14 +88,14 @@ class _RecentScreenState extends State<RecentScreen> {
                           "Recent Videos",
                         )
                       : ListView.builder(
-                          padding: EdgeInsets.all(_w / 30),
+                          padding: EdgeInsets.all(w / 30),
                           physics: const BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics()),
                           itemCount: recentList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
-                              margin: EdgeInsets.only(bottom: _w / 20),
-                              height: _w / 5,
+                              margin: EdgeInsets.only(bottom: w / 20),
+                              height: w / 5,
                               decoration: BoxDecoration(
                                 color: listColor,
                                 borderRadius: const BorderRadius.all(
@@ -150,11 +149,11 @@ class _RecentScreenState extends State<RecentScreen> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  trailing: Favourite(
+                                  trailing: Favorite(
                                       favIndex: index,
                                       videoPath: recentList[index].recentPath,
-                                      isPressed2: favVideos.value
-                                              .contains(recentList[index])
+                                      isPressed2: favVideos.value.contains(
+                                              recentList[index].recentPath)
                                           ? false
                                           : true),
                                 ),

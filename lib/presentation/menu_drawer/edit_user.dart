@@ -8,7 +8,7 @@ UserModel _userData = userDB.values.toList()[0];
 
 // ignore: must_be_immutable
 class EditUserScreen extends StatefulWidget {
-  final name;
+  final String name;
   String assetImage;
   EditUserScreen({
     Key? key,
@@ -30,7 +30,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     return Scaffold(
         body: SafeArea(
       child: ListView(
@@ -117,7 +117,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                                         onPressed: () async {
                                           Navigator.pop(context);
                                           final XFile? photo =
-                                              await _picker.pickImage(
+                                              await picker.pickImage(
                                                   source: ImageSource.camera);
 
                                           setState(() {
@@ -143,7 +143,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
                                         onPressed: () async {
                                           Navigator.pop(context);
                                           final XFile? photo =
-                                              await _picker.pickImage(
+                                              await picker.pickImage(
                                                   source: ImageSource.gallery);
 
                                           setState(() {
@@ -194,6 +194,7 @@ class _EditUserScreenState extends State<EditUserScreen> {
         imgPath: widget.assetImage,
         description: description);
     await userDB.put('user', user);
+    // ignore: use_build_context_synchronously
     Navigator.of(context)
       ..pop()
       ..pop()

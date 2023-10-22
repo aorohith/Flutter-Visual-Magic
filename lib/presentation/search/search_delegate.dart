@@ -48,8 +48,8 @@ class SearchVideos extends SearchDelegate<VideoData> {
   @override
   Widget buildSuggestions(BuildContext context) {
     final myList = query.isEmpty
-        ? fetchedVideosWithInfo.value
-        : fetchedVideosWithInfo.value
+        ? GetVideoInfo.fetchedVideosWithInfo.value
+        : GetVideoInfo.fetchedVideosWithInfo.value
             .where((vide) =>
                 vide.title!.toLowerCase().startsWith(query.toLowerCase()))
             .toList();
@@ -58,8 +58,9 @@ class SearchVideos extends SearchDelegate<VideoData> {
       body: myList.isEmpty
           ? const Text("No matching found")
           : ListView.separated(
-            padding: const EdgeInsets.only(top: 10),
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
+              padding: const EdgeInsets.only(top: 10),
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(),
               itemCount: myList.length,
               itemBuilder: (context, index) {
                 final VideoData video = myList[index];
@@ -67,7 +68,7 @@ class SearchVideos extends SearchDelegate<VideoData> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (ctx) => VideoPlay(videoLink: video.path),
+                      builder: (ctx) => VideoPlay(videoLink: video.path ?? ""),
                     ),
                   ),
                   leading: Image.asset("assets/images/download.jpeg"),

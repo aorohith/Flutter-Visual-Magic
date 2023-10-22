@@ -14,7 +14,7 @@ Widget playButton(context) {
           builder: (context) => VideoPlay(
               videoLink: recentDB.isNotEmpty
                   ? recentDB.values.toList().last.recentPath
-                  : fetchedVideosWithInfo.value.first.path),
+                  : GetVideoInfo.fetchedVideosWithInfo.value.first.path ?? ""),
         ),
       );
     },

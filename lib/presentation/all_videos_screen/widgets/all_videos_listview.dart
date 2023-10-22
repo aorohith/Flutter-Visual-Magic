@@ -1,11 +1,9 @@
-//List tile for video listview builder
-
 import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 import '../../../infrastructure/functions/fetch_video_data.dart';
-import '../../showcase_widget/showcase_inheritted.dart';
+import '../../showcase_widget/showcase_inherited.dart';
 import '../../video_player/video_player.dart';
-import '../../widgets/favourite.dart';
+import '../../widgets/favorite.dart';
 import '../../widgets/option_popup.dart';
 
 Widget getListView(
@@ -61,15 +59,15 @@ Widget getListView(
               fontSize: 16,
             ),
             key: KeysToBeInherited.of(context).key4,
-            child: Favourite(
+            description: "Add to Favorites Here",
+            child: Favorite(
               favIndex: index,
               videoPath: videosWithIndex[index].path,
               isPressed2: favVideos.value.contains(videosWithIndex[index].path)
                   ? false
                   : true,
-            ),
-            description: "Add to Favourites Here")
-        : Favourite(
+            ))
+        : Favorite(
             favIndex: index,
             isPressed2: favVideos.value.contains(videosWithIndex[index].path)
                 ? false

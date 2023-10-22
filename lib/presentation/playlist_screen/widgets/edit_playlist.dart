@@ -6,7 +6,7 @@ import '../../../infrastructure/functions/playlist_section.dart';
 playlistEdit(
     {required BuildContext context, required String playName, required}) {
   final GlobalKey<FormState> formKey =
-      GlobalKey(); //currentstate.validate not work without <FormState>
+      GlobalKey(); //current state.validate not work without <FormState>
   TextEditingController textController = TextEditingController(text: playName);
   showDialog(
     context: context,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:visual_magic/infrastructure/functions/sort_videos.dart';
 import '../../../application/videos/videos_bloc.dart';
-import '../../../infrastructure/functions/sort_videos.dart';
 
 class SortDropdown extends StatefulWidget {
   const SortDropdown({Key? key}) : super(key: key);
@@ -28,16 +28,16 @@ class _SortDropdownState extends State<SortDropdown> {
             onChanged: (String? newValue) {
               switch (newValue) {
                 case "A to Z":
-                  sortAlphabetical();
+                  SortVideos.sortAlphabetical();
                   break;
                 case "Duration":
-                  sortByDuration();
+                  SortVideos.sortByDuration();
                   break;
                 case "Date":
-                  sortByDate();
+                  SortVideos.sortByDate();
                   break;
                 case "FileSize":
-                  sortBySize();
+                  SortVideos.sortBySize();
               }
               context
                   .read<SortBloc>()

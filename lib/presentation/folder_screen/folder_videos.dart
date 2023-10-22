@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:visual_magic/presentation/widgets/favourite.dart';
+import 'package:visual_magic/presentation/widgets/favorite.dart';
 import 'package:visual_magic/presentation/widgets/option_popup.dart';
 import 'package:visual_magic/presentation/widgets/popup_button.dart';
 import '../../core/colors/colors.dart';
@@ -13,7 +13,7 @@ import '../video_player/video_player.dart';
 List<String>? fetchedVideos;
 
 class FolderVideos extends StatefulWidget {
-  final path; //folder path
+  final String path; //folder path
   const FolderVideos({Key? key, required this.path}) : super(key: key);
 
   @override
@@ -23,13 +23,13 @@ class FolderVideos extends StatefulWidget {
 class _FolderVideosState extends State<FolderVideos> {
   @override
   void initState() {
-    getFolderVideos(widget.path);
+    GetVideos.getFolderVideos(widget.path);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    double _w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
@@ -46,19 +46,19 @@ class _FolderVideosState extends State<FolderVideos> {
           padding: const EdgeInsets.only(top: 90.0),
           child: AnimationLimiter(
             child: ValueListenableBuilder(
-                valueListenable: filteredFolderVideos,
+                valueListenable: GetVideos.filteredFolderVideos,
                 builder: (BuildContext ctx, List<String> folderVideosList,
                     Widget? child) {
                   return ListView.builder(
-                    padding: EdgeInsets.all(_w / 30),
+                    padding: EdgeInsets.all(w / 30),
                     physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics(),
                     ),
                     itemCount: folderVideosList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: EdgeInsets.only(bottom: _w / 20),
-                        height: _w / 5,
+                        margin: EdgeInsets.only(bottom: w / 20),
+                        height: w / 5,
                         decoration: const BoxDecoration(
                           color: listColor,
                           borderRadius: BorderRadius.all(
@@ -99,7 +99,7 @@ class _FolderVideosState extends State<FolderVideos> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
-                            trailing: Favourite(
+                            trailing: Favorite(
                                 favIndex: index,
                                 videoPath: folderVideosList[index],
                                 isPressed2: favVideos.value

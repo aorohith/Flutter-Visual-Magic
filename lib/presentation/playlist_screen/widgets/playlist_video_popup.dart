@@ -8,7 +8,7 @@ import '../../../main.dart';
 
 playlistVideoPopup({required context, required playlistVideoPath}) {
   final GlobalKey<FormState> formKey =
-      GlobalKey(); //currentstate.validate not work without <FormState>
+      GlobalKey(); //current state.validate not work without <FormState>
   TextEditingController textController = TextEditingController();
   showDialog(
       context: context,
@@ -75,7 +75,7 @@ playlistVideoPopup({required context, required playlistVideoPath}) {
                                       // Navigator.pop(context);
                                       Navigator.pop(context);
                                       Navigator.pop(context);
-                        
+
                                       notifyPlaylistVideo = true;
                                     }
                                   },

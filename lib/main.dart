@@ -11,8 +11,8 @@ import 'application/videos/videos_bloc.dart';
 import 'core/colors/colors.dart';
 
 // late var box;
-late var userDB;
-late Box<Favourites> favDB;
+late Box userDB;
+late Box<Favorites> favDB;
 late Box<RecentModel> recentDB;
 late Box<PlayListName> playListNameDB;
 late Box<PlayListVideos> playListVideosDB;
@@ -26,7 +26,7 @@ void main() async {
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(UserModelAdapter().typeId)) {
     Hive.registerAdapter(UserModelAdapter());
-    Hive.registerAdapter(FavouritesAdapter());
+    Hive.registerAdapter(FavoritesAdapter());
     Hive.registerAdapter(RecentModelAdapter());
     Hive.registerAdapter(PlayListNameAdapter());
     Hive.registerAdapter(PlayListVideosAdapter());
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              useInheritedMediaQuery: true,
+              // useInheritedMediaQuery: true,
               theme: ThemeData(
                   appBarTheme: const AppBarTheme(
                 elevation: 0,

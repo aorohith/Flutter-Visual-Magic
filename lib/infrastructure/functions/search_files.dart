@@ -11,8 +11,8 @@ class SearchFilesInStorage {
     void Function(String) onError,
   ) {
     _platform.invokeMethod('search', query).then((value) {
-      final _res = value as List<Object?>;
-      onSuccess(_res.map((e) => e.toString()).toList());
+      final res = value as List<Object?>;
+      onSuccess(res.map((e) => e.toString()).toList());
     }).onError((error, stackTrace) {
       log(error.toString());
       onError(error.toString());

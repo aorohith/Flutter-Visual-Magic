@@ -27,12 +27,12 @@ class UserModel {
 
 
 @HiveType(typeId: 1)
-class Favourites {
+class Favorites {
 
   @HiveField(0)
   final String favVideo;
 
-  Favourites({required this.favVideo});
+  Favorites({required this.favVideo});
 
 }
 

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:visual_magic/presentation/favourite_screen/favorites_screen.dart';
+import 'package:visual_magic/presentation/favorite_screen/favorites_screen.dart';
 import '../../application/videos/videos_bloc.dart';
 import '../../core/colors/colors.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
 import '../all_videos_screen/video_screen.dart';
 import '../folder_screen/folders_list_screen.dart';
 import '../recent_screen/recent_screen.dart';
-import '../showcase_widget/showcase_inheritted.dart';
+import '../showcase_widget/showcase_inherited.dart';
 
 class BottomNavbar extends StatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BottomNavbarState createState() => _BottomNavbarState();
 }
 
@@ -29,14 +30,13 @@ class _BottomNavbarState extends State<BottomNavbar> {
     HomeScreen(),
     const RecentScreen(),
     VideosScreen(),
-    const FavouritesScreen(),
+    const FavoritesScreen(),
   ];
 
   @override
   void initState() {
-    getVideoWithInfo();
+    GetVideoInfo.getVideoWithInfo();
 
-    // TODO: implement initState
     super.initState();
   }
 

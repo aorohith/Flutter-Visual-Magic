@@ -24,7 +24,9 @@ class _FolderPopupMenuButtonState extends State<FolderPopupMenuButton> {
         ),
         itemBuilder: (_) => <PopupMenuItem<String>>[
               PopupMenuItem<String>(
-                  onTap: () {}, value: 'info', child: const Text('Folder info')),
+                  onTap: () {},
+                  value: 'info',
+                  child: const Text('Folder info')),
 
               // PopupMenuItem<String>(
               //     onTap: () {
@@ -76,7 +78,7 @@ folderInfoPopup({context, folderPath}) {
 //#############...popup functions...##################
 
 getFolderSize(String path) {
-  filteredFolderVideos.value.clear();
+  GetVideos.filteredFolderVideos.value.clear();
   List<VideoData> matchedVideoPath = [];
 
   List<String> spitedMatchedVideoPath = [];
@@ -85,7 +87,7 @@ getFolderSize(String path) {
 
   var splitter = path.split('/');
 
-  for (VideoData singlePath in fetchedVideosWithInfo.value) {
+  for (VideoData singlePath in GetVideoInfo.fetchedVideosWithInfo.value) {
     if (singlePath.path!.startsWith(path)) {
       matchedVideoPath.add(singlePath);
     }

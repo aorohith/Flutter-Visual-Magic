@@ -9,7 +9,7 @@ import '../playlist_screen/widgets/playlist_video_popup.dart';
 Widget optionPopup(
     {required context, required recentVideoPath, required index}) {
   bool isExists =
-      checkWatchlater(recentVideoPath); //true if video not indb Else inDB
+      checkWatchlater(recentVideoPath); //true if video not INDB Else inDB
   final watchlaterModel = WatchlaterModel(laterPath: recentVideoPath);
 
   return Builder(builder: (context) {
@@ -18,7 +18,7 @@ Widget optionPopup(
       width: 250,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Color.fromARGB(255, 108, 99, 226),
+        color: const Color.fromARGB(255, 108, 99, 226),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -28,7 +28,7 @@ Widget optionPopup(
             width: 200,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 77, 77, 194),
+                backgroundColor: const Color.fromARGB(255, 77, 77, 194),
               ),
               onPressed: () {
                 playlistVideoPopup(
@@ -45,7 +45,7 @@ Widget optionPopup(
             width: 200,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 77, 77, 194),
+                backgroundColor: const Color.fromARGB(255, 77, 77, 194),
               ),
               onPressed: () {
                 if (isExists) {
@@ -63,7 +63,8 @@ Widget optionPopup(
                     )
                   : const Text(
                       "Remove from Watchlater",
-                      style: TextStyle(fontSize: 20),textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
                     ),
             ),
           ),

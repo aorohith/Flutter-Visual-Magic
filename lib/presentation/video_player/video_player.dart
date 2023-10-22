@@ -6,12 +6,14 @@ import 'package:wakelock/wakelock.dart';
 import '../../infrastructure/functions/recent_videos.dart';
 
 class VideoPlay extends StatefulWidget {
-  final videoLink;
+  final String videoLink;
   const VideoPlay({
+    super.key,
     required this.videoLink,
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _VideoPlayState createState() => _VideoPlayState();
 }
 
@@ -23,7 +25,7 @@ class _VideoPlayState extends State<VideoPlay> {
   void initState() {
     var recent =
         RecentModel(recentPath: widget.videoLink, recentDate: DateTime.now());
-    addToRecent(recent);
+    RecentVideos.addToRecent(recent);
     BetterPlayerConfiguration betterPlayerConfiguration =
         const BetterPlayerConfiguration(
       autoPlay: true,
@@ -45,7 +47,6 @@ class _VideoPlayState extends State<VideoPlay> {
     Wakelock.enable();
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,4 +81,3 @@ class _VideoPlayState extends State<VideoPlay> {
     return widget.videoLink.split('/').last;
   }
 }
-

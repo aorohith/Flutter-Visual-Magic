@@ -13,7 +13,7 @@ import 'widgets/playlist_popup.dart';
 List<String>? fetchedVideos;
 
 class Playlist extends StatefulWidget {
-  final path;
+  final String path;
   const Playlist({
     Key? key,
     required this.path,
@@ -31,14 +31,17 @@ class _PlaylistState extends State<Playlist> {
 
   @override
   Widget build(BuildContext context) {
-    double _w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
       floatingActionButton: playlistAddButton(context),
       appBar: AppBar(
-        title: const Text("PlayList",style: TextStyle(color: appBarTitleColor),),
+        title: const Text(
+          "PlayList",
+          style: TextStyle(color: appBarTitleColor),
+        ),
         actions: [
           playListNameDB.isEmpty
               ? const SizedBox()
@@ -77,7 +80,7 @@ class _PlaylistState extends State<Playlist> {
       body: Container(
         decoration: bgColor,
         child: Padding(
-          padding: const EdgeInsets.only(top:90.0),
+          padding: const EdgeInsets.only(top: 90.0),
           child: AnimationLimiter(
             child: ValueListenableBuilder(
               valueListenable: playListNameDB.listenable(),
@@ -86,7 +89,7 @@ class _PlaylistState extends State<Playlist> {
                 return playListName.isEmpty
                     ? emptyDisplay("Playlist")
                     : ListView.builder(
-                        padding: EdgeInsets.all(_w / 30),
+                        padding: EdgeInsets.all(w / 30),
                         physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics(),
                         ),
@@ -95,11 +98,11 @@ class _PlaylistState extends State<Playlist> {
                           PlayListName? playName = playListName.getAt(index);
 
                           return Container(
-                            margin: EdgeInsets.only(bottom: _w / 20),
-                            height: _w / 5,
+                            margin: EdgeInsets.only(bottom: w / 20),
+                            height: w / 5,
                             decoration: const BoxDecoration(
                               color: listColor,
-                              borderRadius:  BorderRadius.all(
+                              borderRadius: BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),

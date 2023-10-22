@@ -18,7 +18,7 @@ class FavoritesPopupOption extends StatefulWidget {
 }
 
 class _FavoritesPopupOptionState extends State<FavoritesPopupOption> {
-  var isWatchlater;
+  bool isWatchlater = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +80,11 @@ class _FavoritesPopupOptionState extends State<FavoritesPopupOption> {
     }
   }
 
-  _deleteWatchlater(WatchlaterModel _watchlater) {
+  _deleteWatchlater(WatchlaterModel watchlater) {
     final Map<dynamic, WatchlaterModel> watchlaterMap = watchlaterDB.toMap();
     dynamic desiredKey;
     watchlaterMap.forEach((key, value) {
-      if (value.laterPath == _watchlater.laterPath) desiredKey = key;
+      if (value.laterPath == watchlater.laterPath) desiredKey = key;
     });
     watchlaterDB.delete(desiredKey);
   }

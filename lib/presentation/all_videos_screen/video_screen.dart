@@ -4,8 +4,8 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:visual_magic/core/colors/colors.dart';
 import '../../infrastructure/functions/videos_with_info.dart';
 import '../menu_drawer/menu_drawer.dart';
-import '../search/search_deligate.dart';
-import '../showcase_widget/showcase_inheritted.dart';
+import '../search/search_delegate.dart';
+import '../showcase_widget/showcase_inherited.dart';
 import '../widgets/empty_display_text.dart';
 import '../widgets/popup_button.dart';
 import 'widgets/all_videos_listview.dart';
@@ -26,7 +26,7 @@ class _VideosScreenState extends State<VideosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
@@ -84,20 +84,20 @@ class _VideosScreenState extends State<VideosScreen> {
             width: double.infinity,
             child: AnimationLimiter(
               child: ValueListenableBuilder(
-                valueListenable: fetchedVideosWithInfo,
+                valueListenable: GetVideoInfo.fetchedVideosWithInfo,
                 builder: (BuildContext ctx, List<dynamic> videosWithIndex,
                     Widget? child) {
                   return videosWithIndex.isEmpty
                       ? emptyDisplay("Videos")
                       : ListView.builder(
-                          padding: EdgeInsets.all(_w / 30),
+                          padding: EdgeInsets.all(w / 30),
                           physics: const BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics()),
                           itemCount: videosWithIndex.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
-                              margin: EdgeInsets.only(bottom: _w / 20),
-                              height: _w / 5,
+                              margin: EdgeInsets.only(bottom: w / 20),
+                              height: w / 5,
                               decoration: const BoxDecoration(
                                 color: listColor,
                                 borderRadius: BorderRadius.all(

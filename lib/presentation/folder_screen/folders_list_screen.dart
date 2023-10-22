@@ -9,9 +9,9 @@ import '../../core/colors/colors.dart';
 import '../../infrastructure/functions/fetch_video_data.dart';
 import '../../infrastructure/functions/load_folder_videos.dart';
 import '../menu_drawer/menu_drawer.dart';
-import '../showcase_widget/showcase_inheritted.dart';
+import '../showcase_widget/showcase_inherited.dart';
 import 'folder_videos.dart';
-import 'widgets/folder_popupmenubutton.dart';
+import 'widgets/folder_popup_menu_button.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double _w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const MenuDrawer(),
@@ -39,24 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
           "Folders",
           style: TextStyle(color: appBarTitleColor),
         ),
-        actions: const [
-          // ElevatedButton(
-          //   onPressed: () {
-          //     print("Button Clicked"); //a test button for all purpouse
-          //   },
-          //   child: const Text("Click"),
-          // ),
-          // IconButton(
-          //   onPressed: () {
-          //     ShowCaseWidget.of(context)!.startShowCase([
-          //       KeysToBeInherited.of(context).key1,
-          //       KeysToBeInherited.of(context).key2,
-          //       KeysToBeInherited.of(context).key3,
-          //     ]);
-          //   },
-          //   icon: Icon(Icons.help_outline_outlined),
-          // ),
-        ],
+        actions: const [],
       ),
       body: Container(
         decoration: bgColor,
@@ -69,19 +52,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: updatedFolders.isEmpty
                     ? emptyDisplay("Folders")
                     : ListView.builder(
-                        padding: EdgeInsets.all(_w / 30),
+                        padding: EdgeInsets.all(w / 30),
                         physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
                         itemCount: updatedFolders.length,
                         itemBuilder: (BuildContext context, int index) {
-                          getFolderVideosCount(
+                          GetVideos.getFolderVideosCount(
                               updatedFolders[index]); //for video count
 
                           return AnimationConfiguration.staggeredList(
                             position: index,
                             child: Container(
-                              margin: EdgeInsets.only(bottom: _w / 20),
-                              height: _w / 5,
+                              margin: EdgeInsets.only(bottom: w / 20),
+                              height: w / 5,
                               decoration: const BoxDecoration(
                                 color: listColor,
                                 borderRadius: BorderRadius.all(
@@ -116,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           key: KeysToBeInherited.of(context)
                                               .key2,
+                                          description: "Folder name is here",
                                           child: Text(
                                             updatedFolders[index]
                                                 .split('/')
@@ -123,8 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             style: const TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),
-                                          ),
-                                          description: "Folder name is here")
+                                          ))
                                       : Text(
                                           updatedFolders[index]
                                                       .split('/')
@@ -140,8 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ), //Turnery end here
 
                                   subtitle: Text(
-                                    "${tempCount.value.length} Videos",
-                                    style: const TextStyle(color: listVerticalBtnColor,fontSize: 12),
+                                    "${GetVideos.tempCount.value.length} Videos",
+                                    style: const TextStyle(
+                                        color: listVerticalBtnColor,
+                                        fontSize: 12),
                                   ),
 
                                   // more option for future usage
@@ -157,10 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           key: KeysToBeInherited.of(context)
                                               .key3,
+                                          description: "More info ",
                                           child: FolderPopupMenuButton(
                                               folderPath:
-                                                  updatedFolders[index]),
-                                          description: "More info ")
+                                                  updatedFolders[index]))
                                       : FolderPopupMenuButton(
                                           folderPath: updatedFolders[index]),
 

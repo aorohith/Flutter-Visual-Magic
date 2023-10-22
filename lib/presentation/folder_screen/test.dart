@@ -1,15 +1,14 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../application/videos/videos_bloc.dart';
 import '../all_videos_screen/video_screen.dart';
-import '../favourite_screen/favorites_screen.dart';
+import '../favorite_screen/favorites_screen.dart';
 import '../recent_screen/recent_screen.dart';
 import 'folders_list_screen.dart';
 
 class MyCustomBottomNavigationBar extends StatefulWidget {
+  const MyCustomBottomNavigationBar({super.key});
+
   @override
   MyCustomBottomNavigationBarState createState() =>
       MyCustomBottomNavigationBarState();
@@ -23,10 +22,9 @@ class MyCustomBottomNavigationBarState
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xffF15F60),
+      backgroundColor: const Color(0xffF15F60),
       extendBodyBehindAppBar: true,
-      bottomNavigationBar: Container(
-        // color: Colors.deepPurpleAccent,
+      bottomNavigationBar: SizedBox(
         height: size.width * .155,
         child: ListView.builder(
           itemCount: 4,
@@ -39,7 +37,6 @@ class MyCustomBottomNavigationBarState
                     .read<BottomNavBloc>()
                     .add(ChangePageEvent(pageNo: index));
                 currentIndex = index;
-                // print(index);
               });
             },
             splashColor: Colors.transparent,
@@ -51,7 +48,7 @@ class MyCustomBottomNavigationBarState
                 Icon(listOfIcons[index],
                     size: size.width * .076, color: Colors.white),
                 AnimatedContainer(
-                  duration: Duration(milliseconds: 1500),
+                  duration: const Duration(milliseconds: 1500),
                   curve: Curves.fastLinearToSlowEaseIn,
                   margin: EdgeInsets.only(
                     top: index == currentIndex ? 0 : size.width * .029,
@@ -60,7 +57,7 @@ class MyCustomBottomNavigationBarState
                   ),
                   width: size.width * .153,
                   height: index == currentIndex ? size.width * .014 : 0,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(20),
@@ -90,6 +87,6 @@ class MyCustomBottomNavigationBarState
     HomeScreen(),
     const RecentScreen(),
     VideosScreen(),
-    const FavouritesScreen(),
+    const FavoritesScreen(),
   ];
 }
